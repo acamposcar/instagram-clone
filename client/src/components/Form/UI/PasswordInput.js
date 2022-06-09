@@ -10,6 +10,9 @@ const PasswordInput = forwardRef((props, ref) => {
     <FormControl variant='floating' isRequired>
       <InputGroup size='md'>
         <Input
+          fontSize={14}
+          paddingTop={3}
+          backgroundColor='bgColor'
           type={showPassword ? 'text' : 'password'}
           placeholder=' '
           name='password'

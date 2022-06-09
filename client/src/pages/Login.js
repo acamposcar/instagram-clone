@@ -19,7 +19,8 @@ const Login = () => {
   }, [])
 
   return (
-    <>
+    <Box marginTop='min(60px, 9vh)' display='flex' justifyContent='center'>
+
       <Box display={{ md: 'block', sm: 'none' }} position='relative'>
         <Image position='absolute' top={7} left={155} src={screenshotHome} alt='' />
         <Image position='absolute' opacity={opacity} transition='opacity 2000ms ease' top={7} left={155} src={screenshotGallery} alt='' />
@@ -33,7 +34,7 @@ const Login = () => {
           <Text color='#262626'>Don't have an account? <Link as={RouterLink} to='/register'>Sign up</Link></Text>
         </Box>
       </RegisterLoginLayout>
-    </>
+    </Box>
   )
 }
 
