@@ -1,7 +1,8 @@
 import { extendTheme } from '@chakra-ui/react'
 
 const activeLabelStyles = {
-  transform: 'scale(0.8) translateY(-20px)'
+  transform: 'scale(0.7) translateY(-8px) translateX(3px) '
+
 }
 
 const theme = extendTheme({
@@ -18,9 +19,17 @@ const theme = extendTheme({
       }
     }
   },
+  breakpoints: {
+    sm: '320px',
+    md: '700px',
+    lg: '960px',
+    xl: '1200px',
+    '2xl': '1536px'
+  },
   colors: {
     primary: '#0095f6',
-    primaryHover: 'rgba(0,149,246,.7)'
+    primaryHover: 'rgba(0,149,246,.7)',
+    bgColor: '#FAFAFA'
   },
   fonts: {
     body: 'Roboto, sans-serif',
@@ -45,7 +54,7 @@ const theme = extendTheme({
               left: 0,
               zIndex: 2,
               position: 'absolute',
-              backgroundColor: 'white',
+              backgroundColor: 'transparent',
               pointerEvents: 'none',
               mx: 3,
               px: 1,
@@ -76,7 +85,6 @@ const theme = extendTheme({
         variant: 'primary'
       }
     }
-
   }
 })
 
