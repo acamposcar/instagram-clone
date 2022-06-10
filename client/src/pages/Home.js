@@ -1,8 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react'
-import { Avatar, VStack, HStack, Box, Text } from '@chakra-ui/react'
-import Card from '../components/Card'
-import Post from '../components/Post/Post'
+import { VStack } from '@chakra-ui/react'
+import Posts from '../components/Posts/Posts'
+import Stories from '../components/Stories'
+
 const posts = [
   {
     _id: 1,
@@ -39,45 +39,8 @@ const posts = [
 const Home = () => {
   return (
     <VStack fontSize='sm' my={8} gap={3} as='main' justifyContent='center'>
-      <Card>
-        <HStack mt={1} p={4} gap={2} overflow='hidden'>
-          {posts.map(post => {
-            return (
-              <Box key={post._id} textAlign='center'>
-                <Box position='relative'>
-                  {/* <InstagramRingIcon css={{ position: 'absolute', top: '-3.5px', left: '-3.5px', width: '62px', height: '62px' }} /> */}
-                  <Avatar position='absolute' top='-4px' left='-4px' width='65px' height='65px' name={post.user.username} backgroundColor='white' src='https://702pros.com/wp-content/uploads/2021/01/Instagram-Ring.png' />
-                  <Avatar width='57px' height='57px' name={post.user.username} src={post.user.avatar} />
-                </Box>
-                <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.user.username.slice(0, 9)}</Text>
-              </Box>
-            )
-          })}
-          {posts.map(post => {
-            return (
-              <Box key={post._id} textAlign='center'>
-                <Avatar width='55px' height='55px' name={post.user.username} src={post.user.avatar} />
-                <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.user.username.slice(0, 11)}</Text>
-              </Box>
-            )
-          })}
-          {posts.map(post => {
-            return (
-              <Box key={post._id} textAlign='center'>
-                <Avatar width='55px' height='55px' name={post.user.username} src={post.user.avatar} />
-                <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.user.username.slice(0, 11)}</Text>
-              </Box>
-            )
-          })}
-        </HStack>
-      </Card>
-      {posts.map(post => {
-        return (
-          <Card key={post._id}>
-            <Post post={post} />
-          </Card>
-        )
-      })}
+      <Stories stories={posts} />
+      <Posts posts={posts} />
     </VStack>
   )
 }
