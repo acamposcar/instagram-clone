@@ -19,9 +19,9 @@ const Login = () => {
   }, [])
 
   return (
-    <Box marginTop='min(60px, 9vh)' display='flex' justifyContent='center'>
+    <Box fontSize='sm' marginTop='min(100px, 10vh)' display='flex' justifyContent='center'>
 
-      <Box display={{ md: 'block', sm: 'none' }} position='relative'>
+      <Box display={{ lg: 'block', base: 'none' }} position='relative'>
         <Image position='absolute' top={7} left={155} src={screenshotHome} alt='' />
         <Image position='absolute' opacity={opacity} transition='opacity 2000ms ease' top={7} left={155} src={screenshotGallery} alt='' />
         <Image src={phonesImg} alt='Phones screenshot' />
