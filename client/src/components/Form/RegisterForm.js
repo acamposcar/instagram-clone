@@ -4,15 +4,18 @@ import UsernameInput from './UI/UsernameInput'
 import PasswordInput from './UI/PasswordInput'
 import ButtonSubmit from './UI/ButtonSubmit'
 import NameInput from './UI/NameInput'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
   const nameRef = useRef('')
   const usernameRef = useRef('')
   const passwordRef = useRef('')
+  const navigate = useNavigate()
 
   const submitHandler = (e) => {
     e.preventDefault()
     console.log(usernameRef.current.value)
+    navigate('/login', { replace: true })
   }
   return (
     <form onSubmit={submitHandler}>

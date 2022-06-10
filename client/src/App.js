@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChakraProvider, Box } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import { Routes, Route } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import Login from './pages/Login'
@@ -31,7 +31,7 @@ const App = () => {
           }
         />
       </Routes>
-      <ColorModeSwitcher justifySelf='flex-end' />
+      {/* <ColorModeSwitcher justifySelf='flex-end' /> */}
 
     </ChakraProvider>
 

@@ -1,3 +1,4 @@
 :root {
-  --borderColor: rgb(203, 203, 203)
+  --borderColor: rgb(225, 225, 225);
+  --textSecondary: rgb(142, 142, 142);
 }

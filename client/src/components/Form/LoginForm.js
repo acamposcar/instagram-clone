@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { VStack } from '@chakra-ui/react'
+import { VStack, Box } from '@chakra-ui/react'
 import UsernameInput from './UI/UsernameInput'
 import PasswordInput from './UI/PasswordInput'
 import ButtonSubmit from './UI/ButtonSubmit'
@@ -21,13 +21,13 @@ const LoginForm = () => {
     navigate(from, { replace: true })
   }
   return (
-    <form onSubmit={submitHandler}>
+    <Box as='form' onSubmit={submitHandler} width='100%'>
       <VStack gap={2}>
         <UsernameInput ref={usernameRef} />
         <PasswordInput ref={passwordRef} />
         <ButtonSubmit text='Log In' />
       </VStack>
-    </form>
+    </Box>
   )
 }
 
