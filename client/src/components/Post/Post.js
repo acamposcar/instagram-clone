@@ -6,6 +6,7 @@ import Liked from './Liked'
 import Content from './Content'
 import Comments from './Comments'
 import { formatDistanceToNow } from 'date-fns'
+import CommentForm from './CommentForm'
 const Post = ({ post }) => {
   const formatDate = (date) => formatDistanceToNow(new Date(date), { addSuffix: true })
 
@@ -22,6 +23,7 @@ const Post = ({ post }) => {
         <Comments comments={post.comments} />
         <Text my={3} fontSize={10} color='var(--textSecondary)'>{formatDate(post.date).toUpperCase()}</Text>
       </Box>
+      <CommentForm />
     </>
   )
 }
