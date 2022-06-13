@@ -14,9 +14,8 @@ import { ReactComponent as HeartFill } from '../assets/icons/heartFill.svg'
 import { ReactComponent as HeartOutline } from '../assets/icons/heartOutline.svg'
 import { ReactComponent as ExploreFill } from '../assets/icons/exploreFill.svg'
 import { ReactComponent as ExploreOutline } from '../assets/icons/exploreOutline.svg'
-import { ReactComponent as PlusFill } from '../assets/icons/plusFill.svg'
-import { ReactComponent as PlusOutline } from '../assets/icons/plusOutline.svg'
 import { ReactComponent as Search } from '../assets/icons/search.svg'
+import UploadImage from '../pages/UploadImage'
 const Header = () => {
   return (
     <Flex as='header' backgroundColor='white' borderBottom='solid thin var(--borderColor)' height='55px' px={8} justifyContent='center'>
@@ -38,7 +37,7 @@ const Header = () => {
               <Link as={NavLink} to='/'><HomeFill /></Link>
             </Box>
             <Box as='li'>
-              <Link as={NavLink} to='/new'><PlusOutline /></Link>
+              <UploadImage />
             </Box>
             <Box as='li'>
               <Link as={NavLink} to='/explore'><ExploreOutline /></Link>

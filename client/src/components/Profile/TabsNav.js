@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React from 'react'
-import { Tabs, Tab, TabList, TabPanels, Box, useBreakpointValue } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Box, useBreakpointValue } from '@chakra-ui/react'
 import { ReactComponent as PostsIcon } from '../../assets/icons/profile/posts.svg'
 import { ReactComponent as SavedIcon } from '../../assets/icons/profile/saved.svg'
 import { ReactComponent as SavedMobileIcon } from '../../assets/icons/profile/savedMobile.svg'

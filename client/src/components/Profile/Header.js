@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Avatar, Grid, Text, Button, Flex, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Avatar, Text, Button, Flex, useBreakpointValue } from '@chakra-ui/react'
 import CountDesktop from './CountDesktop'
 import CountMobile from './CountMobile'
 const Header = ({ postsCount }) => {
