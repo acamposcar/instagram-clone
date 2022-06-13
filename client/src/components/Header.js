@@ -49,7 +49,7 @@ const Header = () => {
             <Box as='li'>
               <Menu>
                 <MenuButton>
-                  <Avatar size='sm' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+                  <Avatar size='sm' name='Dan Abrahmov' src='https://images.unsplash.com/photo-1555834307-b22668f15f53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' />
                 </MenuButton>
                 <MenuList>
                   <Link as={NavLink} to='/accounts/acampos'><MenuItem>Profile</MenuItem></Link>

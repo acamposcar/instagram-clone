@@ -1,19 +1,29 @@
 import React from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, Avatar } from '@chakra-ui/react'
 import Content from './Content'
 
-const Comments = ({ comments }) => {
+const Comments = ({ comments, showViewAll = true, showAvatar = false }) => {
   if (comments.length === 0) return (<></>)
 
-  return (
-    <>
+  const marginBottom = showAvatar ? 4 : 0
 
-      <Box as='button' color='var(--textSecondary)'>
-        View all {comments.length} comments
-      </Box>
-      {comments[0] && <Content content={comments[0].content} username={comments[0].user.username} maxWords={15} />}
-      {comments[1] && <Content content={comments[1].content} username={comments[1].user.username} maxWords={15} />}
-    </>
+  return (
+    <Box>
+      {showViewAll &&
+        <Box as='button' color='var(--textSecondary)'>
+          View all {comments.length} comments
+        </Box>}
+
+      {comments.map(comment => {
+        return (
+          <Flex key={comment._id} gap={2} marginBottom={marginBottom} alignItems='flex-start'>
+            {showAvatar && <Avatar size='xs' name={comment.user.username} src={comment.user.avatar} />}
+            <Content content={comment.content} username={comment.user.username} maxWords={15} />
+          </Flex>
+        )
+      })}
+
+    </Box>
 
   )
 }

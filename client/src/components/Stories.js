@@ -4,7 +4,7 @@ import Card from './Card'
 
 const Stories = ({ stories }) => {
   return (
-    <Card>
+    <Card width='100%'>
       <HStack mt={1} p={4} gap={2} overflow='hidden'>
         {stories.map(post => {
           return (

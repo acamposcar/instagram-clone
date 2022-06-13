@@ -1,23 +1,20 @@
 import React from 'react'
-import { Box, Image, Text } from '@chakra-ui/react'
+import { Box, Image } from '@chakra-ui/react'
 import Header from './Header'
 import Social from './Social'
 import Liked from './Liked'
 import Content from './Content'
 import Comments from './Comments'
-import { formatDistanceToNow } from 'date-fns'
 import CommentForm from './CommentForm'
 import Card from '../Card'
-
+import DateFormat from './DateFormat'
 const Posts = ({ posts }) => {
-  const formatDate = (date) => formatDistanceToNow(new Date(date), { addSuffix: true })
-
   return (
     <>
       {
         posts.map(post => {
           return (
-            <Card key={post._id}>
+            <Card width='100%' key={post._id}>
               <Header user={post.user} location={post.location} />
               <Box>
                 <Image maxHeight='500px' width='100%' objectFit='cover' objectPosition='center' src={post.image} alt='' />
@@ -26,8 +23,8 @@ const Posts = ({ posts }) => {
               <Box px={5} my={3}>
                 <Liked likes={post.likes} />
                 <Content username={post.user.username} content={post.content} maxWords={30} />
-                <Comments comments={post.comments} />
-                <Text my={3} fontSize={10} color='var(--textSecondary)'>{formatDate(post.date).toUpperCase()}</Text>
+                <Comments comments={post.comments.slice(0, 2)} />
+                <DateFormat date={post.date} />
               </Box>
               <hr />
               <CommentForm />

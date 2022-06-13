@@ -13,6 +13,7 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import RequireAuth from './components/Auth/RequireAuth'
 import Profile from './pages/Profile'
+import PostDetail from './pages/PostDetail'
 
 const App = () => {
   return (
@@ -28,6 +29,14 @@ const App = () => {
             <RequireAuth>
               <Header />
               <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/posts/:id' element={
+            <RequireAuth>
+              <Header />
+              <PostDetail />
             </RequireAuth>
           }
         />
