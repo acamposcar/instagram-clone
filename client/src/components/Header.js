@@ -16,6 +16,8 @@ import { ReactComponent as ExploreFill } from '../assets/icons/exploreFill.svg'
 import { ReactComponent as ExploreOutline } from '../assets/icons/exploreOutline.svg'
 import { ReactComponent as Search } from '../assets/icons/search.svg'
 import UploadImage from '../pages/UploadImage'
+import { FaRegUserCircle } from 'react-icons/fa'
+import { IoMdLogOut , IoMdPerson } from 'react-icons/io'
 const Header = () => {
   return (
     <Flex as='header' backgroundColor='white' borderBottom='solid thin var(--borderColor)' height='55px' px={8} justifyContent='center'>
@@ -50,22 +52,24 @@ const Header = () => {
                 )}
               </NavLink>
             </Box>
-            <Box as='li'>
-              <NavLink to='/notifications'>
-                {({ isActive }) => (
-                  isActive ? <HeartFill /> : <HeartOutline />
-                )}
-              </NavLink>
-            </Box>
+
+            <Menu>
+              <MenuButton>
+                <HeartOutline />
+              </MenuButton>
+              <MenuList padding={0} boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2)'>
+                <MenuItem textAlign='center'>No notifications</MenuItem>
+              </MenuList>
+            </Menu>
+
             <Box as='li'>
               <Menu>
                 <MenuButton>
                   <Avatar size='sm' name='Dan Abrahmov' src='https://images.unsplash.com/photo-1555834307-b22668f15f53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' />
                 </MenuButton>
-                <MenuList>
-                  <Link as={NavLink} to='/accounts/acampos'><MenuItem>Profile</MenuItem></Link>
-                  <MenuItem>Saved</MenuItem>
-                  <MenuItem>Log Out</MenuItem>
+                <MenuList padding={0} boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2)'>
+                  <Link color='black' as={NavLink} to='/accounts/acampos' _hover={{ color: 'inherit', textDecoration: 'none' }}><MenuItem display='flex' gap={1} alignItems='center'><IoMdPerson />Profile</MenuItem></Link>
+                  <MenuItem display='flex' gap={1} alignItems='center'><IoMdLogOut />Log Out</MenuItem>
                 </MenuList>
               </Menu>
             </Box>
