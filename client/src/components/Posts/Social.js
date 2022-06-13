@@ -10,7 +10,7 @@ import { ReactComponent as SaveIcon } from '../../assets/icons/save.svg'
 const Social = () => {
   return (
 
-    <Flex p={2} justifyContent='space-between' alignItems='center'>
+    <Flex p={3} justifyContent='space-between' alignItems='center'>
       <Flex gap={3} alignItems='center'>
         <Box as='button'>
           <HeartOutlineIcon css={{ '&:hover': { fill: '#8e8e8e' } }} />

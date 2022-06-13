@@ -4,7 +4,7 @@ import { ReactComponent as MoreOptionsIcon } from '../../assets/icons/moreOption
 const Header = ({ user, location }) => {
   return (
 
-    <Flex p={2} justifyContent='space-between' alignItems='center'>
+    <Flex p={3} justifyContent='space-between' alignItems='center'>
       <Flex gap={3} alignItems='center'>
         <Avatar size='sm' name={user.username} src={user.avatar} />
         <Box>

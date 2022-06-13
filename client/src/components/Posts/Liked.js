@@ -4,7 +4,7 @@ import { Flex, Avatar, Text } from '@chakra-ui/react'
 const Liked = ({ likes }) => {
   if (likes.length === 0) return (<></>)
 
-  const othersLikes = likes.length > 1 ? <>and <Text as='span' fontWeight={500}>{likes.length - 1} others</Text></> : <></>
+  const othersLikes = likes.length > 1 ? <> and <Text as='span' fontWeight={500}>{likes.length - 1} others</Text></> : <></>
 
   return (
 
