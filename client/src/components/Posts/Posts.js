@@ -8,6 +8,7 @@ import Comments from './Comments'
 import CommentForm from './CommentForm'
 import Card from '../Card'
 import DateFormat from './DateFormat'
+import RouterLink from '../RouterLink'
 const Posts = ({ posts }) => {
   return (
     <>
@@ -17,13 +18,15 @@ const Posts = ({ posts }) => {
             <Card width='100%' key={post._id}>
               <Header user={post.user} location={post.location} />
               <Box>
-                <Image maxHeight='500px' width='100%' objectFit='cover' objectPosition='center' src={post.image} alt='' />
+                <RouterLink to={`/posts/${post._id}`}>
+                  <Image maxHeight='500px' width='100%' objectFit='cover' objectPosition='center' src={post.image} alt='' />
+                </RouterLink>
               </Box>
               <Social />
               <Box px={5} my={3}>
                 <Liked likes={post.likes} />
                 <Content username={post.user.username} content={post.content} maxWords={30} />
-                <Comments comments={post.comments.slice(0, 2)} />
+                <Comments postId={post._id} comments={post.comments.slice(0, 2)} />
                 <DateFormat date={post.date} />
               </Box>
               <hr />

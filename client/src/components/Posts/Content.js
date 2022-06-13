@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Text } from '@chakra-ui/react'
+import RouterLink from '../RouterLink'
 
 const Content = ({ username, content, maxWords }) => {
   const [showAll, setShowAll] = useState(false)
@@ -17,7 +18,10 @@ const Content = ({ username, content, maxWords }) => {
   return (
 
     <Text my={1} as='p'>
-      <Text as='span' fontWeight={500}>{`${username} `}</Text>
+      <RouterLink to={`/accounts/${username}`}>
+        {username}
+      </RouterLink>
+      {' '}
       {contentToShow}
     </Text>
 

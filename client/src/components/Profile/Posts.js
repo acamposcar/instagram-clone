@@ -8,7 +8,7 @@ const Posts = ({ posts }) => {
       {
         posts.map(post => {
           return (
-            <BoxImage key={post._id} image={post.image} commentsCount={post.comments.length} likesCount={post.likes.length} />
+            <BoxImage key={post._id} postId={post._id} image={post.image} commentsCount={post.comments.length} likesCount={post.likes.length} />
           )
         })
       }

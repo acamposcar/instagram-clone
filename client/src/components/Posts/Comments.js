@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Flex, Avatar } from '@chakra-ui/react'
 import Content from './Content'
-
-const Comments = ({ comments, showViewAll = true, showAvatar = false }) => {
+import RouterLink from '../RouterLink'
+const Comments = ({ postId, comments, showViewAll = true, showAvatar = false }) => {
   if (comments.length === 0) return (<></>)
 
   const marginBottom = showAvatar ? 4 : 0
@@ -10,9 +10,9 @@ const Comments = ({ comments, showViewAll = true, showAvatar = false }) => {
   return (
     <Box>
       {showViewAll &&
-        <Box as='button' color='var(--textSecondary)'>
+        <RouterLink weight={400} color='var(--textSecondary)' to={`/posts/${postId}`}>
           View all {comments.length} comments
-        </Box>}
+        </RouterLink>}
 
       {comments.map(comment => {
         return (

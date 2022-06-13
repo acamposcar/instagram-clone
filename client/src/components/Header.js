@@ -6,7 +6,7 @@ import {
   MenuList,
   MenuItem
 } from '@chakra-ui/react'
-import { NavLink } from 'react-router-dom'
+import { Link as RouterLink, NavLink } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { ReactComponent as HomeFill } from '../assets/icons/homeFill.svg'
 import { ReactComponent as HomeOutline } from '../assets/icons/homeOutline.svg'
@@ -22,7 +22,7 @@ const Header = () => {
     <Flex as='header' backgroundColor='white' borderBottom='solid thin var(--borderColor)' height='55px' px={8} justifyContent='center'>
       <Flex flex={1} justifyContent='space-between' alignItems='center' maxWidth='900px'>
         <Box>
-          <Link as={NavLink} to='/'><Image height={7} src={logo} alt='Instagram Logo' _active={{ filter: 'invert(50%)' }} /></Link>
+          <RouterLink to='/'><Image height={7} src={logo} alt='Instagram Logo' _active={{ filter: 'invert(50%)' }} /></RouterLink>
         </Box>
         <Box>
           <InputGroup display={{ md: 'block', base: 'none' }}>
