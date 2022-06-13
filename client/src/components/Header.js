@@ -34,16 +34,28 @@ const Header = () => {
         <Box as='nav'>
           <HStack as='ul' listStyleType='none' gap={4}>
             <Box as='li'>
-              <Link as={NavLink} to='/'><HomeFill /></Link>
+              <NavLink to='/'>
+                {({ isActive }) => (
+                  isActive ? <HomeFill /> : <HomeOutline />
+                )}
+              </NavLink>
             </Box>
             <Box as='li'>
               <UploadImage />
             </Box>
             <Box as='li'>
-              <Link as={NavLink} to='/explore'><ExploreOutline /></Link>
+              <NavLink to='/explore'>
+                {({ isActive }) => (
+                  isActive ? <ExploreFill /> : <ExploreOutline />
+                )}
+              </NavLink>
             </Box>
             <Box as='li'>
-              <Link as={NavLink} to='/'><HeartOutline /></Link>
+              <NavLink to='/notifications'>
+                {({ isActive }) => (
+                  isActive ? <HeartFill /> : <HeartOutline />
+                )}
+              </NavLink>
             </Box>
             <Box as='li'>
               <Menu>
