@@ -14,16 +14,21 @@ const app = express()
 connectDB()
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
+// app.set('views', path.join(__dirname, 'views'))
+// app.set('view engine', 'ejs')
 
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+// app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.use('/api', indexRouter)
+
+// app.use('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+// })
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
