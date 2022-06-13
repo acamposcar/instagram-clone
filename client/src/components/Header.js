@@ -52,7 +52,7 @@ const Header = () => {
                   <Avatar size='sm' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Profile</MenuItem>
+                  <Link as={NavLink} to='/accounts/acampos'><MenuItem>Profile</MenuItem></Link>
                   <MenuItem>Saved</MenuItem>
                   <MenuItem>Log Out</MenuItem>
                 </MenuList>

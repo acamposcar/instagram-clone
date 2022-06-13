@@ -38,7 +38,7 @@ const posts = [
 
 const Home = () => {
   return (
-    <VStack fontSize='sm' my={8} gap={3} as='main' justifyContent='center'>
+    <VStack fontSize='sm' my={8} gap={3} as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
       <Stories stories={posts} />
       <Posts posts={posts} />
     </VStack>

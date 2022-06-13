@@ -29,6 +29,7 @@ const Posts = ({ posts }) => {
                 <Comments comments={post.comments} />
                 <Text my={3} fontSize={10} color='var(--textSecondary)'>{formatDate(post.date).toUpperCase()}</Text>
               </Box>
+              <hr />
               <CommentForm />
             </Card>
           )
