@@ -17,8 +17,8 @@ const Comments = ({ postId, comments, showViewAll = true, showAvatar = false }) 
       {comments.map(comment => {
         return (
           <Flex key={comment._id} gap={2} marginBottom={marginBottom} alignItems='flex-start'>
-            {showAvatar && <Avatar size='xs' name={comment.user.username} src={comment.user.avatar} />}
-            <Content content={comment.content} username={comment.user.username} maxWords={15} />
+            {showAvatar && <Avatar size='xs' name={comment.author.username} src={comment.author.avatar} />}
+            <Content content={comment.content} username={comment.author.username} maxWords={15} />
           </Flex>
         )
       })}
