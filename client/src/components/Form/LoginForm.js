@@ -1,17 +1,17 @@
-import React, { useRef } from 'react'
-import { VStack, Box } from '@chakra-ui/react'
-import UsernameInput from './UI/UsernameInput'
-import PasswordInput from './UI/PasswordInput'
-import ButtonSubmit from './UI/ButtonSubmit'
+import React, { useEffect } from 'react'
+import { VStack, Box, Button } from '@chakra-ui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import useFetch from '../../hooks/useFetch'
-import AlertError from '../AlertError'
 import loginHandler from '../../utils/loginHandler'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useForm } from 'react-hook-form'
+import PasswordInput from './UI/PasswordInput'
+import UsernameInput from './UI/UsernameInput'
 
 const LoginForm = () => {
-  const usernameRef = useRef('')
-  const passwordRef = useRef('')
+  const { register, handleSubmit, formState: { errors: formErrors } } = useForm()
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -23,19 +23,20 @@ const LoginForm = () => {
   // to the login page to redirect them after login
   const from = location.state?.from?.pathname || '/'
 
-  const submitHandler = (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    toast.error(error)
+  }, [error])
 
+  const onSubmit = (data) => {
     const loginUser = (response) => {
       loginHandler(response, navigate, from, authCtx)
     }
-
     sendRequest({
       url: '/api/v1/users/login',
       method: 'POST',
       body: JSON.stringify({
-        username: usernameRef.current.value,
-        password: passwordRef.current.value
+        username: data.username,
+        password: data.password
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -44,12 +45,12 @@ const LoginForm = () => {
   }
 
   return (
-    <Box as='form' onSubmit={submitHandler} width='100%'>
+    <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
+      <ToastContainer />
       <VStack gap={2}>
-        {error && <AlertError error={error} />}
-        <UsernameInput focus ref={usernameRef} />
-        <PasswordInput ref={passwordRef} />
-        <ButtonSubmit loading={loading} text='Log In' />
+        <UsernameInput register={register} errors={formErrors} focus />
+        <PasswordInput register={register} errors={formErrors} />
+        <Button isLoading={loading} type='submit' w='100%'>Log In</Button>
       </VStack>
     </Box>
   )
