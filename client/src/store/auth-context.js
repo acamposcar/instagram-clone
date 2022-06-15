@@ -6,7 +6,6 @@ const AuthContext = React.createContext({
   token: '',
   user: {},
   isLoggedIn: false,
-  isAdmin: false,
   login: (token, expirationTime, user) => { },
   logout: () => { }
 })
@@ -21,7 +20,6 @@ const calculateRemainingTime = (expirationTime) => {
 }
 
 const retrieveStoredToken = () => {
-  console.log('retreive')
   const storedToken = localStorage.getItem('token')
   const storedExpirationDate = localStorage.getItem('expirationTime')
   let storedUser
@@ -61,7 +59,6 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(initialUser)
 
   const userIsLoggedIn = !!token && !!user
-  const userIsAdmin = user?.admin === true
 
   const logoutHandler = useCallback(() => {
     setToken(null)
@@ -79,6 +76,9 @@ export const AuthContextProvider = (props) => {
     setToken(token)
     setUser(user)
 
+    console.log(token)
+    console.log(user)
+    console.log(expirationTime)
     localStorage.setItem('token', token)
     localStorage.setItem('expirationTime', expirationTime)
     localStorage.setItem('user', JSON.stringify(user))
@@ -92,16 +92,12 @@ export const AuthContextProvider = (props) => {
     if (storedData) {
       logoutTimer = setTimeout(logoutHandler, storedData.duration)
     }
-    if (!userIsAdmin) {
-      logoutHandler()
-    }
-  }, [storedData, logoutHandler, userIsAdmin])
+  }, [storedData, logoutHandler])
 
   const contextValue = {
     token,
     user,
     isLoggedIn: userIsLoggedIn,
-    isAdmin: userIsAdmin,
     login: loginHandler,
     logout: logoutHandler
   }
