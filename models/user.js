@@ -14,5 +14,18 @@ const UserSchema = new Schema(
   }, { timestamps: true }
 )
 
+UserSchema
+  .virtual('toAuthJSON')
+  .get(function () {
+    return {
+      _id: this._id,
+      username: this.username,
+      name: this.name,
+      bio: this.bio,
+      avatar: this.avatar,
+      roles: this.roles
+    }
+  })
+
 // Export model
 module.exports = mongoose.model('User', UserSchema)
