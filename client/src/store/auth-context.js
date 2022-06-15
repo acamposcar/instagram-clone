@@ -22,50 +22,35 @@ const calculateRemainingTime = (expirationTime) => {
 const retrieveStoredToken = () => {
   const storedToken = localStorage.getItem('token')
   const storedExpirationDate = localStorage.getItem('expirationTime')
-  let storedUser
-  try {
-    storedUser = JSON.parse(localStorage.getItem('user'))
-  } catch (err) {
-    storedUser = null
-  }
+
   const remainingTime = calculateRemainingTime(storedExpirationDate)
 
   if (remainingTime <= 60000) {
     // Treshold. If remaining time is less than 1 minute, remove token
     localStorage.removeItem('token')
     localStorage.removeItem('expirationTime')
-    localStorage.removeItem('user')
     return null
   }
 
   return {
     token: storedToken,
-    duration: remainingTime,
-    user: storedUser
+    duration: remainingTime
   }
 }
 
 export const AuthContextProvider = (props) => {
   const storedData = retrieveStoredToken()
 
-  let initialToken
-  let initialUser
-  if (storedData) {
-    initialToken = storedData.token
-    initialUser = storedData.user
-  }
+  const [token, setToken] = useState(storedData?.token)
+  const [user, setUser] = useState()
 
-  const [token, setToken] = useState(initialToken)
-  const [user, setUser] = useState(initialUser)
-
-  const userIsLoggedIn = !!token && !!user
+  const isLoggedIn = !!token
 
   const logoutHandler = useCallback(() => {
     setToken(null)
     setUser(null)
     localStorage.removeItem('token')
     localStorage.removeItem('expirationTime')
-    localStorage.removeItem('user')
 
     if (logoutTimer) {
       clearTimeout(logoutTimer)
@@ -73,20 +58,37 @@ export const AuthContextProvider = (props) => {
   }, [])
 
   const loginHandler = (token, expirationTime, user) => {
+    const transformedUser = {
+      ...user,
+      avatar: `/uploads/avatar/${user.avatar}`
+    }
     setToken(token)
-    setUser(user)
-
-    console.log(token)
-    console.log(user)
-    console.log(expirationTime)
+    setUser(transformedUser)
     localStorage.setItem('token', token)
     localStorage.setItem('expirationTime', expirationTime)
-    localStorage.setItem('user', JSON.stringify(user))
 
     const remainingTime = calculateRemainingTime(expirationTime)
 
     logoutTimer = setTimeout(logoutHandler, remainingTime)
   }
+
+  const validateToken = useCallback(async () => {
+    const response = await fetch('/api/v1/users/validate', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error('Invalid token')
+    }
+
+    setUser({
+      ...data,
+      avatar: `/uploads/avatar/${data.avatar}`
+    })
+  }, [token])
 
   useEffect(() => {
     if (storedData) {
@@ -94,10 +96,18 @@ export const AuthContextProvider = (props) => {
     }
   }, [storedData, logoutHandler])
 
+  useEffect(() => {
+    if (token) {
+      validateToken(token).catch(() => {
+        logoutHandler()
+      })
+    }
+  }, [token, validateToken, logoutHandler])
+
   const contextValue = {
     token,
     user,
-    isLoggedIn: userIsLoggedIn,
+    isLoggedIn,
     login: loginHandler,
     logout: logoutHandler
   }
