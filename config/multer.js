@@ -3,7 +3,11 @@ const path = require('path')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './client/build/uploads')
+    if (file.fieldname === 'image') {
+      cb(null, './public/uploads/posts')
+    } else {
+      cb(null, './public/uploads/avatar')
+    }
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -22,16 +26,15 @@ const config = multer({
     }
   },
   limits: {
-    // 1 MB
-    fileSize: 1024 * 1024
+    // 2MB limit size
+    fileSize: 1024 * 1024 * 2
   }
 })
 
-const upload = (req, res, next) => {
+const uploadImage = (req, res, next) => {
   config.single('image')(req, res, (err) => {
     if (err) {
       return res.status(400).json({
-        success: false,
         error: err.message
       })
     }
@@ -39,4 +42,15 @@ const upload = (req, res, next) => {
   })
 }
 
-module.exports = upload
+const uploadAvatar = (req, res, next) => {
+  config.single('avatar')(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({
+        error: err.message
+      })
+    }
+    next()
+  })
+}
+
+module.exports = { uploadImage, uploadAvatar }

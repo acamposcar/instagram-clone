@@ -6,7 +6,6 @@ const isAuth = (req, res, next) => {
     if (info) {
       // Error related to the validity of the token (error in its signature, expired...)
       return res.status(401).json({
-        success: false,
         error: 'Unauthorized: Token error'
         // error: info.message
       })
@@ -14,7 +13,6 @@ const isAuth = (req, res, next) => {
     if (!user) {
       // Token is correctly signed but does not belong to an existing user
       return res.status(401).json({
-        success: false,
         error: 'Unauthorized'
       })
     }
@@ -26,11 +24,10 @@ const isAuth = (req, res, next) => {
 const isAdmin = [
   isAuth,
   (req, res, next) => {
-    if (req.user.admin) {
+    if (req.user.roles.includes('admin')) {
       next()
     } else {
       return res.status(401).json({
-        success: false,
         error: 'Unauthorized'
       })
     }

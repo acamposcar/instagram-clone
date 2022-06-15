@@ -28,12 +28,12 @@ passport.use(
 passport.use(
   new LocalStrategy({ session: false }, async (username, password, done) => {
     try {
-      const user = await User.findOne({ username }).select('+password')
+      const user = await User.findOne({ username }).select('+hash')
       if (!user) {
         // Incorrect username
         return done(null, false)
       }
-      const passwordIsCorrect = await bcrypt.compare(password, user.password)
+      const passwordIsCorrect = await bcrypt.compare(password, user.hash)
       if (passwordIsCorrect) {
         // Login OK
         return done(null, user)
