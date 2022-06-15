@@ -16,15 +16,16 @@ const Content = ({ username, content, maxWords }) => {
       )
 
   return (
-
-    <Text my={1} as='p'>
-      <RouterLink to={`/accounts/${username}`}>
-        {username}
-      </RouterLink>
-      {' '}
-      {contentToShow}
-    </Text>
-
+    <>
+      {content &&
+        <Text my={1} as='p'>
+          <RouterLink to={`/accounts/${username}`}>
+            {username}
+          </RouterLink>
+          {' '}
+          {contentToShow}
+        </Text>}
+    </>
   )
 }
 

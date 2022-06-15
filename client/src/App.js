@@ -22,9 +22,6 @@ const App = () => {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-      </Routes>
-
-      <Routes>
         <Route
           path='/' element={
             <RequireAuth>
@@ -34,7 +31,7 @@ const App = () => {
           }
         />
         <Route
-          path='/posts/:id' element={
+          path='/posts/:postId' element={
             <RequireAuth>
               <Header />
               <PostDetail />
@@ -42,7 +39,7 @@ const App = () => {
           }
         />
         <Route
-          path='/accounts/:id' element={
+          path='/accounts/:username' element={
             <RequireAuth>
               <Header />
               <Profile />
@@ -58,6 +55,7 @@ const App = () => {
           }
         />
       </Routes>
+
       {/* <ColorModeSwitcher justifySelf='flex-end' /> */}
 
     </ChakraProvider>

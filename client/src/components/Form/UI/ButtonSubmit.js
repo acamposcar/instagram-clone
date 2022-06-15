@@ -2,9 +2,9 @@
 import React from 'react'
 import { Button } from '@chakra-ui/react'
 
-const ButtonSubmit = ({ text }) => {
+const ButtonSubmit = ({ text, loading }) => {
   return (
-    <Button type='submit' w='100%'>{text}</Button>
+    <Button isLoading={loading} type='submit' w='100%'>{text}</Button>
 
   )
 }
