@@ -4,18 +4,19 @@ const { Schema } = mongoose
 
 const UserSchema = new Schema(
   {
-    name: { type: String, required: true, maxlength: 50 },
+    name: { type: String, required: true },
     username: { type: String, required: true, minlength: 3, maxlength: 20, match: /^[A-Za-z0-9_]+$/, unique: true },
     hash: { type: String, required: true, minlength: 6, select: false },
     salt: { type: String, required: true, select: false },
     roles: { type: [{ type: String, enum: ['user', 'admin'] }], default: ['user'], required: true },
     bio: { type: String },
-    avatar: { type: String }
+    avatar: { type: String },
+    saved: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
   }, { timestamps: true }
 )
 
 UserSchema
-  .virtual('toAuthJSON')
+  .virtual('toJSON')
   .get(function () {
     return {
       _id: this._id,
@@ -23,7 +24,8 @@ UserSchema
       name: this.name,
       bio: this.bio,
       avatar: this.avatar,
-      roles: this.roles
+      roles: this.roles,
+      saved: this.saved
     }
   })
 
