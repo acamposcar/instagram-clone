@@ -1,11 +1,5 @@
-import {
-  Flex,
-  Image,
-  Avatar,
-  Box,
-  HStack
-} from '@chakra-ui/react'
-import { useState } from 'react'
+import React, { useEffect } from 'react'
+import { Flex, Image, Box, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import Card from '../components/Card'
 import Social from '../components/Posts/Social'
 import Liked from '../components/Posts/Liked'
@@ -13,18 +7,39 @@ import DateFormat from '../components/Posts/DateFormat'
 import Comments from '../components/Posts/Comments'
 import CommentForm from '../components/Posts/CommentForm'
 import Header from '../components/Posts/Header'
-const PostDetail = () => {
-  const [post, setPost] = useState({
-    _id: 1,
-    location: "Rock'n'roll",
-    image: 'https://images.unsplash.com/photo-1586399254847-02e1369bac88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGFscGluaXNtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-    author: { _id: 1, username: 'acampos', avatar: 'https://images.unsplash.com/photo-1555834307-b22668f15f53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80', name: 'Alejandro Campos' },
-    content: 'Wake up, legs! ⏰ It’s mountain season!',
-    createdAt: new Date(),
-    likes: [{ username: 'courtneydauwalter', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80', name: 'Courtney Dauwalter' }, { _id: 1, username: 'acampos', avatar: 'https://images.unsplash.com/photo-1555834307-b22668f15f53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80', name: 'Alejandro Campos' }],
-    comments: [{ _id: 1, author: { _id: 1, username: 'acampos', avatar: 'https://images.unsplash.com/photo-1555834307-b22668f15f53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80', name: 'Alejandro Campos' }, content: 'This was a tough one' }, { _id: 2, author: { _id: 1, username: 'courtneydauwalter ', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80', name: 'Alejandro Campos' }, content: 'We were restricted on our summit Push because of our need to go to Makalu base camp within the summit window' }]
+import useHttp from '../hooks/useHttp'
+import { getPost } from '../lib/api'
+import { useParams } from 'react-router-dom'
+import AlertError from '../components/AlertError'
+import PostSkeleton from '../components/Posts/PostSkeleton'
+import useAuth from '../hooks/useAuth'
 
-  })
+const PostDetail = () => {
+  const { postId } = useParams()
+  const { sendRequest, loading, data: post, error } = useHttp(getPost, true)
+  const authCtx = useAuth()
+
+  useEffect(() => {
+    sendRequest({ token: authCtx.token, postId })
+  }, [sendRequest, postId, authCtx.token])
+
+  if (loading) return <PostSkeleton />
+
+  if (error) {
+    return (
+      <AlertError error={error} />
+    )
+  }
+
+  if (!post) {
+    return (
+      <Alert marginY={6} status='warning' variant='left-accent'>
+        <AlertIcon />
+        <AlertTitle>No post found</AlertTitle>
+      </Alert>
+    )
+  }
+
   return (
     <Flex fontSize='sm' my={8} as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
       <Card width='auto'>
