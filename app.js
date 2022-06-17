@@ -7,9 +7,12 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const passport = require('passport')
 const connectDB = require('./config/db')
-const indexRouter = require('./routes/index')
+
 const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
+const authRouter = require('./routes/auth')
+
+const isAuth = require('./middleware/auth').isAuth
 
 const app = express()
 
@@ -30,9 +33,9 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'client/build')))
 
-app.use('/api/v1', indexRouter)
-app.use('/api/v1/users', userRouter)
-app.use('/api/v1/posts', postRouter)
+app.use('/api/v1/users', isAuth, userRouter)
+app.use('/api/v1/posts', isAuth, postRouter)
+app.use('/api/v1/auth', authRouter)
 
 // app.use('/*', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
