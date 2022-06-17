@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { Flex, Image, Box, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { Flex, Image, Box, Alert, AlertIcon, AlertTitle, Text } from '@chakra-ui/react'
 import Card from '../components/Card'
 import Social from '../components/Posts/Social'
-import Liked from '../components/Posts/Liked'
+import LikedBy from '../components/Posts/LikedBy'
 import DateFormat from '../components/Posts/DateFormat'
 import Comments from '../components/Posts/Comments'
 import CommentForm from '../components/Posts/CommentForm'
@@ -16,12 +16,22 @@ import useAuth from '../hooks/useAuth'
 
 const PostDetail = () => {
   const { postId } = useParams()
-  const { sendRequest, loading, data: post, error } = useHttp(getPost, true)
+  const { sendRequest, loading, data: post, error, success } = useHttp(getPost, true)
   const authCtx = useAuth()
+
+  const [comments, setComments] = useState()
+
+  const handleAddComment = useCallback((comment) => {
+    setComments(prevState => [comment, ...prevState])
+  }, [])
 
   useEffect(() => {
     sendRequest({ token: authCtx.token, postId })
   }, [sendRequest, postId, authCtx.token])
+
+  useEffect(() => {
+    if (success) setComments(post.comments)
+  }, [success, post])
 
   if (loading) return <PostSkeleton />
 
@@ -45,24 +55,23 @@ const PostDetail = () => {
       <Card width='auto'>
         <Flex flexDirection={{ base: 'column', md: 'row' }}>
           <Box maxWidth='550px'>
-            <Image borderRadius={{ md: '8px 0px 0px 8px', base: '8px 8px 0px 0px' }} minHeight='600px' objectFit='cover' backgroundColor='black' objectPosition='center' src={post.image} alt='' />
+            <Image borderRadius={{ md: '8px 0px 0px 8px', base: '8px 8px 0px 0px' }} minHeight='620px' height='100%' objectFit='cover' backgroundColor='black' objectPosition='center' src={post.image} alt='' />
 
           </Box>
-          <Flex flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} px={5} justifyContent='space-between'>
+          <Flex flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} minWidth='280px' px={5} justifyContent='space-between'>
             <Box>
-              <Header user={post.author} location={post.location} avatarSize='lg' />
+              <Header user={post.author} location={post.location} avatarSize='lg' postId={post._id} />
               {/* CSS to hide scrollbar */}
-              <Box overflow='auto' css={{ '-ms-overflow-style': 'none', 'scrollbar-width': 'none', '&::-webkit-scrollbar': { display: 'none' } }} maxHeight='350px'>
-                <Box marginBottom={5} p={3}> {post.content}</Box>
-                <Comments postId={post._id} comments={post.comments} showViewAll={false} showAvatar />
+              <Box overflow='auto' css={{ msOverflowStyle: 'none', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }} maxHeight='350px'>
+                <Text whiteSpace='pre-line' marginBottom={5} p={3}> {post.content}</Text>
+                {comments && <Comments postId={post._id} comments={comments} showViewAll={false} showAvatar />}
               </Box>
             </Box>
             <Box>
-              <Social />
-              <Liked likes={post.likes} />
+              <Social postId={post._id} likes={post.likes} saved={post.saved} />
               <DateFormat date={post.createdAt} />
               <hr />
-              <CommentForm />
+              <CommentForm postId={post._id} onAddComment={handleAddComment} />
             </Box>
           </Flex>
         </Flex>

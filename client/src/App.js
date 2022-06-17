@@ -15,10 +15,13 @@ import RequireAuth from './components/Auth/RequireAuth'
 import Profile from './pages/Profile'
 import PostDetail from './pages/PostDetail'
 import Explore from './pages/Explore'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   return (
     <ChakraProvider theme={theme} resetCSS>
+      <ToastContainer />
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
@@ -26,6 +29,7 @@ const App = () => {
           path='/' element={
             <RequireAuth>
               <Header />
+
               <Home />
             </RequireAuth>
           }

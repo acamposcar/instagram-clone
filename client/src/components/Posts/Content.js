@@ -18,7 +18,7 @@ const Content = ({ username, content, maxWords }) => {
   return (
     <>
       {content &&
-        <Text my={1} as='p'>
+        <Text my={1} as='p' whiteSpace='pre-line'>
           <RouterLink to={`/accounts/${username}`}>
             {username}
           </RouterLink>

@@ -16,6 +16,7 @@ const ImageForm = ({ handleFileSelection, file, children }) => {
             name='image'
             id='image'
             onChange={handleFileSelection}
+            required
           />
         </Button>}
       {file.preview && children}

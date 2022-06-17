@@ -73,7 +73,7 @@ export const AuthContextProvider = (props) => {
   }
 
   const validateToken = useCallback(async () => {
-    const response = await fetch('/api/v1/users/validate', {
+    const response = await fetch('/api/v1/auth/validate', {
       headers: {
         Authorization: `Bearer ${token}`
       }

@@ -37,9 +37,9 @@ const CreatePostForm = ({ closeModal }) => {
       headers: {
         Authorization: `Bearer ${authCtx.token}`
       }
-    }, () => {
+    }, (post) => {
       closeModal()
-      navigate('/', { replace: false })
+      navigate(`/posts/${post._id}`, { replace: false })
     })
   }
 

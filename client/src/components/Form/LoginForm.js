@@ -4,8 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import useFetch from '../../hooks/useFetch'
 import loginHandler from '../../utils/loginHandler'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './UI/PasswordInput'
 import UsernameInput from './UI/UsernameInput'
@@ -32,7 +31,7 @@ const LoginForm = () => {
       loginHandler(response, navigate, from, authCtx)
     }
     sendRequest({
-      url: '/api/v1/users/login',
+      url: '/api/v1/auth/login',
       method: 'POST',
       body: JSON.stringify({
         username: data.username,
@@ -46,7 +45,6 @@ const LoginForm = () => {
 
   return (
     <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
-      <ToastContainer />
       <VStack gap={2}>
         <UsernameInput register={register} errors={formErrors} focus />
         <PasswordInput register={register} errors={formErrors} />

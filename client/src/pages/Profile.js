@@ -12,23 +12,26 @@ import AlertError from '../components/AlertError'
 
 const Profile = () => {
   const { username } = useParams()
-  const { sendRequest, loading, data, error } = useHttp(getUserPosts, true)
+  const { sendRequest, loading, data, success, error } = useHttp(getUserPosts, true)
   const authCtx = useAuth()
-  const [posts, setPosts] = useState([])
-  const [user, setUser] = useState({})
+
+  // State to be able to update avatar without reloading page
+  const [user, setUser] = useState()
+
+  const posts = data?.posts
+  const saved = data?.saved
+  const followers = data?.followers
+  const following = data?.following
 
   useEffect(() => {
     sendRequest({ token: authCtx.token, username })
   }, [sendRequest, username, authCtx.token])
 
   useEffect(() => {
-    if (data && !loading && !error) {
-      setPosts(data.posts)
+    if (success) {
       setUser(data.user)
     }
-  }, [data, loading, error])
-
-  if (loading) return <PostSkeleton />
+  }, [data, success])
 
   if (error) {
     return (
@@ -36,14 +39,7 @@ const Profile = () => {
     )
   }
 
-  if (posts.length === 0) {
-    return (
-      <Alert marginY={6} status='warning' variant='left-accent'>
-        <AlertIcon />
-        <AlertTitle>No posts found</AlertTitle>
-      </Alert>
-    )
-  }
+  if (loading || user === undefined) return <PostSkeleton />
 
   const updateAvatar = (filename) => {
     setUser(prevState => {
@@ -53,13 +49,13 @@ const Profile = () => {
 
   return (
     <Box fontSize='sm' my={8} as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
-      <Header postsCount={posts.length} user={user} updateAvatar={updateAvatar} />
+      <Header postsCount={posts.length} user={user} initialFollowers={followers} following={following} updateAvatar={updateAvatar} />
       <TabsNav>
         <TabPanel>
           <GridPosts posts={posts} />
         </TabPanel>
         <TabPanel>
-          <GridPosts posts={posts} />
+          <GridPosts posts={saved} />
         </TabPanel>
       </TabsNav>
     </Box>

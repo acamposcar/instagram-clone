@@ -4,8 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import useFetch from '../../hooks/useFetch'
 import loginHandler from '../../utils/loginHandler'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './UI/PasswordInput'
 import UsernameInput from './UI/UsernameInput'
@@ -33,7 +32,7 @@ const RegisterForm = () => {
       loginHandler(response, navigate, from, authCtx)
     }
     sendRequest({
-      url: '/api/v1/users/register',
+      url: '/api/v1/auth/register',
       method: 'POST',
       body: JSON.stringify({
         username: data.username,
@@ -48,7 +47,6 @@ const RegisterForm = () => {
 
   return (
     <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
-      <ToastContainer />
       <VStack gap={2}>
         <Text as='h2' textAlign='center' color='gray'>
           Sign up to see photos and videos from your friends.

@@ -15,7 +15,6 @@ const PostSkeleton = ({ posts }) => {
         <Box>
           <Skeleton height='300px' />
         </Box>
-        <Social />
         <Box px={5} my={3}>
           <SkeletonText mt='4' noOfLines={4} spacing='4' />
         </Box>

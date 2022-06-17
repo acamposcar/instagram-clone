@@ -9,7 +9,7 @@ const CreatePost = () => {
 
   return (
     <>
-      <CustomModal isOpen={isOpen} onClose={onClose} title='Change Profile Photo'>
+      <CustomModal isOpen={isOpen} onClose={onClose} title='Create a new post'>
         <CreatePostForm closeModal={onClose} />
       </CustomModal>
 

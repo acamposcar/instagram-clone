@@ -1,33 +1,57 @@
 /** @jsxImportSource @emotion/react */
 
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
-import { ReactComponent as HeartOutlineIcon } from '../../assets/icons/heartOutline.svg'
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg'
-import { ReactComponent as ShareIcon } from '../../assets/icons/share.svg'
-import { ReactComponent as SaveIcon } from '../../assets/icons/save.svg'
+import { ReactComponent as SaveIconOutline } from '../../assets/icons/saveOutline.svg'
+import LikedBy from './LikedBy'
+import LikePost from './LikePost'
+import useAuth from '../../hooks/useAuth'
+import { Link } from 'react-router-dom'
+import Share from './Share'
+import SavePost from './SavePost'
+const Social = ({ postId, likes, saved }) => {
+  const [likesState, setLikesState] = useState(likes)
 
-const Social = () => {
+  const authCtx = useAuth()
+
+  const [isLiked, setIsLiked] = useState(!!likes.find(like => like.likedBy.username === authCtx.user.username))
+
+  const handleLike = useCallback(() => {
+    // Add auth user to likes list
+    setLikesState(prevState => {
+      return [...prevState, { likedBy: authCtx.user }]
+    })
+    setIsLiked(true)
+  }, [authCtx.user])
+
+  const handleUnlike = useCallback(() => {
+    // Remove auth user from likes list
+    setLikesState(prevState => {
+      return prevState.filter(like => like.likedBy.username !== authCtx.user.username)
+    })
+    setIsLiked(false)
+  }, [authCtx.user])
+
   return (
+    <>
+      <Flex p={3} justifyContent='space-between' alignItems='center'>
+        <Flex gap={3} alignItems='center'>
+          {isLiked && <LikePost onLike={handleUnlike} onError={handleLike} isLiked postId={postId} likes={likesState} />}
+          {!isLiked && <LikePost onLike={handleLike} onError={handleUnlike} isLiked={false} postId={postId} likes={likesState} />}
+          <Link to={`/posts/${postId}`}>
+            <CommentIcon css={{ '&:hover': { color: '#8e8e8e' } }} />
+          </Link>
 
-    <Flex p={3} justifyContent='space-between' alignItems='center'>
-      <Flex gap={3} alignItems='center'>
-        <Box as='button'>
-          <HeartOutlineIcon css={{ '&:hover': { fill: '#8e8e8e' } }} />
-        </Box>
-        <Box as='button'>
-          <CommentIcon css={{ '&:hover': { color: '#8e8e8e' } }} />
-        </Box>
-        <Box as='button'>
-          <ShareIcon css={{ '&:hover': { color: '#8e8e8e' } }} />
-        </Box>
+          <Share postId={postId} />
+
+        </Flex>
+        <SavePost savedPosts={saved} postId={postId} />
+
       </Flex>
-      <Box as='button'>
-        <SaveIcon css={{ '&:hover': { color: '#8e8e8e' } }} />
-      </Box>
+      <LikedBy likes={likesState} />
 
-    </Flex>
-
+    </>
   )
 }
 

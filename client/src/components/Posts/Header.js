@@ -1,9 +1,17 @@
 import React from 'react'
 import { Box, Flex, Avatar, Text, Menu, MenuButton, MenuItem, MenuList, Link } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
-
+import { Link as RouterLink, NavLink } from 'react-router-dom'
 import { ReactComponent as MoreOptionsIcon } from '../../assets/icons/moreOptions.svg'
-const Header = ({ user, location, avatarSize = 'sm' }) => {
+import { toast } from 'react-toastify'
+import { IoMdShareAlt, IoMdShare } from 'react-icons/io'
+const Header = ({ user, location, avatarSize = 'sm', postId }) => {
+  const url = new URL(window.location.href)
+  const postURL = `${url.protocol}//${url.host}/posts/${postId}`
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(postURL)
+    toast.success('Copied to clipboard!')
+  }
   return (
 
     <Flex p={3} justifyContent='space-between' alignItems='center'>
@@ -23,10 +31,8 @@ const Header = ({ user, location, avatarSize = 'sm' }) => {
           <MoreOptionsIcon />
         </MenuButton>
         <MenuList>
-          <MenuItem>Go to post</MenuItem>
-          <MenuItem>Share to...</MenuItem>
-          <MenuItem>Copy link</MenuItem>
-          <MenuItem>Cancel</MenuItem>
+          <Link color='black' as={NavLink} to={`/posts/${postId}`} _hover={{ color: 'inherit', textDecoration: 'none' }}><MenuItem display='flex' gap={1} alignItems='center'><IoMdShareAlt />Go to post</MenuItem></Link>
+          <MenuItem onClick={copyToClipboard} display='flex' gap={1} alignItems='center'><IoMdShare />Copy link</MenuItem>
         </MenuList>
       </Menu>
 

@@ -1,20 +1,20 @@
 import React from 'react'
 import { Flex, Avatar, Text, Box } from '@chakra-ui/react'
 import RouterLink from '../RouterLink'
-const Liked = ({ likes }) => {
+const LikedBy = ({ likes }) => {
   if (likes.length === 0) return (<></>)
 
   const othersLikes = likes.length > 1 ? <> and <Text as='span' fontWeight={500}>{likes.length - 1} others</Text></> : <></>
 
   return (
 
-    <Flex my={2} gap={2} alignItems='center'>
-      <RouterLink to={`/accounts/${likes[0].username}`}>
-        <Avatar size='xs' name={likes[0].username} src={likes[0].avatar} />
+    <Flex my={2} gap={2} px={5} alignItems='center'>
+      <RouterLink to={`/accounts/${likes[0].likedBy.username}`}>
+        <Avatar size='xs' name={likes[0].likedBy.username} src={`${likes[0].likedBy.avatar}`} />
       </RouterLink>
       <Box fontSize='14px'>Liked by
         {' '}
-        <RouterLink to={`/accounts/${likes[0].username}`}>{likes[0].username}</RouterLink>
+        <RouterLink to={`/accounts/${likes[0].likedBy.username}`}>{likes[0].likedBy.username}</RouterLink>
         {' '}
         {othersLikes}
       </Box>
@@ -22,4 +22,4 @@ const Liked = ({ likes }) => {
   )
 }
 
-export default Liked
+export default LikedBy

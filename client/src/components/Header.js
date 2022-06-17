@@ -68,18 +68,18 @@ const Header = () => {
                 <MenuItem textAlign='center'>No notifications</MenuItem>
               </MenuList>
             </Menu>
-
-            <Box as='li'>
-              <Menu>
-                <MenuButton>
-                  <Avatar size='sm' name='Dan Abrahmov' src='https://images.unsplash.com/photo-1555834307-b22668f15f53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' />
-                </MenuButton>
-                <MenuList padding={0} boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2)'>
-                  <Link color='black' as={NavLink} to='/accounts/acampos' _hover={{ color: 'inherit', textDecoration: 'none' }}><MenuItem display='flex' gap={1} alignItems='center'><IoMdPerson />Profile</MenuItem></Link>
-                  <MenuItem onClick={logoutHandler} display='flex' gap={1} alignItems='center'><IoMdLogOut />Log Out</MenuItem>
-                </MenuList>
-              </Menu>
-            </Box>
+            {authCtx.user &&
+              <Box as='li'>
+                <Menu>
+                  <MenuButton>
+                    <Avatar size='sm' name={authCtx.user.username} src={`${authCtx.user.avatar}`} />
+                  </MenuButton>
+                  <MenuList padding={0} boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2)'>
+                    <Link color='black' as={NavLink} to={`/accounts/${authCtx.user.username}`} _hover={{ color: 'inherit', textDecoration: 'none' }}><MenuItem display='flex' gap={1} alignItems='center'><IoMdPerson />Profile</MenuItem></Link>
+                    <MenuItem onClick={logoutHandler} display='flex' gap={1} alignItems='center'><IoMdLogOut />Log Out</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>}
           </HStack>
         </Box>
       </Flex>

@@ -5,7 +5,8 @@ const httpReducer = (state, action) => {
     return {
       data: null,
       error: null,
-      loading: true
+      loading: true,
+      success: false
     }
   }
 
@@ -13,7 +14,8 @@ const httpReducer = (state, action) => {
     return {
       data: action.responseData,
       error: null,
-      loading: false
+      loading: false,
+      success: true
     }
   }
 
@@ -21,7 +23,8 @@ const httpReducer = (state, action) => {
     return {
       data: null,
       error: action.errorMessage,
-      loading: false
+      loading: false,
+      success: false
     }
   }
 
@@ -32,7 +35,8 @@ const useHttp = (requestFunction, startLoading = false) => {
   const [httpState, dispatch] = useReducer(httpReducer, {
     loading: !!startLoading,
     data: null,
-    error: null
+    error: null,
+    success: false
   })
 
   const sendRequest = useCallback(

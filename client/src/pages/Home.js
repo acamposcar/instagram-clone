@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { VStack, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import Posts from '../components/Posts/Posts'
-import Stories from '../components/Stories'
 import AlertError from '../components/AlertError'
 import PostSkeleton from '../components/Posts/PostSkeleton'
 import useHttp from '../hooks/useHttp'
@@ -16,7 +15,7 @@ const Home = () => {
     sendRequest(authCtx.token)
   }, [sendRequest, authCtx.token])
 
-  if (loading) return <PostSkeleton />
+  if (loading || !authCtx.user) return <PostSkeleton />
 
   if (error) {
     return (
@@ -36,8 +35,7 @@ const Home = () => {
   return (
 
     <VStack fontSize='sm' my={8} gap={8} as='main' justifyContent='center' maxWidth='550px' mx='auto' px={1}>
-      {/* <Stories stories={posts} /> */}
-      <Posts posts={posts} />
+      {posts.map(post => <Posts key={post._id} post={post} />)}
     </VStack>
 
   )
