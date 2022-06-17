@@ -9,5 +9,7 @@ const FollowingSchema = new Schema(
   }, { timestamps: true }
 )
 
+FollowingSchema.index({ user: 1, following: 1 }, { unique: true })
+
 // Export model
 module.exports = mongoose.model('Following', FollowingSchema)

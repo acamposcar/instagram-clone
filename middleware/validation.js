@@ -40,14 +40,14 @@ exports.usernamePassword = () => [
 ]
 
 exports.name = () => [
-  body('name', 'Name must not be empty.').trim().isLength({ min: 1 }).escape()
+  body('name', 'Name must not be empty.').trim().isLength({ min: 1 })
 ]
 
 exports.post = () => [
-  body('content').trim().escape(),
-  body('location').trim().escape()
+  body('content').trim(),
+  body('location').trim()
 ]
 
 exports.comment = () => [
-  body('content', 'Content must not be empty').trim().isLength({ min: 1 }).escape()
+  body('content', 'Content must not be empty').trim().isLength({ min: 1 })
 ]

@@ -10,8 +10,7 @@ const UserSchema = new Schema(
     salt: { type: String, required: true, select: false },
     roles: { type: [{ type: String, enum: ['user', 'admin'] }], default: ['user'], required: true },
     bio: { type: String },
-    avatar: { type: String },
-    saved: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
+    avatar: { type: String }
   }, { timestamps: true }
 )
 
@@ -28,6 +27,16 @@ UserSchema
       saved: this.saved
     }
   })
+
+UserSchema.pre('deleteMany', function (next) {
+  this.model('Following').deleteMany({ user: this._id })
+  this.model('Following').deleteMany({ following: this._id })
+  this.model('Comments').deleteMany({ author: this._id })
+  this.model('Post').deleteMany({ author: this._id })
+  this.model('Like').deleteMany({ likedBy: this._id })
+  this.model('Saved').deleteMany({ user: this._id })
+  next()
+})
 
 // Export model
 module.exports = mongoose.model('User', UserSchema)

@@ -1,95 +1,67 @@
 const User = require('../models/user')
 const Post = require('../models/post')
-const validationMiddleware = require('../middleware/validation')
-const passport = require('passport')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const Saved = require('../models/saved')
+const Like = require('../models/like')
+const Following = require('../models/following')
 const { uploadAvatar } = require('../config/multer')
 
-const expirationDays = 2
-const expirationTimeInSeconds = expirationDays * 24 * 60 * 60
-const SALT = 10
-
-exports.register = [
-  validationMiddleware.name(),
-  validationMiddleware.usernamePassword(),
-  validationMiddleware.validationResult,
-
-  async (req, res, next) => {
-    const userExists = await User.findOne({ username: req.body.username })
-    if (userExists) {
-      return res.status(400).json({
-        error: 'User already exists'
-      })
-    }
-    try {
-      const hasedPassword = await bcrypt.hash(req.body.password, SALT)
-      const user = await new User({
-        name: req.body.name,
-        username: req.body.username,
-        hash: hasedPassword,
-        salt: SALT
-      }).save()
-
-      const token = generateToken(user, expirationTimeInSeconds)
-
-      return res.status(201).json({
-        data: { token, user: user.toAuthJSON, expiresIn: expirationTimeInSeconds }
-      })
-    } catch (err) {
-      return next(err)
-    }
-  }
-]
-
-exports.login = [
-  validationMiddleware.usernamePassword(),
-  validationMiddleware.validationResult,
-
-  async (req, res, next) => {
-    passport.authenticate('local', { session: false }, (err, user) => {
-      if (err) return next(err)
-
-      if (!user) {
-        return res.status(400).json({
-          error: 'Invalid credentials'
-        })
-      }
-
-      const token = generateToken(user, expirationTimeInSeconds)
-
-      return res.status(201).json({
-        data: { token, user: user.toAuthJSON, expiresIn: expirationTimeInSeconds }
-      })
-    })(req, res)
-  }
-]
-
-// @desc    Get all posts
-// @route   GET /api/v1/posts
+// @desc    Get user posts and information
+// @route   GET /api/v1/users/:username
 // @access  Public
 exports.getProfile = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.params.username })
-    const posts = await Post.find({ author: user }).populate('author').sort({ createdAt: -1 })
+    if (!user) {
+      return res.status(400).json({
+        error: 'User not found'
+      })
+    }
+    const following = await Following.find({ user }).populate('following').sort({ createdAt: -1 })
+    const followers = await Following.find({ following: user }).populate('user').sort({ createdAt: -1 })
+    const likes = await Like.find().populate('likedBy')
 
+    const savedPosts = await Saved.find({ user }).populate('post').sort({ createdAt: -1 }).lean()
+    const posts = await Post.find({ author: user }).populate('author').sort({ createdAt: -1 }).lean()
+
+    // Insert likes and saved posts inside each post
+    const updatedPosts = posts.map(post => {
+      const postLikes = []
+      for (const like of likes) {
+        if (post._id.toString() === like.post._id.toString()) {
+          postLikes.push(like)
+        }
+      }
+      post.likes = postLikes
+      return post
+    })
+    const updateSaved = savedPosts.map(savedPost => {
+      const postLikes = []
+      for (const like of likes) {
+        if (savedPost.post._id.toString() === like.post._id.toString()) {
+          postLikes.push(like)
+        }
+      }
+      savedPost.post.likes = postLikes
+      return savedPost.post
+    })
+    console.log(posts)
     return res.status(200).json({
       count: posts.length,
-      posts,
-      user
+      posts: updatedPosts,
+      user: user.toJSON,
+      following,
+      followers,
+      saved: updateSaved
     })
   } catch (err) {
     return next(err)
   }
 }
 
-exports.currentUser = (req, res, next) => {
-  return res.status(200).json({
-    data: req.user
-  })
-}
-
-exports.uploadAvatar = [
+// @desc    Update user profile image
+// @route   POST /api/v1/users/:username
+// @access  Public
+exports.updateAvatar = [
   uploadAvatar,
   async (req, res, next) => {
     if (!req.file) {
@@ -118,10 +90,69 @@ exports.uploadAvatar = [
   }
 ]
 
-const generateToken = (user, expirationTimeInSeconds) => {
-  const payload = {
-    sub: user._id,
-    username: user.username
+// @desc    Update user profile info
+// @route   PUT /api/v1/users/:username
+// @access  Public
+exports.updateProfile = [
+  uploadAvatar,
+  async (req, res, next) => {
+    const user = {
+      name: req.body.name,
+      username: req.body.username
+    }
+
+    if (req.file) user.avatar = req.file.filename
+
+    try {
+      const updatedUser = await User.findByIdAndUpdate(req.user._id, user, { new: true })
+      if (!updatedUser) {
+        return res.status(404).json({
+          error: 'No user found'
+        })
+      }
+      return res.status(200).json(updatedUser)
+    } catch (err) {
+      return next(err)
+    }
   }
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: expirationTimeInSeconds })
+]
+
+// @desc    Update user profile info
+// @route   POST /api/v1/users/:username/follow
+// @access  Public
+exports.followUser = async (req, res, next) => {
+  const user = req.user
+  const following = await User.findOne({ username: req.params.username })
+
+  if (!following) {
+    return res.status(404).json({
+      error: 'No user found'
+    })
+  }
+
+  if (user.username === following.username) {
+    return res.status(404).json({
+      error: "You can't follow yourself!"
+    })
+  }
+
+  const entry = await Following.findOne({ user, following })
+
+  // Toggle following user
+  // If entry already exists, remove it
+  // Otherwise create it
+  if (entry) {
+    await Following.findByIdAndRemove(entry._id)
+    return res.status(200).json({ msg: 'Deleted' })
+  } else {
+    try {
+      await new Following({
+        user,
+        following
+      }).save()
+      return res.status(201).json({ msg: 'Created' })
+    } catch (err) {
+      return next(err)
+    }
+  }
 }

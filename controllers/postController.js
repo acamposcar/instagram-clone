@@ -1,6 +1,7 @@
 const Post = require('../models/post')
-const Comment = require('../models/comment')
 const Like = require('../models/like')
+const Saved = require('../models/saved')
+const Comment = require('../models/comment')
 const validationMiddleware = require('../middleware/validation')
 const { uploadImage } = require('../config/multer')
 
@@ -15,16 +16,32 @@ exports.getAllPosts = async (req, res, next) => {
       populate: {
         path: 'author'
       }
-    }).populate({
-      path: 'likes',
-      options: { sort: { createdAt: -1 } },
-      populate: {
-        path: 'author'
+    }).lean()
+    const likes = await Like.find().populate('likedBy')
+    const saved = await Saved.find().populate('user')
+
+    // Insert likes and saved posts inside each post
+    const updatedPosts = posts.map(post => {
+      const postLikes = []
+      for (const like of likes) {
+        if (post._id.toString() === like.post._id.toString()) {
+          postLikes.push(like)
+        }
       }
+      post.likes = postLikes
+      const savedPosts = []
+      for (const save of saved) {
+        if (post._id.toString() === save.post._id.toString()) {
+          savedPosts.push(save)
+        }
+      }
+      post.saved = savedPosts
+      return post
     })
+
     return res.status(200).json({
       count: posts.length,
-      posts
+      posts: updatedPosts
     })
   } catch (err) {
     return next(err)
@@ -70,18 +87,21 @@ exports.getPost = async (req, res, next) => {
       populate: {
         path: 'author'
       }
-    }).populate({
-      path: 'likes',
-      options: { sort: { createdAt: -1 } },
-      populate: {
-        path: 'author'
-      }
-    })
+    }).lean()
+
     if (!post) {
       return res.status(404).json({
         error: 'No post found'
       })
     }
+
+    const likes = await Like.find({ post }).populate('likedBy')
+    const saved = await Saved.find({ post }).populate('user')
+
+    // Insert likes and saved inside each post
+    post.likes = likes
+    post.saved = saved
+
     return res.status(200).json(post)
   } catch (err) {
     if (err.name === 'CastError') {
@@ -119,35 +139,70 @@ exports.deletePost = [
   }
 ]
 
-// @desc    Update post
-// @route   PUT /api/v1/posts/:postId
-// @access  Private
-exports.updatePost = [
-  uploadImage,
-  validationMiddleware.post(),
-  validationMiddleware.validationResult,
+// @desc    Toggle like in one post
+// @route   POST /api/v1/post/:postId/like
+// @access  Public
+exports.toggleLikePost = async (req, res, next) => {
+  const user = req.user
+  const post = await Post.findById(req.params.postId)
 
-  async (req, res, next) => {
-    const post = {
-      title: req.body.title,
-      content: req.body.content,
-      published: req.body.published === 'true',
-      summary: req.body.summary
-    }
-    if (req.file) post.image = req.file.filename
+  if (!post) {
+    return res.status(404).json({
+      error: 'No post found'
+    })
+  }
 
+  const entry = await Like.findOne({ user, post })
+
+  // Toggle like
+  // If entry already exists, remove it
+  // Otherwise create it
+  if (entry) {
+    await Like.findByIdAndRemove(entry._id)
+    return res.status(200).json({ msg: 'Deleted' })
+  } else {
     try {
-      // Update post
-      const updatedPost = await Post.findByIdAndUpdate(req.params.postId, post, { new: true })
-      if (!updatedPost) {
-        return res.status(404).json({
-          error: 'No post found'
-        })
-      }
-      return res.status(200).json(updatedPost)
+      await new Like({
+        likedBy: user,
+        post
+      }).save()
+      return res.status(201).json({ msg: 'Created' })
     } catch (err) {
       return next(err)
     }
   }
+}
 
-]
+// @desc    Toggle saved post
+// @route   POST /api/v1/post/:postId/save
+// @access  Public
+exports.toggleSavePost = async (req, res, next) => {
+  const user = req.user
+  const post = await Post.findById(req.params.postId)
+
+  if (!post) {
+    return res.status(404).json({
+      error: 'No post found'
+    })
+  }
+
+  const entry = await Saved.findOne({ user, post })
+
+  // Toggle saved post
+  // If entry already exists, remove it
+  // Otherwise create it
+  if (entry) {
+    await Saved.findByIdAndRemove(entry._id)
+    return res.status(200).json({ msg: 'Deleted' })
+  } else {
+    try {
+      await new Saved({
+        user,
+        post
+      }).save()
+      return res.status(201).json({ msg: 'Created' })
+    } catch (err) {
+      return next(err)
+    }
+  }
+}

@@ -9,10 +9,16 @@ const PostSchema = new Schema(
     location: { type: String },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     image: { type: String, required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-    likes: [{ type: Schema.Types.ObjectId, ref: 'User', unique: true }]
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
   }, { timestamps: true }
 )
+
+PostSchema.pre('deleteMany', function (next) {
+  this.model('Like').deleteMany({ post: this._id })
+  this.model('Comment').deleteMany({ post: this._id })
+  this.model('Saved').deleteMany({ post: this._id })
+  next()
+})
 
 PostSchema
   .virtual('formatDate')
