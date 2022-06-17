@@ -1,7 +1,6 @@
 const Post = require('../models/post')
 const Like = require('../models/like')
 const Saved = require('../models/saved')
-const Comment = require('../models/comment')
 const validationMiddleware = require('../middleware/validation')
 const { uploadImage } = require('../config/multer')
 

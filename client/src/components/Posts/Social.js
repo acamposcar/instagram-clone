@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useState, useCallback } from 'react'
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg'
-import { ReactComponent as SaveIconOutline } from '../../assets/icons/saveOutline.svg'
 import LikedBy from './LikedBy'
 import LikePost from './LikePost'
 import useAuth from '../../hooks/useAuth'

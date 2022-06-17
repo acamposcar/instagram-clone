@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TabPanel, Box, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
+import { TabPanel, Box } from '@chakra-ui/react'
 import Header from '../components/Profile/Header'
 import GridPosts from '../components/GridPosts/GridPosts'
 import TabsNav from '../components/Profile/TabsNav'

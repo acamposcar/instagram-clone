@@ -54,7 +54,7 @@ const CreatePostForm = ({ closeModal }) => {
     <Flex as='form' onSubmit={handleSubmit} flexDirection={{ base: 'column', md: 'row' }}>
       <Flex maxWidth='500px' minWidth='300px' minHeight='100px' justifyContent='center' alignItems='center'>
         <ImageForm handleFileSelection={handleFileSelection} file={file}>
-          <Image borderRadius={{ md: '0px 0px 0px 8px', base: 'none' }} maxHeight='450px' minHeight='350px' objectFit='cover' backgroundColor='black' objectPosition='center' src={file.preview} alt='' />}
+          <Image borderRadius={{ md: '0px 0px 0px 8px', base: 'none' }} maxHeight='450px' minHeight='350px' objectFit='cover' backgroundColor='black' objectPosition='center' src={file.preview} alt='' />
         </ImageForm>
       </Flex>
       <Flex p={2} alignItems='center' flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} px={5} justifyContent='space-between'>

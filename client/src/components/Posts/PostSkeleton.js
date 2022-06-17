@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, SkeletonCircle, Skeleton, SkeletonText, VStack, Flex } from '@chakra-ui/react'
-import Social from './Social'
 import CommentForm from './CommentForm'
 import Card from '../Card'
 
