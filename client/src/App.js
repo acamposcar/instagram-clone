@@ -40,6 +40,8 @@ const App = () => {
             <RequireAuth>
               <Header />
               <PostDetail />
+              <MobileNavbar />
+
             </RequireAuth>
           }
         />
@@ -48,6 +50,8 @@ const App = () => {
             <RequireAuth>
               <Header />
               <Profile />
+              <MobileNavbar />
+
             </RequireAuth>
           }
         />
@@ -56,6 +60,8 @@ const App = () => {
             <RequireAuth>
               <Header />
               <Explore />
+              <MobileNavbar />
+
             </RequireAuth>
           }
         />
