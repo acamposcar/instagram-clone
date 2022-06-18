@@ -74,7 +74,7 @@ const Header = () => {
                     <Avatar size='sm' name={authCtx.user.username} src={`${authCtx.user.avatar}`} />
                   </MenuButton>
                   <MenuList padding={0} boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2)'>
-                    <MenuItem><Link color='black' display='flex' gap={1} alignItems='center' as={NavLink} to={`/accounts/${authCtx.user.username}`} _hover={{ color: 'inherit', textDecoration: 'none' }}><IoMdPerson />Profile</Link></MenuItem>
+                    <MenuItem as={NavLink} to={`/accounts/${authCtx.user.username}`} display='flex' gap={1} alignItems='center' _hover={{ textDecoration: 'none' }}><IoMdPerson />Profile</MenuItem>
                     <MenuItem onClick={logoutHandler} display='flex' gap={1} alignItems='center'><IoMdLogOut />Log Out</MenuItem>
                   </MenuList>
                 </Menu>
