@@ -79,22 +79,26 @@ exports.addPost = [
 // @route   GET /api/v1/post/:postId
 // @access  Public
 exports.getPost = async (req, res, next) => {
+  const postId = req.params.postId
   let post
   let likes
   let saved
   try {
     await Promise.all([
       (async () => {
-        post = await Post.findById(req.params.postId).populate('author').populate({
+        post = await Post.findById(postId).populate('author').populate({
           path: 'comments',
           options: { sort: { createdAt: -1 } },
           populate: {
             path: 'author'
           }
         }).lean()
-
-        likes = await Like.find({ post }).populate('user')
-        saved = await Saved.find({ post }).populate('user')
+      })(),
+      (async () => {
+        likes = await Like.find({ post: postId }).populate('user')
+      })(),
+      (async () => {
+        saved = await Saved.find({ post: postId }).populate('user')
       })()
     ])
 
