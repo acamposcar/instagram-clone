@@ -16,7 +16,7 @@ exports.getAllPosts = async (req, res, next) => {
         path: 'author'
       }
     }).lean()
-    const likes = await Like.find().populate('likedBy')
+    const likes = await Like.find().populate('user')
     const saved = await Saved.find().populate('user')
 
     // Insert likes and saved posts inside each post
@@ -94,7 +94,7 @@ exports.getPost = async (req, res, next) => {
       })
     }
 
-    const likes = await Like.find({ post }).populate('likedBy')
+    const likes = await Like.find({ post }).populate('user')
     const saved = await Saved.find({ post }).populate('user')
 
     // Insert likes and saved inside each post
@@ -158,7 +158,7 @@ exports.toggleLikePost = async (req, res, next) => {
     })
   }
 
-  const entry = await Like.findOne({ likedBy: user, post })
+  const entry = await Like.findOne({ user, post })
 
   // Toggle like
   // If entry already exists, remove it
@@ -169,7 +169,7 @@ exports.toggleLikePost = async (req, res, next) => {
   } else {
     try {
       await new Like({
-        likedBy: user,
+        user,
         post
       }).save()
       return res.status(201).json({ msg: 'Created' })

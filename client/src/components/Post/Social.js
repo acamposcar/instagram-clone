@@ -14,12 +14,12 @@ const Social = ({ postId, likes, saved }) => {
 
   const authCtx = useAuth()
 
-  const [isLiked, setIsLiked] = useState(!!likes.find(like => like.likedBy.username === authCtx.user.username))
+  const [isLiked, setIsLiked] = useState(!!likes.find(like => like.user.username === authCtx.user.username))
 
   const handleLike = useCallback(() => {
     // Add auth user to likes list
     setLikesState(prevState => {
-      return [...prevState, { likedBy: authCtx.user }]
+      return [...prevState, { user: authCtx.user }]
     })
     setIsLiked(true)
   }, [authCtx.user])
@@ -27,7 +27,7 @@ const Social = ({ postId, likes, saved }) => {
   const handleUnlike = useCallback(() => {
     // Remove auth user from likes list
     setLikesState(prevState => {
-      return prevState.filter(like => like.likedBy.username !== authCtx.user.username)
+      return prevState.filter(like => like.user.username !== authCtx.user.username)
     })
     setIsLiked(false)
   }, [authCtx.user])

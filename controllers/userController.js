@@ -18,7 +18,7 @@ exports.getProfile = async (req, res, next) => {
     }
     const following = await Following.find({ user }).populate('following').sort({ createdAt: -1 })
     const followers = await Following.find({ following: user }).populate('user').sort({ createdAt: -1 })
-    const likes = await Like.find().populate('likedBy')
+    const likes = await Like.find().populate('user')
 
     const savedPosts = await Saved.find({ user }).populate('post').sort({ createdAt: -1 }).lean()
     const posts = await Post.find({ author: user }).populate('author').sort({ createdAt: -1 }).lean()
