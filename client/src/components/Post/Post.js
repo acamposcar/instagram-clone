@@ -8,7 +8,7 @@ import CommentForm from './CommentForm'
 import Card from '../Card'
 import DateFormat from './DateFormat'
 import RouterLink from '../RouterLink'
-const Posts = ({ post }) => {
+const Post = ({ post }) => {
   const [comments, setComments] = useState(post.comments)
 
   const handleAddComment = useCallback((comment) => {
@@ -37,4 +37,4 @@ const Posts = ({ post }) => {
   )
 }
 
-export default Posts
+export default Post

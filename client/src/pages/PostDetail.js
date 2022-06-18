@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Flex, Image, Box, Alert, AlertIcon, AlertTitle, Text } from '@chakra-ui/react'
 import Card from '../components/Card'
-import Social from '../components/Posts/Social'
-import DateFormat from '../components/Posts/DateFormat'
-import Comments from '../components/Posts/Comments'
-import CommentForm from '../components/Posts/CommentForm'
-import Header from '../components/Posts/Header'
+import Social from '../components/Post/Social'
+import DateFormat from '../components/Post/DateFormat'
+import Comments from '../components/Post/Comments'
+import CommentForm from '../components/Post/CommentForm'
+import Header from '../components/Post/Header'
 import useHttp from '../hooks/useHttp'
 import { getPost } from '../lib/api'
 import { useParams } from 'react-router-dom'
 import AlertError from '../components/AlertError'
-import PostSkeleton from '../components/Posts/PostSkeleton'
+import PostSkeleton from '../components/Post/PostSkeleton'
 import useAuth from '../hooks/useAuth'
 
 const PostDetail = () => {
@@ -32,7 +32,7 @@ const PostDetail = () => {
     if (success) setComments(post.comments)
   }, [success, post])
 
-  if (loading) return <PostSkeleton />
+  if (loading || !authCtx.user) return <PostSkeleton />
 
   if (error) {
     return (

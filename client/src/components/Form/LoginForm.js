@@ -7,8 +7,8 @@ import loginHandler from '../../utils/loginHandler'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './UI/PasswordInput'
-import UsernameInput from './UI/UsernameInput'
-
+import TextInput from './UI/TextInput'
+import { validators } from '../../utils/validators'
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors: formErrors } } = useForm()
 
@@ -46,8 +46,8 @@ const LoginForm = () => {
   return (
     <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
       <VStack gap={2}>
-        <UsernameInput register={register} errors={formErrors} focus />
-        <PasswordInput register={register} errors={formErrors} />
+        <TextInput fieldName='username' register={register} focus validators={validators.username} errors={formErrors.username} />
+        <PasswordInput register={register} validators={validators.password} errors={formErrors.password} />
         <Button isLoading={loading} type='submit' w='100%'>Log In</Button>
       </VStack>
     </Box>

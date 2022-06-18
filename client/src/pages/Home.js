@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { VStack, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
-import Posts from '../components/Posts/Posts'
+import Post from '../components/Post/Post'
 import AlertError from '../components/AlertError'
-import PostSkeleton from '../components/Posts/PostSkeleton'
+import PostSkeleton from '../components/Post/PostSkeleton'
 import useHttp from '../hooks/useHttp'
 import useAuth from '../hooks/useAuth'
 import { getPosts } from '../lib/api'
@@ -35,7 +35,7 @@ const Home = () => {
   return (
 
     <VStack fontSize='sm' my={8} gap={8} as='main' justifyContent='center' maxWidth='550px' mx='auto' px={1}>
-      {posts.map(post => <Posts key={post._id} post={post} />)}
+      {posts.map(post => <Post key={post._id} post={post} />)}
     </VStack>
 
   )

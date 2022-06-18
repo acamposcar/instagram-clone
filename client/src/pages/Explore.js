@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Box, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import GridPosts from '../components/GridPosts/GridPosts'
-import PostSkeleton from '../components/Posts/PostSkeleton'
+import PostSkeleton from '../components/Post/PostSkeleton'
 import useHttp from '../hooks/useHttp'
 import useAuth from '../hooks/useAuth'
 import { getPosts } from '../lib/api'

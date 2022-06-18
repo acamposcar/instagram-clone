@@ -63,6 +63,7 @@ export async function getUserPosts ({ token, username }) {
   const user = {
     username: data.user.username,
     name: data.user.name,
+    bio: data.user.bio,
     avatar: `/uploads/avatar/${data.user.avatar}`
   }
   const following = data.following
@@ -117,6 +118,23 @@ export async function getPost ({ token, postId }) {
 
   }
   return post
+}
+
+export async function deletePost ({ token, postId }) {
+  const response = await fetch(`${API_URL}/posts/${postId}/`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not like the post.')
+  }
+
+  return null
 }
 
 export async function followUnfollow ({ token, username }) {
@@ -192,4 +210,22 @@ export async function addComment ({ token, postId, content }) {
     }
   }
   return comment
+}
+
+export async function updateProfile ({ token, username, profileData }) {
+  const response = await fetch(`${API_URL}/users/${username}/`, {
+    method: 'PUT',
+    body: JSON.stringify(profileData),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not like the post.')
+  }
+
+  return data
 }

@@ -44,7 +44,6 @@ exports.getProfile = async (req, res, next) => {
       savedPost.post.likes = postLikes
       return savedPost.post
     })
-    console.log(posts)
     return res.status(200).json({
       count: posts.length,
       posts: updatedPosts,
@@ -94,15 +93,16 @@ exports.updateAvatar = [
 // @route   PUT /api/v1/users/:username
 // @access  Public
 exports.updateProfile = [
-  uploadAvatar,
   async (req, res, next) => {
+    if (req.user.username !== req.params.username) {
+      return res.status(403).json({
+        error: 'Forbidden'
+      })
+    }
     const user = {
       name: req.body.name,
-      username: req.body.username
+      bio: req.body.bio
     }
-
-    if (req.file) user.avatar = req.file.filename
-
     try {
       const updatedUser = await User.findByIdAndUpdate(req.user._id, user, { new: true })
       if (!updatedUser) {
@@ -110,6 +110,8 @@ exports.updateProfile = [
           error: 'No user found'
         })
       }
+      console.log(updatedUser)
+
       return res.status(200).json(updatedUser)
     } catch (err) {
       return next(err)
@@ -131,7 +133,7 @@ exports.followUser = async (req, res, next) => {
   }
 
   if (user.username === following.username) {
-    return res.status(404).json({
+    return res.status(400).json({
       error: "You can't follow yourself!"
     })
   }

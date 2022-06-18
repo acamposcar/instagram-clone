@@ -7,8 +7,8 @@ import loginHandler from '../../utils/loginHandler'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './UI/PasswordInput'
-import UsernameInput from './UI/UsernameInput'
-import NameInput from './UI/NameInput'
+import TextInput from './UI/TextInput'
+import { validators } from '../../utils/validators'
 
 const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors: formErrors } } = useForm()
@@ -51,9 +51,9 @@ const RegisterForm = () => {
         <Text as='h2' textAlign='center' color='gray'>
           Sign up to see photos and videos from your friends.
         </Text>
-        <NameInput register={register} errors={formErrors} />
-        <UsernameInput register={register} errors={formErrors} />
-        <PasswordInput register={register} errors={formErrors} />
+        <TextInput fieldName='name' register={register} validators={validators.name} errors={formErrors.name} focus />
+        <TextInput fieldName='username' register={register} validators={validators.username} errors={formErrors.username} />
+        <PasswordInput autocomplete='new-password' register={register} validators={validators.password} errors={formErrors.password} />
         <Button isLoading={loading} type='submit' w='100%'>Log In</Button>
       </VStack>
       <Text fontSize={13} as='p' textAlign='center' color='gray'>

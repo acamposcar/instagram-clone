@@ -2,12 +2,12 @@
 import React, { useState } from 'react'
 import { FormControl, Input, FormLabel, FormErrorMessage, InputGroup, InputRightElement, Button } from '@chakra-ui/react'
 
-const PasswordInput = ({ register, errors }) => {
+const PasswordInput = ({ register, errors, validators, autoComplete = 'current-password' }) => {
   const [showPassword, setShowPassword] = useState(false)
   const handleShowPassword = () => setShowPassword(!showPassword)
 
   return (
-    <FormControl variant='floating' isInvalid={errors.password}>
+    <FormControl variant='floating' isInvalid={errors}>
       <InputGroup size='md'>
         <Input
           id='password'
@@ -17,12 +17,8 @@ const PasswordInput = ({ register, errors }) => {
           type={showPassword ? 'text' : 'password'}
           placeholder=' '
           name='password'
-          autoComplete='current-password'
-          {...register('password', {
-            required: 'Password is required',
-            minLength: { value: 4, message: 'Minimum length should be 4' },
-            maxLength: { value: 50, message: 'Minimum length should be 50' }
-          })}
+          autoComplete={autoComplete}
+          {...register('password', validators)}
         />
         <FormLabel htmlFor='password' color='grey' fontWeight={400} fontSize={15}>Password</FormLabel>
         <InputRightElement width='4.5rem'>
@@ -32,7 +28,7 @@ const PasswordInput = ({ register, errors }) => {
         </InputRightElement>
       </InputGroup>
       <FormErrorMessage>
-        {errors.password && errors.password.message}
+        {errors && errors.message}
       </FormErrorMessage>
     </FormControl>
 

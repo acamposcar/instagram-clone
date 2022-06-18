@@ -118,12 +118,19 @@ exports.getPost = async (req, res, next) => {
 exports.deletePost = [
   async (req, res, next) => {
     try {
-      const post = await Post.findByIdAndRemove(req.params.postId)
+      const post = await Post.findById(req.params.postId).populate('author')
       if (!post) {
         return res.status(404).json({
           error: 'No post found'
         })
       }
+      if (req.user._id.toString() !== post.author._id.toString()) {
+        return res.status(403).json({
+          error: 'Forbidden'
+        })
+      }
+      await Post.findByIdAndRemove(req.params.postId)
+
       return res.status(200).json({
         data: {}
       })
@@ -151,7 +158,7 @@ exports.toggleLikePost = async (req, res, next) => {
     })
   }
 
-  const entry = await Like.findOne({ user, post })
+  const entry = await Like.findOne({ likedBy: user, post })
 
   // Toggle like
   // If entry already exists, remove it

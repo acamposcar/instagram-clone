@@ -7,7 +7,8 @@ const AuthContext = React.createContext({
   user: {},
   isLoggedIn: false,
   login: (token, expirationTime, user) => { },
-  logout: () => { }
+  logout: () => { },
+  updateUser: (updatedUser) => { }
 })
 
 const calculateRemainingTime = (expirationTime) => {
@@ -55,6 +56,12 @@ export const AuthContextProvider = (props) => {
     if (logoutTimer) {
       clearTimeout(logoutTimer)
     }
+  }, [])
+
+  const updateUserHandler = useCallback((updatedUser) => {
+    setUser(prevState => {
+      return { ...prevState, ...updatedUser }
+    })
   }, [])
 
   const loginHandler = (token, expirationTime, user) => {
@@ -109,7 +116,8 @@ export const AuthContextProvider = (props) => {
     user,
     isLoggedIn,
     login: loginHandler,
-    logout: logoutHandler
+    logout: logoutHandler,
+    updateUser: updateUserHandler
   }
 
   return (
