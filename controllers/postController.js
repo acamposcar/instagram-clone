@@ -93,12 +93,6 @@ exports.getPost = async (req, res, next) => {
             path: 'author'
           }
         }).lean()
-      })(),
-      (async () => {
-        likes = await Like.find({ post: postId }).populate('user')
-      })(),
-      (async () => {
-        saved = await Saved.find({ post: postId }).populate('user')
       })()
     ])
 
