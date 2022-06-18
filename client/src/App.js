@@ -17,7 +17,7 @@ import PostDetail from './pages/PostDetail'
 import Explore from './pages/Explore'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import MobileNavbar from './components/MobileNavbar'
 const App = () => {
   return (
     <ChakraProvider theme={theme} resetCSS>
@@ -31,6 +31,7 @@ const App = () => {
               <Header />
 
               <Home />
+              <MobileNavbar />
             </RequireAuth>
           }
         />

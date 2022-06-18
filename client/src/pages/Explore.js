@@ -33,7 +33,7 @@ const Explore = () => {
     )
   }
   return (
-    <Box fontSize='sm' my={8} as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
+    <Box fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
       {/* Sort posts randomly */}
       <GridPosts alternateSpan posts={posts} />
     </Box>

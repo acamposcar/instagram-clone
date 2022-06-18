@@ -34,7 +34,7 @@ const Home = () => {
 
   return (
 
-    <VStack fontSize='sm' my={8} gap={8} as='main' justifyContent='center' maxWidth='550px' mx='auto' px={1}>
+    <VStack fontSize='sm' marginTop={8} marginBottom='100px' gap={8} as='main' justifyContent='center' maxWidth='550px' mx='auto' px={1}>
       {posts.map(post => <Post key={post._id} post={post} />)}
     </VStack>
 

@@ -50,7 +50,7 @@ const PostDetail = () => {
   }
 
   return (
-    <Flex fontSize='sm' my={8} as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
+    <Flex fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
       <Card width='auto'>
         <Flex flexDirection={{ base: 'column', md: 'row' }}>
           <Box maxWidth='550px'>

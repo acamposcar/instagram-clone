@@ -34,7 +34,7 @@ const Profile = () => {
   const following = data.following
 
   return (
-    <Box fontSize='sm' my={8} as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
+    <Box fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
       <Header postsCount={posts.length} user={user} initialFollowers={followers} following={following} />
       <TabsNav>
         <TabPanel>
