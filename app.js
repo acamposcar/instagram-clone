@@ -37,9 +37,9 @@ app.use('/api/v1/users', isAuth, userRouter)
 app.use('/api/v1/posts', isAuth, postRouter)
 app.use('/api/v1/auth', authRouter)
 
-// app.use('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-// })
+app.use('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
