@@ -1,4 +1,4 @@
-const API_URL = '/api/v1/'
+const API_URL = '/api/v1'
 
 function transformPosts (data) {
   const posts = []
@@ -7,9 +7,9 @@ function transformPosts (data) {
     const likes = post.likes.map(like => {
       return {
         ...like,
-        likedBy: {
-          ...like.likedBy,
-          avatar: `/uploads/avatar/${like.likedBy.avatar}`
+        user: {
+          ...like.user,
+          avatar: `/uploads/avatar/${like.user.avatar}`
         }
       }
     })
@@ -36,8 +36,9 @@ export async function getPosts (token) {
       Authorization: `Bearer ${token}`
     }
   })
-  const data = await response.json()
+  console.log(response)
 
+  const data = await response.json()
   if (!response.ok) {
     throw new Error(data.error || 'Could not fetch posts.')
   }
@@ -87,9 +88,9 @@ export async function getPost ({ token, postId }) {
   const likes = data.likes.map(like => {
     return {
       ...like,
-      likedBy: {
-        ...like.likedBy,
-        avatar: `/uploads/avatar/${like.likedBy.avatar}`
+      user: {
+        ...like.user,
+        avatar: `/uploads/avatar/${like.user.avatar}`
       }
     }
   })

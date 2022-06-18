@@ -38,7 +38,7 @@ UserSchema.pre('findOneAndRemove', function (next) {
   Following.deleteMany({ following: id }, next)
   Comment.deleteMany({ author: id }, next)
   Post.deleteMany({ author: id }, next)
-  Like.deleteMany({ likedBy: id }, next)
+  Like.deleteMany({ user: id }, next)
   Saved.deleteMany({ user: id }, next)
 })
 
