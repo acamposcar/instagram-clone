@@ -8,7 +8,7 @@ const MobileNavbar = () => {
   if (breakpoint === 'desktop') return <></>
   return (
 
-    <Flex as='nav' position='fixed' left={0} bottom={0} width='100%' bgColor='white' p={4} justifyContent='center' borderTop='1px solid var(--borderColor)'>
+    <Flex as='nav' position='fixed' left={0} bottom={0} width='100%' bgColor='white' p={4} borderTop='1px solid var(--borderColor)'>
       <Nav />
     </Flex>
 

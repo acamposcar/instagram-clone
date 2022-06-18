@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Box, HStack, Avatar,
+  Box, Flex, Avatar,
   Menu,
   MenuButton,
   MenuList,
@@ -23,7 +23,7 @@ const Nav = () => {
     authCtx.logout()
   }
   return (
-    <HStack as='ul' listStyleType='none' gap={4}>
+    <Flex as='ul' flex={1} listStyleType='none' gap={4} alignItems='center' justifyContent='space-around'>
       <Box as='li'>
         <NavLink to='/'>
           {({ isActive }) => (
@@ -62,7 +62,7 @@ const Nav = () => {
             </MenuList>
           </Menu>
         </Box>}
-    </HStack>
+    </Flex>
 
   )
 }
