@@ -11,17 +11,32 @@ const { uploadAvatar } = require('../config/multer')
 exports.getProfile = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.params.username })
+
     if (!user) {
       return res.status(400).json({
         error: 'User not found'
       })
     }
-    const following = await Following.find({ user }).populate('following').sort({ createdAt: -1 })
-    const followers = await Following.find({ following: user }).populate('user').sort({ createdAt: -1 })
-    const likes = await Like.find().populate('user')
+    let posts, following, followers, likes, savedPosts
 
-    const savedPosts = await Saved.find({ user }).populate('post').sort({ createdAt: -1 }).lean()
-    const posts = await Post.find({ author: user }).populate('author').sort({ createdAt: -1 }).lean()
+    await Promise.all([
+      (async () => {
+        following = await Following.find({ user }).populate('following').sort({ createdAt: -1 })
+      })(),
+      (async () => {
+        likes = await Like.find().populate('user')
+      })(),
+      (async () => {
+        followers = await Following.find({ following: user }).populate('user').sort({ createdAt: -1 })
+      })(),
+      (async () => {
+        savedPosts = await Saved.find({ user }).populate('post').sort({ createdAt: -1 }).lean()
+      })(),
+      (async () => {
+        posts = await Post.find({ author: user }).populate('author').sort({ createdAt: -1 }).lean()
+      })()
+
+    ])
 
     // Insert likes and saved posts inside each post
     const updatedPosts = posts.map(post => {
@@ -110,8 +125,6 @@ exports.updateProfile = [
           error: 'No user found'
         })
       }
-      console.log(updatedUser)
-
       return res.status(200).json(updatedUser)
     } catch (err) {
       return next(err)
@@ -123,38 +136,39 @@ exports.updateProfile = [
 // @route   POST /api/v1/users/:username/follow
 // @access  Public
 exports.followUser = async (req, res, next) => {
-  const user = req.user
-  const following = await User.findOne({ username: req.params.username })
+  try {
+    const user = req.user
 
-  if (!following) {
-    return res.status(404).json({
-      error: 'No user found'
-    })
-  }
+    const following = await User.findOne({ username: req.params.username })
 
-  if (user.username === following.username) {
-    return res.status(400).json({
-      error: "You can't follow yourself!"
-    })
-  }
+    if (!following) {
+      return res.status(404).json({
+        error: 'No user found'
+      })
+    }
 
-  const entry = await Following.findOne({ user, following })
+    if (user.username === following.username) {
+      return res.status(400).json({
+        error: "You can't follow yourself!"
+      })
+    }
 
-  // Toggle following user
-  // If entry already exists, remove it
-  // Otherwise create it
-  if (entry) {
-    await Following.findByIdAndRemove(entry._id)
-    return res.status(200).json({ msg: 'Deleted' })
-  } else {
-    try {
+    const entry = await Following.findOne({ user, following })
+
+    // Toggle following user
+    // If entry already exists, remove it
+    // Otherwise create it
+    if (entry) {
+      await Following.findByIdAndRemove(entry._id)
+      return res.status(200).json({ msg: 'Deleted' })
+    } else {
       await new Following({
         user,
         following
       }).save()
       return res.status(201).json({ msg: 'Created' })
-    } catch (err) {
-      return next(err)
     }
+  } catch (err) {
+    return next(err)
   }
 }
