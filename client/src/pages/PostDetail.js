@@ -54,8 +54,7 @@ const PostDetail = () => {
       <Card width='auto'>
         <Flex flexDirection={{ base: 'column', md: 'row' }}>
           <Box maxWidth='550px'>
-            <Image borderRadius={{ md: '8px 0px 0px 8px', base: '8px 8px 0px 0px' }} minHeight='620px' height='100%' objectFit='cover' backgroundColor='black' objectPosition='center' src={post.image} alt='' />
-
+            <Image borderRadius={{ md: '8px 0px 0px 8px', base: '8px 8px 0px 0px' }} minHeight={{ md: '600px', base: '300px' }} maxHeight='750px' height='100%' objectFit='cover' backgroundColor='black' objectPosition='center' src={post.image} alt='' />
           </Box>
           <Flex flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} minWidth='280px' px={5} justifyContent='space-between'>
             <Box>
