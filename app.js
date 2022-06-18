@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const passport = require('passport')
 const connectDB = require('./config/db')
+const compression = require('compression')
+require('./config/passport')
 
 const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
@@ -18,12 +20,8 @@ const app = express()
 
 connectDB()
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'))
-// app.set('view engine', 'ejs')
+app.use(compression())
 
-// Passport configuration
-require('./config/passport')
 app.use(passport.initialize())
 
 app.use(logger('dev'))
