@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
-
+const Saved = require('./saved')
+const Like = require('./like')
+const Comment = require('./comment')
+const Following = require('./following')
+const Post = require('./post')
 const { Schema } = mongoose
 
 const UserSchema = new Schema(
@@ -28,14 +32,14 @@ UserSchema
     }
   })
 
-UserSchema.pre('deleteMany', function (next) {
-  this.model('Following').deleteMany({ user: this._id })
-  this.model('Following').deleteMany({ following: this._id })
-  this.model('Comments').deleteMany({ author: this._id })
-  this.model('Post').deleteMany({ author: this._id })
-  this.model('Like').deleteMany({ likedBy: this._id })
-  this.model('Saved').deleteMany({ user: this._id })
-  next()
+UserSchema.pre('findOneAndRemove', function (next) {
+  const id = this.getQuery()._id
+  Following.deleteMany({ user: id }, next)
+  Following.deleteMany({ following: id }, next)
+  Comment.deleteMany({ author: id }, next)
+  Post.deleteMany({ author: id }, next)
+  Like.deleteMany({ likedBy: id }, next)
+  Saved.deleteMany({ user: id }, next)
 })
 
 // Export model
