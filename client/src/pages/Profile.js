@@ -37,10 +37,10 @@ const Profile = () => {
     <Box fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
       <Header postsCount={posts.length} user={user} initialFollowers={followers} following={following} />
       <TabsNav>
-        <TabPanel>
+        <TabPanel p={0} my={5}>
           <GridPosts posts={posts} />
         </TabPanel>
-        <TabPanel>
+        <TabPanel p={0} my={5}>
           <GridPosts posts={saved} />
         </TabPanel>
       </TabsNav>

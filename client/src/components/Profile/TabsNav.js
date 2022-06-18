@@ -13,7 +13,7 @@ const TabsNav = (props) => {
 
   return (
     <Tabs width='100%' isLazy marginTop={{ md: '35px', base: '0' }}>
-      <TabList justifyContent='center' gap={7}>
+      <TabList justifyContent='center' gap={7} backgroundColor={{ md: 'transparent', base: 'white' }}>
         {breakpoint === 'desktop' &&
           <>
             <CustomTabDesktop>
@@ -36,7 +36,9 @@ const TabsNav = (props) => {
           </>}
       </TabList>
       <TabPanels>
+
         {props.children}
+
       </TabPanels>
     </Tabs>
   )
