@@ -67,8 +67,24 @@ export async function getUserPosts ({ token, username }) {
     bio: data.user.bio,
     avatar: `/uploads/avatar/${data.user.avatar}`
   }
-  const following = data.following
-  const followers = data.followers
+  const following = data.following.map(follow => {
+    return {
+      ...follow,
+      following: {
+        ...follow.following,
+        avatar: `/uploads/avatar/${follow.following.avatar}`
+      }
+    }
+  })
+  const followers = data.followers.map(follow => {
+    return {
+      ...follow,
+      user: {
+        ...follow.user,
+        avatar: `/uploads/avatar/${follow.user.avatar}`
+      }
+    }
+  })
 
   return { posts, user, following, followers, saved }
 }
