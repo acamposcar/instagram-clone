@@ -58,8 +58,8 @@ const HeaderDetail = ({ user, location, avatarSize = 'sm', postId }) => {
         </Link>
         <Box>
           <Link color='inherit' as={RouterLink} to={`/accounts/${user.username}`}>
-            <Box fontWeight='500' fontSize='18px'>{user.name}</Box>
-            <Box fontWeight='400' fontSize='15px'>{user.username}</Box>
+            <Box fontWeight='500' fontSize='18px'>{user.username}</Box>
+            <Box fontWeight='400' fontSize='15px'>{user.name}</Box>
           </Link>
           {location && location !== '' && <Text fontSize='13px' color='var(--textSecondary)'>{location}</Text>}
         </Box>
