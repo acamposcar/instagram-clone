@@ -68,7 +68,7 @@ const Header = ({ postsCount, user, initialFollowers, following }) => {
           </Flex>
           {breakpoint === 'desktop' &&
             <>
-              <CountDesktop postsCount={postsCount} followersCount={followers.length} followingCount={following.length} />
+              <CountDesktop postsCount={postsCount} followers={followers} following={following} />
               <Text as='div' fontWeight='500'>{userState.name}</Text>
               <Text as='div' fontSize={15}>{userState.bio}</Text>
             </>}
@@ -76,11 +76,11 @@ const Header = ({ postsCount, user, initialFollowers, following }) => {
       </Flex>
       {breakpoint !== 'desktop' &&
         <>
-          <Flex p={5} alignItems='center' flexDirection='column'>
+          <Flex p={1} alignItems='center' flexDirection='column'>
             <Text as='div' fontWeight='500'>{userState.name}</Text>
             <Text as='div'>{userState.bio}</Text>
           </Flex>
-          <CountMobile postsCount={postsCount} followersCount={followers.length} followingCount={following.length} />
+          <CountMobile postsCount={postsCount} followers={followers} following={following} />
         </>}
     </>
   )
