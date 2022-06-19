@@ -1,50 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { TabPanel, Box } from '@chakra-ui/react'
+import React from 'react'
+import { TabPanel, Container } from '@chakra-ui/react'
 import Header from '../components/Profile/Header'
 import GridPosts from '../components/GridPosts/GridPosts'
 import TabsNav from '../components/Profile/TabsNav'
 import { useParams } from 'react-router-dom'
-import useHttp from '../hooks/useHttp'
 import useAuth from '../hooks/useAuth'
 import { getUserPosts } from '../lib/api'
 import PostSkeleton from '../components/Post/PostSkeleton'
-import AlertError from '../components/AlertError'
+import { useQuery } from 'react-query'
+import CustomAlert from '../components/CustomAlert'
 
 const Profile = () => {
-  const { username } = useParams()
-  const { sendRequest, loading, data, success, error } = useHttp(getUserPosts, true)
   const authCtx = useAuth()
+  const { username } = useParams()
 
-  useEffect(() => {
-    sendRequest({ token: authCtx.token, username })
-  }, [sendRequest, username, authCtx.token])
+  const { isError, data, error } = useQuery(['profile', username], () => getUserPosts({ token: authCtx.token, username }))
 
-  if (error) {
+  if (data) {
     return (
-      <AlertError error={error} />
+      <>
+        <Header postsCount={data.posts.length} user={data.user} followers={data.followers} following={data.following} />
+        <TabsNav>
+          <TabPanel p={0} my={{ md: 5, base: 1 }}>
+            <GridPosts posts={data.posts} />
+          </TabPanel>
+          <TabPanel p={0} my={{ md: 5, base: 1 }}>
+            <GridPosts posts={data.saved} />
+          </TabPanel>
+        </TabsNav>
+      </>
     )
   }
 
-  if (loading || !authCtx.user) return <PostSkeleton />
-
-  const user = data.user
-  const posts = data.posts
-  const saved = data.saved
-  const followers = data.followers
-  const following = data.following
+  if (isError) {
+    return <CustomAlert status='error' title='Fetch error!' message={error.message} />
+  }
 
   return (
-    <Box fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
-      <Header postsCount={posts.length} user={user} initialFollowers={followers} following={following} />
-      <TabsNav>
-        <TabPanel p={0} my={{ md: 5, base: 1 }}>
-          <GridPosts posts={posts} />
-        </TabPanel>
-        <TabPanel p={0} my={{ md: 5, base: 1 }}>
-          <GridPosts posts={saved} />
-        </TabPanel>
-      </TabsNav>
-    </Box>
+    // Loading
+    <Container>
+      <PostSkeleton />
+    </Container>
   )
 }
 

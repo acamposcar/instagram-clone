@@ -8,7 +8,7 @@ import CommentForm from '../components/Post/CommentForm'
 import useHttp from '../hooks/useHttp'
 import { getPost } from '../lib/api'
 import { useParams } from 'react-router-dom'
-import AlertError from '../components/AlertError'
+import AlertError from '../components/CustomAlert'
 import PostSkeleton from '../components/Post/PostSkeleton'
 import useAuth from '../hooks/useAuth'
 import HeaderDetail from '../components/Post/HeaderDetail'
@@ -50,7 +50,7 @@ const PostDetail = () => {
   }
 
   return (
-    <Flex fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
+    <Flex justifyContent='center'>
       <Card width='auto'>
         <Flex flexDirection={{ base: 'column', md: 'row' }}>
           <Box maxWidth='550px'>

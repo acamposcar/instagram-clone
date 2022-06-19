@@ -1,42 +1,38 @@
-import React, { useEffect } from 'react'
-import { Box, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
+import React from 'react'
+import { Container, Box } from '@chakra-ui/react'
 import GridPosts from '../components/GridPosts/GridPosts'
 import PostSkeleton from '../components/Post/PostSkeleton'
-import useHttp from '../hooks/useHttp'
 import useAuth from '../hooks/useAuth'
 import { getPosts } from '../lib/api'
-import AlertError from '../components/AlertError'
+import CustomAlert from '../components/CustomAlert'
+import { useQuery } from 'react-query'
 
 const Explore = () => {
-  const { sendRequest, loading, data: posts, error } = useHttp(getPosts, true)
-
   const authCtx = useAuth()
 
-  useEffect(() => {
-    sendRequest(authCtx.token)
-  }, [sendRequest, authCtx.token])
+  const { isError, data: posts, error } = useQuery('explorePosts', () => getPosts(authCtx.token))
 
-  if (loading || !authCtx.user) return <PostSkeleton />
-
-  if (error) {
+  if (posts && posts.length > 0) {
     return (
-      <AlertError error={error} />
+      <Box width='100%'>
+        <GridPosts alternateSpan posts={posts} />
+      </Box>
     )
   }
 
-  if (posts.length === 0) {
-    return (
-      <Alert marginY={6} status='warning' variant='left-accent'>
-        <AlertIcon />
-        <AlertTitle>No posts found</AlertTitle>
-      </Alert>
-    )
+  if (posts && posts.length === 0) {
+    return <CustomAlert status='warning' title='No post found' message='No post found in the server' />
   }
+
+  if (isError) {
+    return <CustomAlert status='error' title='Fetch error!' message={error.message} />
+  }
+
   return (
-    <Box fontSize='sm' marginTop={8} marginBottom='100px' as='main' justifyContent='center' maxWidth='935px' mx='auto' px={1}>
-      {/* Sort posts randomly */}
-      <GridPosts alternateSpan posts={posts} />
-    </Box>
+    // Loading
+    <Container gap={8}>
+      <PostSkeleton />
+    </Container>
   )
 }
 
