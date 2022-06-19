@@ -3,8 +3,8 @@ import {
   Box, Flex, Image, InputGroup, Input, InputLeftElement
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import logo from '../assets/logo.png'
-import { ReactComponent as Search } from '../assets/icons/search.svg'
+import logo from '../../assets/logo.png'
+import { ReactComponent as Search } from '../../assets/icons/search.svg'
 import Nav from './Nav'
 const Header = () => {
   return (

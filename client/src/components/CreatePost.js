@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, useDisclosure } from '@chakra-ui/react'
 import { ReactComponent as PlusOutlineIcon } from '../assets/icons/plusOutline.svg'
-import CreatePostForm from '../components/Form/CreatePostForm'
-import CustomModal from '../components/CustomModal'
+import CreatePostForm from './Form/CreatePostForm'
+import CustomModal from './CustomModal'
 
 const CreatePost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

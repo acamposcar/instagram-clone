@@ -11,14 +11,12 @@ exports.addComment = [
 
   async (req, res, next) => {
     try {
-      console.log(req.body.content)
       const comment = await new Comment({
         content: req.body.content,
         author: req.user._id
       }).populate('author')
       comment.save()
       // Add comment to post
-      console.log(comment)
       const updatedPost = await Post.findByIdAndUpdate(req.params.postId, { $push: { comments: comment } }, { new: true })
 
       if (!updatedPost) {

@@ -36,12 +36,12 @@ export async function getPosts (token) {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(response)
+
+  if (!response.ok) {
+    throw new Error(response.statusText || 'Could not fetch posts.')
+  }
 
   const data = await response.json()
-  if (!response.ok) {
-    throw new Error(data.error || 'Could not fetch posts.')
-  }
 
   const posts = transformPosts(data.posts)
   return posts
@@ -54,6 +54,7 @@ export async function getUserPosts ({ token, username }) {
     }
   })
   const data = await response.json()
+
   if (!response.ok) {
     throw new Error(data.error || 'Could not fetch posts.')
   }
@@ -154,7 +155,7 @@ export async function deletePost ({ token, postId }) {
   return null
 }
 
-export async function followUnfollow ({ token, username }) {
+export async function toggleFollow ({ token, username }) {
   const response = await fetch(`${API_URL}/users/${username}/follow`, {
     method: 'POST',
     headers: {
@@ -168,7 +169,7 @@ export async function followUnfollow ({ token, username }) {
     throw new Error(data.error || 'Could not follow the user.')
   }
 
-  return null
+  return data
 }
 
 export async function toggleLikePost ({ token, postId }) {

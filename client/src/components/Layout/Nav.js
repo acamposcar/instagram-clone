@@ -7,14 +7,14 @@ import {
   MenuItem
 } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
-import { ReactComponent as HomeFill } from '../assets/icons/homeFill.svg'
-import { ReactComponent as HomeOutline } from '../assets/icons/homeOutline.svg'
-import { ReactComponent as HeartOutline } from '../assets/icons/heartOutline.svg'
-import { ReactComponent as ExploreFill } from '../assets/icons/exploreFill.svg'
-import { ReactComponent as ExploreOutline } from '../assets/icons/exploreOutline.svg'
-import CreatePost from '../pages/CreatePost'
+import { ReactComponent as HomeFill } from '../../assets/icons/homeFill.svg'
+import { ReactComponent as HomeOutline } from '../../assets/icons/homeOutline.svg'
+import { ReactComponent as HeartOutline } from '../../assets/icons/heartOutline.svg'
+import { ReactComponent as ExploreFill } from '../../assets/icons/exploreFill.svg'
+import { ReactComponent as ExploreOutline } from '../../assets/icons/exploreOutline.svg'
+import CreatePost from '../CreatePost'
 import { IoMdLogOut, IoMdPerson } from 'react-icons/io'
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 
 const Nav = () => {
   const authCtx = useAuth()

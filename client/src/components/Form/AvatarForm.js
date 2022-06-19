@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
 import useFetch from '../../hooks/useFetch'
-import AlertError from '../AlertError'
+import AlertError from '../CustomAlert'
 import ImageForm from './ImageForm'
 import { toast } from 'react-toastify'
 

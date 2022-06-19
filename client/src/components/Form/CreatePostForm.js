@@ -11,7 +11,7 @@ import {
 import useAuth from '../../hooks/useAuth'
 import useFetch from '../../hooks/useFetch'
 import { useNavigate } from 'react-router-dom'
-import AlertError from '../AlertError'
+import AlertError from '../CustomAlert'
 import ImageForm from './ImageForm'
 
 const CreatePostForm = ({ closeModal }) => {

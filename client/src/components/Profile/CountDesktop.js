@@ -7,7 +7,6 @@ import CustomModal from '../CustomModal'
 const CountDesktop = ({ postsCount, followers, following }) => {
   const { isOpen: isOpenFollowers, onOpen: onOpenFollowers, onClose: onCloseFollowers } = useDisclosure()
   const { isOpen: isOpenFollowing, onOpen: onOpenFollowing, onClose: onCloseFollowing } = useDisclosure()
-  console.log(following)
   return (
     <>
       <CustomModal isOpen={isOpenFollowers} onClose={onCloseFollowers} title='Followers'>

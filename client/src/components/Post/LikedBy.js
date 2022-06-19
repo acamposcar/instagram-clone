@@ -9,7 +9,6 @@ const LikedBy = ({ likes }) => {
   if (likes.length === 0) return (<></>)
 
   const othersLikes = likes.length > 1 ? <> and <Text as='span' fontWeight={500}>{likes.length - 1} others</Text></> : <></>
-  console.log(likes[0])
   return (
     <>
       <CustomModal isOpen={isOpen} onClose={onClose} title='Likes'>

@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Header from './components/Header'
 import Home from './pages/Home'
 import theme from './theme'
 import '@fontsource/roboto/300.css'
@@ -12,62 +11,68 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import RequireAuth from './components/Auth/RequireAuth'
+import RequireNotAuth from './components/Auth/RequireNotAuth'
 import Profile from './pages/Profile'
 import PostDetail from './pages/PostDetail'
 import Explore from './pages/Explore'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import MobileNavbar from './components/MobileNavbar'
+import { QueryClient, QueryClientProvider, QueryCache } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import Layout from './components/Layout/Layout'
+import NotFound from './pages/NotFound'
+
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error, query) => {
+      // show error for background refetches
+      if (query.state.data !== undefined) {
+        toast.error(`Something went wrong: ${error.message}`)
+      }
+    }
+  })
+})
+
 const App = () => {
   return (
     <ChakraProvider theme={theme} resetCSS>
-      <ToastContainer />
-      <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route
-          path='/' element={
-            <RequireAuth>
-              <Header />
+      <QueryClientProvider client={queryClient}>
 
-              <Home />
-              <MobileNavbar />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path='/posts/:postId' element={
-            <RequireAuth>
-              <Header />
-              <PostDetail />
-              <MobileNavbar />
+        <ToastContainer />
 
-            </RequireAuth>
-          }
-        />
-        <Route
-          path='/accounts/:username' element={
-            <RequireAuth>
-              <Header />
-              <Profile />
-              <MobileNavbar />
+        <Routes>
+          <Route
+            path='/login' element={
+              <RequireNotAuth>
+                <Login />
+              </RequireNotAuth>
+            }
+          />
+          <Route
+            path='/register' element={
+              <RequireNotAuth>
+                <Register />
+              </RequireNotAuth>
+            }
+          />
+          <Route
+            path='/' element={
+              <RequireAuth>
+                <Layout />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path='/posts/:postId' element={<PostDetail />} />
+            <Route path='/accounts/:username' element={<Profile />} />
+            <Route path='/explore' element={<Explore />} />
+            <Route path='/*' element={<NotFound />} />
+          </Route>
+        </Routes>
+        <ReactQueryDevtools initialIsOpen={false} />
 
-            </RequireAuth>
-          }
-        />
-        <Route
-          path='/explore' element={
-            <RequireAuth>
-              <Header />
-              <Explore />
-              <MobileNavbar />
-
-            </RequireAuth>
-          }
-        />
-      </Routes>
-
-      {/* <ColorModeSwitcher justifySelf='flex-end' /> */}
+        {/* <ColorModeSwitcher justifySelf='flex-end' /> */}
+      </QueryClientProvider>
 
     </ChakraProvider>
 

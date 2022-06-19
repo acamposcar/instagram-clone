@@ -17,7 +17,7 @@ const Post = ({ post }) => {
 
   return (
 
-    <Card width='100%' key={post._id}>
+    <Card key={post._id}>
       <Header user={post.author} location={post.location} postId={post._id} />
       <Box>
         <RouterLink to={`/posts/${post._id}`}>

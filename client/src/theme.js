@@ -70,7 +70,6 @@ const theme = extendTheme({
         colorScheme: 'blue'
       }
     },
-
     Link: {
       variants: {
         primary: ({ colorScheme = 'blue' }) => ({

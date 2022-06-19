@@ -3,7 +3,6 @@ import React from 'react'
 import { FormControl, Input, FormLabel, FormErrorMessage } from '@chakra-ui/react'
 
 const TextInput = ({ register, errors, fieldName, validators, ...restOfProps }) => {
-  console.log(validators)
   return (
     <FormControl variant='floating' isInvalid={errors}>
       <Input
