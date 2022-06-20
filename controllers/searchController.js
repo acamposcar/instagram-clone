@@ -9,7 +9,7 @@ exports.search = [
   async (req, res, next) => {
     if (req.body.query === '') return res.status(200).json([])
     // Starts with...
-    const query = new RegExp('^' + req.body.query)
+    const query = new RegExp('^' + req.body.query, 'i')
 
     try {
       const user = await User.find({ username: query }).lean()
