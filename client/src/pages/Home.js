@@ -6,7 +6,6 @@ import useAuth from '../hooks/useAuth'
 import { getPosts } from '../lib/api'
 import { useQuery } from 'react-query'
 import CustomSpinner from '../components/CustomSpinner'
-
 const Home = () => {
   const authCtx = useAuth()
 
@@ -14,7 +13,7 @@ const Home = () => {
 
   if (posts && posts.length > 0) {
     return (
-      <Container maxWidth='550px' p={0}>
+      <Container maxWidth='570px' p={0}>
         <VStack gap={8}>
           {posts.map(post => <HomePost key={post._id} post={post} />)}
         </VStack>
