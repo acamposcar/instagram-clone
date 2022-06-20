@@ -13,6 +13,7 @@ require('./config/passport')
 const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
 const authRouter = require('./routes/auth')
+const searchRouter = require('./routes/search')
 
 const isAuth = require('./middleware/auth').isAuth
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.use('/api/v1/users', isAuth, userRouter)
 app.use('/api/v1/posts', isAuth, postRouter)
+app.use('/api/v1/search', isAuth, searchRouter)
 app.use('/api/v1/auth', authRouter)
 
 app.use('/*', (req, res) => {
@@ -51,7 +53,6 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
-  console.log(err)
   res.status(err.status || 500)
   res.json({
     error: 'Server Error',

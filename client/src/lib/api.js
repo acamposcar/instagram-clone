@@ -330,3 +330,28 @@ export async function updateAvatar ({ formData, token }) {
 
   return data
 }
+
+export async function search ({ token, query }) {
+  const response = await fetch(`${API_URL}/search/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      query
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not search the user.')
+  }
+
+  const users = data.map(user => {
+    return { user: { ...user, avatar: `/uploads/avatar/${user.avatar}` } }
+  })
+
+  return users
+}

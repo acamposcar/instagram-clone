@@ -51,3 +51,7 @@ exports.post = () => [
 exports.comment = () => [
   body('content', 'Content must not be empty').trim().isLength({ min: 1 })
 ]
+
+exports.searchQuery = () => [
+  body('query').trim()
+]
