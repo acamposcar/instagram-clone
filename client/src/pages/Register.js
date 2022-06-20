@@ -6,7 +6,7 @@ import LogoCard from '../components/LogoCard'
 import RegisterLoginLayout from '../components/RegisterLoginLayout'
 const Register = () => {
   return (
-    <Box fontSize='sm' marginTop='min(60px, 9vh)' display='flex' justifyContent='center'>
+    <Box fontSize='sm' marginTop='min(60px, 9vh)' marginBottom='100px' display='flex' justifyContent='center'>
       <RegisterLoginLayout>
         <LogoCard>
           <RegisterForm />

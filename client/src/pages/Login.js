@@ -14,12 +14,12 @@ const Login = () => {
   useEffect(() => {
     const opacityInterval = setInterval(() => {
       setOpacity(prevState => prevState === 0 ? 1 : 0)
-    }, 5000)
+    }, 4000)
     return () => clearInterval(opacityInterval)
   }, [])
 
   return (
-    <Box fontSize='sm' marginTop='min(100px, 10vh)' display='flex' justifyContent='center'>
+    <Box fontSize='sm' marginTop='min(100px, 10vh)' marginBottom='100px' display='flex' justifyContent='center'>
 
       <Box display={{ lg: 'block', base: 'none' }} position='relative'>
         <Image position='absolute' top={7} left={155} src={screenshotHome} alt='' />
