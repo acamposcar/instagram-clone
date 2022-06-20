@@ -7,7 +7,7 @@ const { uploadAvatar } = require('../config/multer')
 
 // @desc    Get user posts and information
 // @route   GET /api/v1/users/:username
-// @access  Public
+// @access  Users
 exports.getProfile = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.params.username })
@@ -74,7 +74,7 @@ exports.getProfile = async (req, res, next) => {
 
 // @desc    Update user profile image
 // @route   POST /api/v1/users/:username
-// @access  Public
+// @access  Users
 exports.updateAvatar = [
   uploadAvatar,
   async (req, res, next) => {
@@ -106,7 +106,7 @@ exports.updateAvatar = [
 
 // @desc    Update user profile info
 // @route   PUT /api/v1/users/:username
-// @access  Public
+// @access  Users
 exports.updateProfile = [
   async (req, res, next) => {
     if (req.user.username !== req.params.username) {
@@ -134,7 +134,7 @@ exports.updateProfile = [
 
 // @desc    Update user profile info
 // @route   POST /api/v1/users/:username/follow
-// @access  Public
+// @access  Users
 exports.followUser = async (req, res, next) => {
   try {
     const user = req.user
