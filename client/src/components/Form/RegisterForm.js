@@ -45,9 +45,9 @@ const RegisterForm = () => {
         <TextInput fieldName='name' register={register} validators={validators.name} errors={formErrors.name} focus />
         <TextInput fieldName='username' register={register} validators={validators.username} errors={formErrors.username} />
         <PasswordInput autocomplete='new-password' register={register} validators={validators.password} errors={formErrors.password} />
-        <Button isLoading={isLoading} type='submit' w='100%'>Log In</Button>
+        <Button isLoading={isLoading} type='submit' w='100%'>Sign Up</Button>
       </VStack>
-      <Text fontSize={13} as='p' textAlign='center' color='gray'>
+      <Text fontSize={13} as='p' textAlign='center' color='gray' my={3}>
         People who use our service may have uploaded your contact information to Instagram
       </Text>
       <Text fontSize={13} as='p' textAlign='center' color='gray'>

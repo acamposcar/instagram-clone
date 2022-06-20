@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react'
-import { Image, AspectRatio, Box, Flex, Text, Center } from '@chakra-ui/react'
+import { Image, AspectRatio, Box, Flex, Text, Center, Skeleton } from '@chakra-ui/react'
 import { ReactComponent as HeartIcon } from '../../assets/icons/profile/heart.svg'
 import { FaComment } from 'react-icons/fa'
 import RouterLink from '../RouterLink'
+
 const BoxImage = ({ index = 1, postId, image, commentsCount, likesCount, alternateSpan }) => {
   const [showCount, setShowCount] = useState(false)
 
@@ -13,7 +14,7 @@ const BoxImage = ({ index = 1, postId, image, commentsCount, likesCount, alterna
       <RouterLink to={`/posts/${postId}`}>
         <AspectRatio ratio={1} onMouseEnter={() => setShowCount(true)} onMouseLeave={() => setShowCount(false)}>
           <Box position='relative'>
-            <Image width='100%' height='100%' objectFit='cover' src={image} />
+            <Image fallback={<Skeleton width='100%' height='400px' />} width='100%' height='100%' objectFit='cover' src={image} />
             {showCount &&
               <Center position='absolute' inset={0} width='100%' height='100%' backgroundColor='rgba(0, 0, 0, 0.3)' color='white'>
                 <Flex flexWrap='wrap' justifyContent='center' gap={10} margin='auto 0' flex={1}>

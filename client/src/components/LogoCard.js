@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, VStack, Image } from '@chakra-ui/react'
 import logo from '../assets/logo.png'
-
 const LogoCard = (props) => {
   return (
     <Box py={7} px={10} display='flex' justifyContent='center' backgroundColor='white' border='solid thin #DBDBDB' width='100%'>

@@ -17,7 +17,7 @@ const LikedBy = ({ likes }) => {
 
       <Flex my={2} gap={2} px={5} alignItems='center'>
         <RouterLink to={`/accounts/${likes[0].user.username}`}>
-          <Avatar size='xs' name={likes[0].user.username} src={`${likes[0].user.avatar}`} />
+          <Avatar size='xs' src={`${likes[0].user.avatar}`} />
         </RouterLink>
         <Box fontSize='14px'>Liked by
           {' '}

@@ -9,7 +9,7 @@ import CustomSpinner from '../components/CustomSpinner'
 const Explore = () => {
   const authCtx = useAuth()
 
-  const { isError, data: posts, error } = useQuery('explorePosts', () => getPosts(authCtx.token))
+  const { isError, data: posts, error } = useQuery('explorePosts', () => getPosts({ token: authCtx.token, allPosts: true }))
 
   if (posts && posts.length > 0) {
     return (

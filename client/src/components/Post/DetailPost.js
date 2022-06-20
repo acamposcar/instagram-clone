@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box, Image, Text } from '@chakra-ui/react'
+import { Flex, Box, Image, Text, Skeleton } from '@chakra-ui/react'
 import Card from '../Card'
 import Social from '../Post/Common/Social'
 import DateFormat from '../Post/Common/DateFormat'
@@ -13,7 +13,7 @@ const DetailPost = ({ post }) => {
       <Card width='auto'>
         <Flex flexDirection={{ base: 'column', md: 'row' }}>
           <Box maxWidth='550px'>
-            <Image borderRadius={{ md: '8px 0px 0px 8px', base: '8px 8px 0px 0px' }} minHeight={{ md: '600px', base: '350px' }} maxHeight='750px' height='100%' objectFit='cover' backgroundColor='black' objectPosition='center' src={post.image} alt='' />
+            <Image fallback={<Skeleton width='100%' height='400px' />} borderRadius={{ md: '8px 0px 0px 8px', base: '8px 8px 0px 0px' }} minHeight={{ md: '600px', base: '350px' }} maxHeight='750px' height='100%' objectFit='cover' backgroundColor='black' objectPosition='center' src={post.image} alt='' />
           </Box>
           <Flex flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} minWidth='280px' px={2} justifyContent='space-between'>
             <Box>

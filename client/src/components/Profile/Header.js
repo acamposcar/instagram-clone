@@ -21,10 +21,10 @@ const Header = ({ postsCount, user, followers, following }) => {
             {isOwnProfile && <AvatarForm closeModal={onClose} />}
             {!isOwnProfile &&
               <Flex justifyContent='center' my={5}>
-                <Avatar boxSize={{ md: '350px', base: '250px' }} name={user.name} src={user.avatar} />
+                <Avatar boxSize={{ md: '350px', base: '250px' }} src={user.avatar} />
               </Flex>}
           </CustomModal>
-          <Avatar onClick={onOpen} boxSize={{ md: '150px', base: '77px' }} name={user.name} src={user.avatar} />
+          <Avatar onClick={onOpen} boxSize={{ md: '150px', base: '77px' }} src={user.avatar} />
         </Box>
         <Box>
           <Flex alignItems='center' justifyContent='space-between' gap={3} flexWrap='wrap'>

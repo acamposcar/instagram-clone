@@ -41,7 +41,7 @@ const AvatarForm = ({ closeModal }) => {
   return (
     <Flex as='form' onSubmit={handleSubmit} flexDirection='column' alignItems='center' justifyContent='center' my={5}>
       <ImageForm handleFileSelection={handleFileSelection} file={file}>
-        <Avatar height='200px' width='200px' src={file.preview} alt='' />
+        <Avatar boxSize='200px' src={file.preview} alt='' />
       </ImageForm>
       <Button isLoading={isLoading} marginTop={5} variant='ghost' fontSize={16} type='submit'>Save</Button>
     </Flex>

@@ -19,7 +19,7 @@ const Comments = ({ postId, comments, commentsCount, showViewAll = true, showAva
       {comments.map(comment => {
         return (
           <Flex key={comment._id} gap={2} marginBottom={marginBottom} alignItems='flex-start'>
-            {showAvatar && <Link to={`/accounts/${comment.author.username}`}><Avatar size='xs' name={comment.author.username} src={comment.author.avatar} marginTop={1} /></Link>}
+            {showAvatar && <Link to={`/accounts/${comment.author.username}`}><Avatar size='xs' src={comment.author.avatar} marginTop={1} /></Link>}
             <Box>
               <Content content={comment.content} username={comment.author.username} maxWords={15} />
               {showAvatar && <DateFormat date={comment.createdAt} />}

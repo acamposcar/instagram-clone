@@ -8,7 +8,7 @@ const HomePostHeader = ({ user, location, avatarSize = 'sm', postId }) => {
     <Flex p={3} justifyContent='space-between' alignItems='center'>
       <Flex gap={3} alignItems='center'>
         <Link as={RouterLink} to={`/accounts/${user.username}`}>
-          <Avatar size={avatarSize} name={user.username} src={user.avatar} />
+          <Avatar size={avatarSize} src={user.avatar} />
         </Link>
         <Box>
           <Link color='inherit' as={RouterLink} to={`/accounts/${user.username}`}>

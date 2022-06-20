@@ -54,7 +54,7 @@ const Nav = () => {
         <Box as='li'>
           <Menu>
             <MenuButton>
-              <Avatar size='sm' name={authCtx.user.username} src={`${authCtx.user.avatar}`} />
+              <Avatar size='sm' src={`${authCtx.user.avatar}`} />
             </MenuButton>
             <MenuList padding={0} boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2)'>
               <MenuItem as={NavLink} to={`/accounts/${authCtx.user.username}`} display='flex' gap={1} alignItems='center' _hover={{ textDecoration: 'none' }}><IoMdPerson />Profile</MenuItem>

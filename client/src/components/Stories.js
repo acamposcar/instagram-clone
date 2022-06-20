@@ -10,26 +10,10 @@ const Stories = ({ stories }) => {
           return (
             <Box key={post._id} textAlign='center'>
               <Box position='relative'>
-                <Avatar position='absolute' top='-4px' left='-4px' width='65px' height='65px' name={post.author.username} backgroundColor='white' src='https://702pros.com/wp-content/uploads/2021/01/Instagram-Ring.png' />
-                <Avatar width='57px' height='57px' name={post.author.username} src={post.author.avatar} />
+                <Avatar position='absolute' top='-4px' left='-4px' width='65px' height='65px' src='https://702pros.com/wp-content/uploads/2021/01/Instagram-Ring.png' />
+                <Avatar boxSize='57px' src={post.author.avatar} />
               </Box>
               <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.author.username.slice(0, 9)}</Text>
-            </Box>
-          )
-        })}
-        {stories.map(post => {
-          return (
-            <Box key={post._id} textAlign='center'>
-              <Avatar width='55px' height='55px' name={post.author.username} src={post.author.avatar} />
-              <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.author.username.slice(0, 11)}</Text>
-            </Box>
-          )
-        })}
-        {stories.map(post => {
-          return (
-            <Box key={post._id} textAlign='center'>
-              <Avatar width='55px' height='55px' name={post.author.username} src={post.author.avatar} />
-              <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.author.username.slice(0, 11)}</Text>
             </Box>
           )
         })}

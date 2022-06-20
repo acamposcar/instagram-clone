@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Image } from '@chakra-ui/react'
+import { Box, Image, Skeleton } from '@chakra-ui/react'
 import HomePostHeader from './HomePostHeader'
 import Social from './Common/Social'
 import Content from './Common/Content'
@@ -8,6 +8,7 @@ import CommentForm from './Common/CommentForm'
 import Card from '../Card'
 import DateFormat from './Common/DateFormat'
 import RouterLink from '../RouterLink'
+
 const HomePost = ({ post }) => {
   return (
 
@@ -15,7 +16,7 @@ const HomePost = ({ post }) => {
       <HomePostHeader user={post.author} location={post.location} postId={post._id} />
       <Box>
         <RouterLink to={`/posts/${post._id}`}>
-          <Image maxHeight='520px' width='100%' objectFit='cover' objectPosition='center' src={post.image} alt='' />
+          <Image fallback={<Skeleton width='100%' height='400px' />} maxHeight='520px' width='100%' objectFit='cover' objectPosition='center' src={post.image} alt='' />
         </RouterLink>
       </Box>
       <Social postId={post._id} likes={post.likes} saved={post.saved} renderedFromHome />

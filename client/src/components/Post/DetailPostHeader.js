@@ -12,7 +12,7 @@ const DetailPostHeader = ({ user, location, avatarSize = 'sm', postId }) => {
       </Box>
       <Flex paddingBottom={5} gap={3} alignItems='center' justifyContent='center'>
         <Link as={RouterLink} to={`/accounts/${user.username}`}>
-          <Avatar size={avatarSize} name={user.username} src={user.avatar} />
+          <Avatar size={avatarSize} src={user.avatar} />
         </Link>
         <Box>
           <Link color='inherit' as={RouterLink} to={`/accounts/${user.username}`}>
