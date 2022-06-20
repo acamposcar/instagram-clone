@@ -69,7 +69,6 @@ const CreatePostForm = ({ closeModal }) => {
           <FormControl marginTop={10}>
             <Input ref={locationRef} aria-label='Add a location' fontSize={14} placeholder='Add a location' borderX='none' borderRadius={0} name='location' />
           </FormControl>
-
         </Box>
         <Button isLoading={isLoading} marginTop={5} variant='ghost' fontSize={16} type='submit'>Share</Button>
       </Flex>
