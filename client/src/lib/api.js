@@ -30,8 +30,16 @@ function transformPosts (data) {
 
   return posts
 }
-export async function getPosts (token) {
-  const response = await fetch(`${API_URL}/posts`, {
+export async function getPosts ({ token, allPosts }) {
+  let url
+
+  if (allPosts) {
+    url = `${API_URL}/posts`
+  } else {
+    url = `${API_URL}/posts/following`
+  }
+
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`
     }

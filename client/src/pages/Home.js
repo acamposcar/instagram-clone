@@ -9,7 +9,7 @@ import CustomSpinner from '../components/CustomSpinner'
 const Home = () => {
   const authCtx = useAuth()
 
-  const { isError, data: posts, error } = useQuery('homePosts', () => getPosts(authCtx.token))
+  const { isError, data: posts, error } = useQuery('homePosts', () => getPosts({ token: authCtx.token, allPosts: false }))
 
   if (posts && posts.length > 0) {
     return (
@@ -22,7 +22,7 @@ const Home = () => {
   }
 
   if (posts && posts.length === 0) {
-    return <CustomAlert status='warning' title='No post found' message='No post found in the server' />
+    return <CustomAlert status='warning' title='No post found' message='Follow some users to see their photos and posts' />
   }
 
   if (isError) {
