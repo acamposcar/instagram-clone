@@ -11,16 +11,14 @@ const Header = () => {
   return (
     <Flex as='header' backgroundColor='white' borderBottom='solid thin var(--borderColor)' height='55px' px={8} justifyContent='center'>
       <Flex flex={1} justifyContent={{ md: 'space-between', base: 'center' }} alignItems='center' maxWidth='900px'>
-        <Box>
-          <RouterLink to='/'><Image fallback={<Skeleton width='100%' height='400px' />} height={7} src={logo} alt='Instagram Logo' _active={{ filter: 'invert(50%)' }} /></RouterLink>
+        <Box flex={{ base: 1, md: 'none' }}>
+          <RouterLink to='/'><Image marginX='auto' fallback={<Skeleton width='100%' height='400px' />} height={7} src={logo} alt='Instagram Logo' _active={{ filter: 'invert(50%)' }} /></RouterLink>
         </Box>
+        <SearchBar />
         {isDesktop &&
-          <>
-            <SearchBar />
-            <Box as='nav'>
-              <Nav />
-            </Box>
-          </>}
+          <Box as='nav'>
+            <Nav />
+          </Box>}
       </Flex>
     </Flex>
   )
