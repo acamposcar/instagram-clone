@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { Container } from '@chakra-ui/react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import MobileNavbar from './MobileNavbar'
 import useAuth from '../../hooks/useAuth'
 import CustomSpinner from '../CustomSpinner'
+
 const Layout = () => {
   const authCtx = useAuth()
+  const location = useLocation()
+
+  useLayoutEffect(() => {
+    // Scroll to top position on page change
+    window.scrollTo(0, 0)
+  }, [location.pathname])
+
   return (
     <>
       <Header />
