@@ -1,15 +1,14 @@
 import React from 'react'
-import { TabPanel, Container } from '@chakra-ui/react'
+import { TabPanel } from '@chakra-ui/react'
 import Header from '../components/Profile/Header'
 import GridPosts from '../components/GridPosts/GridPosts'
 import TabsNav from '../components/Profile/TabsNav'
 import { useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import { getUserPosts } from '../lib/api'
-import PostSkeleton from '../components/Post/PostSkeleton'
 import { useQuery } from 'react-query'
 import CustomAlert from '../components/CustomAlert'
-
+import CustomSpinner from '../components/CustomSpinner'
 const Profile = () => {
   const authCtx = useAuth()
   const { username } = useParams()
@@ -38,9 +37,8 @@ const Profile = () => {
 
   return (
     // Loading
-    <Container>
-      <PostSkeleton />
-    </Container>
+    <CustomSpinner />
+
   )
 }
 

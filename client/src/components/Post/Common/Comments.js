@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex, Avatar } from '@chakra-ui/react'
 import Content from './Content'
-import RouterLink from '../RouterLink'
+import RouterLink from '../../RouterLink'
 import DateFormat from './DateFormat'
 import { Link } from 'react-router-dom'
 const Comments = ({ postId, comments, commentsCount, showViewAll = true, showAvatar = false }) => {

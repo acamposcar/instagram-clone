@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-toastify'
@@ -11,7 +11,7 @@ const ToggleFollow = ({ username, followers }) => {
   const queryClient = useQueryClient()
 
   // Check if auth user is in the followers list
-  const [isFollowingState, setIsFollowingState] = useState(!!followers.find(follower => follower.user.username === authCtx.user.username))
+  const isFollowing = !!followers.find(follower => follower.user.username === authCtx.user.username)
 
   const handleClick = () => {
     mutate({ token: authCtx.token, username })
@@ -24,11 +24,9 @@ const ToggleFollow = ({ username, followers }) => {
       await queryClient.cancelQueries(['profile', username])
 
       const previousProfile = queryClient.getQueryData(['profile', username])
-      const previousState = isFollowingState
 
       // Optimistically update to the new value
-      if (isFollowingState) {
-        setIsFollowingState(false)
+      if (isFollowing) {
         // Delete user from followers list
         queryClient.setQueryData(['profile', username], old => {
           return {
@@ -36,7 +34,6 @@ const ToggleFollow = ({ username, followers }) => {
           }
         })
       } else {
-        setIsFollowingState(true)
         // Add user to followers list
         queryClient.setQueryData(['profile', username], old => {
           return {
@@ -45,16 +42,14 @@ const ToggleFollow = ({ username, followers }) => {
         })
       }
       // Return a context object with the snapshotted value
-      return { previousProfile, previousState }
+      return { previousProfile }
     },
 
     // If the mutation fails, use the context returned from onMutate to roll back
     onError: (error, vars, context) => {
       toast.error(error.message)
-      setIsFollowingState(context.previousState)
       queryClient.setQueryData(['profile', username], context.previousProfile)
     },
-
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(['profile', username])
@@ -62,8 +57,8 @@ const ToggleFollow = ({ username, followers }) => {
   })
 
   const button = {
-    color: isFollowingState ? 'pink' : 'blue',
-    text: isFollowingState ? 'Unfollow' : 'Follow'
+    color: isFollowing ? 'pink' : 'blue',
+    text: isFollowing ? 'Unfollow' : 'Follow'
   }
 
   return (

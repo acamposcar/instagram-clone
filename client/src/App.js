@@ -1,6 +1,6 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -13,7 +13,7 @@ import '@fontsource/roboto/700.css'
 import RequireAuth from './components/Auth/RequireAuth'
 import RequireNotAuth from './components/Auth/RequireNotAuth'
 import Profile from './pages/Profile'
-import PostDetail from './pages/PostDetail'
+import PostPage from './pages/PostPage'
 import Explore from './pages/Explore'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -63,9 +63,10 @@ const App = () => {
             }
           >
             <Route index element={<Home />} />
-            <Route path='/posts/:postId' element={<PostDetail />} />
+            <Route path='/posts/:postId' element={<PostPage />} />
             <Route path='/accounts/:username' element={<Profile />} />
             <Route path='/explore' element={<Explore />} />
+            <Route path='/posts' element={<Navigate to='/' replace />} />
             <Route path='/*' element={<NotFound />} />
           </Route>
         </Routes>

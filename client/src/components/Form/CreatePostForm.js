@@ -9,38 +9,41 @@ import {
   Image
 } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
-import useFetch from '../../hooks/useFetch'
 import { useNavigate } from 'react-router-dom'
-import AlertError from '../CustomAlert'
 import ImageForm from './ImageForm'
+import { addPost } from '../../lib/api'
+import { useMutation } from 'react-query'
+import { toast } from 'react-toastify'
 
 const CreatePostForm = ({ closeModal }) => {
   const contentRef = useRef()
   const locationRef = useRef()
   const [file, setFile] = useState({ preview: undefined, data: undefined })
-  const { loading, sendRequest, error } = useFetch()
   const authCtx = useAuth()
   const navigate = useNavigate()
 
+  const { mutate, isLoading } = useMutation(addPost, {
+    onError: (error) => {
+      toast.error(error.message)
+      setFile({ preview: undefined, data: undefined })
+    },
+    onSuccess: (post) => {
+      closeModal()
+      navigate(`/posts/${post._id}`, { replace: false })
+    }
+  })
+
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    if (!file.data) {
+      toast.error('Select an image')
+      return
+    }
     const formData = new FormData()
     formData.append('image', file.data)
     formData.append('content', contentRef.current.value)
     formData.append('location', locationRef.current.value)
-
-    sendRequest({
-      url: '/api/v1/posts/',
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${authCtx.token}`
-      }
-    }, (post) => {
-      closeModal()
-      navigate(`/posts/${post._id}`, { replace: false })
-    })
+    mutate({ formData, token: authCtx.token })
   }
 
   const handleFileSelection = (e) => {
@@ -59,15 +62,15 @@ const CreatePostForm = ({ closeModal }) => {
       </Flex>
       <Flex p={2} alignItems='center' flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} px={5} justifyContent='space-between'>
         <Box width='100%' minWidth='200px'>
-          {error && <AlertError error={error} />}
-          <FormControl>
-            <Textarea rows={5} ref={contentRef} aria-label='Write a caption' fontSize={14} placeholder='Write a caption...' borderX='none' borderTop='none' borderRadius={0} name='caption' resize='none' />
-          </FormControl>
           <FormControl marginTop={5}>
-            <Input ref={locationRef} aria-label='Write a caption' fontSize={14} placeholder='Add a location' borderX='none' borderRadius={0} name='location' />
+            <Textarea rows={5} ref={contentRef} aria-label='Write a caption' fontSize={14} placeholder='Write a caption...' borderX='none' borderRadius={0} name='caption' resize='none' />
           </FormControl>
+          <FormControl marginTop={10}>
+            <Input ref={locationRef} aria-label='Add a location' fontSize={14} placeholder='Add a location' borderX='none' borderRadius={0} name='location' />
+          </FormControl>
+
         </Box>
-        <Button isLoading={loading} marginTop={5} variant='ghost' fontSize={16} type='submit'>Share</Button>
+        <Button isLoading={isLoading} marginTop={5} variant='ghost' fontSize={16} type='submit'>Share</Button>
       </Flex>
     </Flex>
 

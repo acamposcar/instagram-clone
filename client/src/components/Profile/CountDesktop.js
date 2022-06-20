@@ -10,10 +10,10 @@ const CountDesktop = ({ postsCount, followers, following }) => {
   return (
     <>
       <CustomModal isOpen={isOpenFollowers} onClose={onCloseFollowers} title='Followers'>
-        <UserList list={followers} />
+        <UserList list={followers} closeModal={onCloseFollowers} />
       </CustomModal>
       <CustomModal isOpen={isOpenFollowing} onClose={onCloseFollowing} title='Following'>
-        <UserList list={following} user='following' />
+        <UserList list={following} closeModal={onCloseFollowing} user='following' />
       </CustomModal>
       <Flex my={5} justifyContent='space-between' gap={7}>
         <Text><Box as='span' fontWeight='bold'>{postsCount}</Box> posts</Text>

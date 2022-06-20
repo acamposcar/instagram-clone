@@ -1,11 +1,11 @@
 import React from 'react'
 import { VStack, Container } from '@chakra-ui/react'
-import Post from '../components/Post/Post'
+import HomePost from '../components/Post/HomePost'
 import CustomAlert from '../components/CustomAlert'
-import PostSkeleton from '../components/Post/PostSkeleton'
 import useAuth from '../hooks/useAuth'
 import { getPosts } from '../lib/api'
 import { useQuery } from 'react-query'
+import CustomSpinner from '../components/CustomSpinner'
 
 const Home = () => {
   const authCtx = useAuth()
@@ -14,9 +14,9 @@ const Home = () => {
 
   if (posts && posts.length > 0) {
     return (
-      <Container maxWidth='550px'>
+      <Container maxWidth='550px' p={0}>
         <VStack gap={8}>
-          {posts.map(post => <Post key={post._id} post={post} />)}
+          {posts.map(post => <HomePost key={post._id} post={post} />)}
         </VStack>
       </Container>
     )
@@ -32,9 +32,8 @@ const Home = () => {
 
   return (
     // Loading
-    <Container gap={8} maxWidth='550px'>
-      <PostSkeleton />
-    </Container>
+    <CustomSpinner />
+
   )
 }
 

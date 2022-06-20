@@ -185,7 +185,7 @@ export async function toggleLikePost ({ token, postId }) {
     throw new Error(data.error || 'Could not like the post.')
   }
 
-  return null
+  return data
 }
 
 export async function toggleSavePost ({ token, postId }) {
@@ -204,6 +204,23 @@ export async function toggleSavePost ({ token, postId }) {
   return data
 }
 
+export async function addPost ({ token, formData }) {
+  const response = await fetch(`${API_URL}/posts/`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not create the post.')
+  }
+
+  return data
+}
+
 export async function addComment ({ token, postId, content }) {
   const response = await fetch(`${API_URL}/posts/${postId}/comments`, {
     method: 'POST',
@@ -216,7 +233,7 @@ export async function addComment ({ token, postId, content }) {
   const data = await response.json()
 
   if (!response.ok) {
-    throw new Error(data.error || 'Could not like the post.')
+    throw new Error(data.error || 'Could not create the comment.')
   }
   const comment = {
     ...data,
@@ -243,6 +260,64 @@ export async function updateProfile ({ token, username, profileData }) {
 
   if (!response.ok) {
     throw new Error(data.error || 'Could not like the post.')
+  }
+
+  return data
+}
+
+export async function registerUser (user) {
+  const response = await fetch(`${API_URL}/auth/register/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      username: user.username,
+      password: user.password,
+      name: user.name
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not register the user.')
+  }
+
+  return data
+}
+
+export async function loginUser (user) {
+  const response = await fetch(`${API_URL}/auth/login/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      username: user.username,
+      password: user.password
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not log in the user.')
+  }
+
+  return data
+}
+
+export async function updateAvatar ({ formData, token }) {
+  const response = await fetch(`${API_URL}/users/avatar/`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not update the avatar.')
   }
 
   return data

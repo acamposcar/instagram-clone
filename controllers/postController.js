@@ -102,7 +102,7 @@ exports.getPost = async (req, res, next) => {
         }).lean()
       })(),
       (async () => {
-        likes = await Like.find({ post: postId }).populate('user')
+        likes = await Like.find({ post: postId }).populate('user').sort({ createdAt: 1 })
       })(),
       (async () => {
         saved = await Saved.find({ post: postId }).populate('user')

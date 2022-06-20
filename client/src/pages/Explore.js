@@ -1,12 +1,11 @@
 import React from 'react'
-import { Container, Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import GridPosts from '../components/GridPosts/GridPosts'
-import PostSkeleton from '../components/Post/PostSkeleton'
 import useAuth from '../hooks/useAuth'
 import { getPosts } from '../lib/api'
 import CustomAlert from '../components/CustomAlert'
 import { useQuery } from 'react-query'
-
+import CustomSpinner from '../components/CustomSpinner'
 const Explore = () => {
   const authCtx = useAuth()
 
@@ -30,9 +29,8 @@ const Explore = () => {
 
   return (
     // Loading
-    <Container gap={8}>
-      <PostSkeleton />
-    </Container>
+    <CustomSpinner />
+
   )
 }
 

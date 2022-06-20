@@ -1,49 +1,40 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { VStack, Box, Button, Text } from '@chakra-ui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
-import useFetch from '../../hooks/useFetch'
 import loginHandler from '../../utils/loginHandler'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './UI/PasswordInput'
 import TextInput from './UI/TextInput'
 import { validators } from '../../utils/validators'
+import { useMutation } from 'react-query'
+import { registerUser } from '../../lib/api'
 
 const RegisterForm = () => {
+  const authCtx = useAuth()
+
   const { register, handleSubmit, formState: { errors: formErrors } } = useForm()
 
   const location = useLocation()
   const navigate = useNavigate()
 
-  const { loading, sendRequest, error } = useFetch()
-  const authCtx = useAuth()
-
   // Save the page they tried to visit when they were redirected
   // to the login page to redirect them after login
   const from = location.state?.from?.pathname || '/'
 
-  useEffect(() => {
-    toast.error(error)
-  }, [error])
-
   const onSubmit = (data) => {
-    const loginUser = (response) => {
-      loginHandler(response, navigate, from, authCtx)
-    }
-    sendRequest({
-      url: '/api/v1/auth/register',
-      method: 'POST',
-      body: JSON.stringify({
-        username: data.username,
-        password: data.password,
-        name: data.name
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, loginUser)
+    mutate(data)
   }
+
+  const { mutate, isLoading } = useMutation(registerUser, {
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    onSuccess: (data) => {
+      loginHandler(data, navigate, from, authCtx)
+    }
+  })
 
   return (
     <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
@@ -54,7 +45,7 @@ const RegisterForm = () => {
         <TextInput fieldName='name' register={register} validators={validators.name} errors={formErrors.name} focus />
         <TextInput fieldName='username' register={register} validators={validators.username} errors={formErrors.username} />
         <PasswordInput autocomplete='new-password' register={register} validators={validators.password} errors={formErrors.password} />
-        <Button isLoading={loading} type='submit' w='100%'>Log In</Button>
+        <Button isLoading={isLoading} type='submit' w='100%'>Log In</Button>
       </VStack>
       <Text fontSize={13} as='p' textAlign='center' color='gray'>
         People who use our service may have uploaded your contact information to Instagram

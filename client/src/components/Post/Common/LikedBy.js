@@ -1,8 +1,8 @@
 import React from 'react'
 import { Flex, Avatar, Text, Box, useDisclosure } from '@chakra-ui/react'
-import RouterLink from '../RouterLink'
-import CustomModal from '../CustomModal'
-import UserList from '../UserList'
+import RouterLink from '../../RouterLink'
+import CustomModal from '../../CustomModal'
+import UserList from '../../UserList'
 const LikedBy = ({ likes }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -12,7 +12,7 @@ const LikedBy = ({ likes }) => {
   return (
     <>
       <CustomModal isOpen={isOpen} onClose={onClose} title='Likes'>
-        <UserList list={likes} />
+        <UserList list={likes} closeModal={onClose} />
       </CustomModal>
 
       <Flex my={2} gap={2} px={5} alignItems='center'>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, SkeletonCircle, Skeleton, SkeletonText, Flex } from '@chakra-ui/react'
-import CommentForm from './CommentForm'
+import CommentForm from './Common/CommentForm'
 import Card from '../Card'
 
-const PostSkeleton = () => {
+const HomePostSkeleton = () => {
   return (
     <Card>
       <Flex p={3} gap={3}>
@@ -21,4 +21,4 @@ const PostSkeleton = () => {
   )
 }
 
-export default PostSkeleton
+export default HomePostSkeleton

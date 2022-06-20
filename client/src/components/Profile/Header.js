@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { Box, Avatar, Text, Button, Flex, useBreakpointValue, useDisclosure } from '@chakra-ui/react'
+import React from 'react'
+import { Box, Avatar, Text, Flex, useBreakpointValue, useDisclosure } from '@chakra-ui/react'
 import CountDesktop from './CountDesktop'
 import CountMobile from './CountMobile'
 import AvatarForm from '../Form/AvatarForm'
@@ -11,22 +11,20 @@ const Header = ({ postsCount, user, followers, following }) => {
   const breakpoint = useBreakpointValue({ md: 'desktop' })
   const { isOpen, onOpen, onClose } = useDisclosure()
   const authCtx = useAuth()
-  const isOwnProfile = authCtx.user?.username === user.username
-
-  const { updateUser } = authCtx
-
-  const handleAvatarUpdate = useCallback((filename) => {
-    updateUser({ avatar: `/uploads/avatar/${filename}` })
-  }, [updateUser])
-
+  const isOwnProfile = authCtx.user.username === user.username
+  const modalTitle = isOwnProfile ? 'Change profile photo' : 'Profile image'
   return (
     <>
       <Flex gap={{ md: '70px', base: '30px' }} fontSize={16} justifyContent='center' alignItems='center'>
         <Box as='button'>
-          <CustomModal isOpen={isOpen} onClose={onClose} title='Change profile photo'>
-            <AvatarForm closeModal={onClose} updateAvatar={handleAvatarUpdate} />
+          <CustomModal isOpen={isOpen} onClose={onClose} title={modalTitle}>
+            {isOwnProfile && <AvatarForm closeModal={onClose} />}
+            {!isOwnProfile &&
+              <Flex justifyContent='center' my={5}>
+                <Avatar boxSize={{ md: '350px', base: '250px' }} name={user.name} src={user.avatar} />
+              </Flex>}
           </CustomModal>
-          <Avatar onClick={onOpen} height={{ md: '150px', base: '77px' }} width={{ md: '150px', base: '77px' }} name={user.name} src={user.avatar} />
+          <Avatar onClick={onOpen} boxSize={{ md: '150px', base: '77px' }} name={user.name} src={user.avatar} />
         </Box>
         <Box>
           <Flex alignItems='center' justifyContent='space-between' gap={3} flexWrap='wrap'>

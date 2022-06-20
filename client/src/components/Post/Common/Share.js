@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input, Box, useDisclosure, Button, VStack } from '@chakra-ui/react'
-import CustomModal from '../CustomModal'
-import { ReactComponent as ShareIcon } from '../../assets/icons/share.svg'
+import CustomModal from '../../CustomModal'
+import { ReactComponent as ShareIcon } from '../../../assets/icons/share.svg'
 import { toast } from 'react-toastify'
 
 const Share = ({ postId }) => {

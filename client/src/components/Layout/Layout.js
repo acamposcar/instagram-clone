@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import MobileNavbar from './MobileNavbar'
 import useAuth from '../../hooks/useAuth'
+import CustomSpinner from '../CustomSpinner'
 const Layout = () => {
   const authCtx = useAuth()
   return (
@@ -11,9 +12,7 @@ const Layout = () => {
       <Header />
       <Container fontSize='sm' marginTop={10} marginBottom='100px' as='main' px={2} maxW='935px' centerContent>
         {!authCtx.user &&
-          <Center height='80vh'>
-            <Spinner size='lg' />
-          </Center>}
+          <CustomSpinner />}
         {authCtx.user &&
           <Outlet />}
       </Container>

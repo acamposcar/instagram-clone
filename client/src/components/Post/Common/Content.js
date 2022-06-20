@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text } from '@chakra-ui/react'
-import RouterLink from '../RouterLink'
+import RouterLink from '../../RouterLink'
 
 const Content = ({ username, content, maxWords }) => {
   const [showAll, setShowAll] = useState(false)
@@ -13,7 +13,7 @@ const Content = ({ username, content, maxWords }) => {
       <>
         {content.split(' ').slice(0, maxWords).join(' ')}<Text onClick={() => setShowAll(true)} as='button' color='gray'>... more</Text>
       </>
-      )
+    )
 
   return (
     <>

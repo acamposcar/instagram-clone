@@ -2,14 +2,14 @@ import React from 'react'
 import { Flex, Avatar, Box, Grid } from '@chakra-ui/react'
 import RouterLink from './RouterLink'
 
-const UserList = ({ list, user = 'user' }) => {
+const UserList = ({ list, user = 'user', closeModal }) => {
   return (
 
     <Box p={3} my={5} maxHeight='500px' overflow='auto'>
       <Grid gap={2} justifyContent='center'>
         {list.map(item => {
           return (
-            <Box key={item[user]._id}>
+            <Box onClick={closeModal} key={item[user]._id}>
               <RouterLink to={`/accounts/${item[user].username}`}>
                 <Flex my={2} gap={3} px={5} alignItems='center' justifyContent='flex-start'>
                   <Avatar size='sm' name={item[user].username} src={`${item[user].avatar}`} />
