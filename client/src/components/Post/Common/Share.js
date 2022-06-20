@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import React from 'react'
 import { Input, Box, useDisclosure, Button, VStack } from '@chakra-ui/react'
 import CustomModal from '../../CustomModal'
