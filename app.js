@@ -8,6 +8,7 @@ const logger = require('morgan')
 const passport = require('passport')
 const connectDB = require('./config/db')
 const compression = require('compression')
+const helmet = require('helmet')
 require('./config/passport')
 
 const userRouter = require('./routes/users')
@@ -20,6 +21,21 @@ const isAuth = require('./middleware/auth').isAuth
 const app = express()
 
 connectDB()
+
+app.use(helmet({
+  // Modify policy to connect with cloudinary for image fetching
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'img-src': ["'self'", 'res.cloudinary.com', 'data:', 'blob:'],
+      'connect-src': [
+        "'self'",
+        'api.cloudinary.com'
+      ]
+    }
+  }
+}))
 
 app.use(compression())
 
