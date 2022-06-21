@@ -42,7 +42,7 @@ const RegisterForm = () => {
         <Text as='h2' textAlign='center' color='gray'>
           Sign up to see photos and videos from your friends.
         </Text>
-        <TextInput fieldName='name' register={register} validators={validators.name} errors={formErrors.name} focus />
+        <TextInput fieldName='name' register={register} validators={validators.name} errors={formErrors.name} autoFocus />
         <TextInput fieldName='username' register={register} validators={validators.username} errors={formErrors.username} />
         <PasswordInput autocomplete='new-password' register={register} validators={validators.password} errors={formErrors.password} />
         <Button isLoading={isLoading} type='submit' w='100%'>Sign Up</Button>

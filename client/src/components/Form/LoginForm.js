@@ -47,7 +47,7 @@ const LoginForm = () => {
     <>
       <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
         <VStack gap={2} marginBottom={3}>
-          <TextInput fieldName='username' register={register} focus validators={validators.username} errors={formErrors.username} />
+          <TextInput fieldName='username' register={register} validators={validators.username} errors={formErrors.username} autoFocus />
           <PasswordInput register={register} validators={validators.password} errors={formErrors.password} />
           <Button isLoading={isLoading} type='submit' w='100%'>Log In</Button>
         </VStack>
