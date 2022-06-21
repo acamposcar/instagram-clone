@@ -23,6 +23,13 @@ const LoginForm = () => {
   // to the login page to redirect them after login
   const from = location.state?.from?.pathname || '/'
 
+  const onDemoUser = () => {
+    mutate({
+      // Credentials for demo user
+      username: 'johndoe',
+      password: 'demo'
+    })
+  }
   const onSubmit = (data) => {
     mutate(data)
   }
@@ -37,13 +44,18 @@ const LoginForm = () => {
   })
 
   return (
-    <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
-      <VStack gap={2}>
-        <TextInput fieldName='username' register={register} focus validators={validators.username} errors={formErrors.username} />
-        <PasswordInput register={register} validators={validators.password} errors={formErrors.password} />
-        <Button isLoading={isLoading} type='submit' w='100%'>Log In</Button>
-      </VStack>
-    </Box>
+    <>
+      <Box as='form' onSubmit={handleSubmit(onSubmit)} width='100%'>
+        <VStack gap={2} marginBottom={3}>
+          <TextInput fieldName='username' register={register} focus validators={validators.username} errors={formErrors.username} />
+          <PasswordInput register={register} validators={validators.password} errors={formErrors.password} />
+          <Button isLoading={isLoading} type='submit' w='100%'>Log In</Button>
+        </VStack>
+      </Box>
+
+      <Button w='100%' onClick={onDemoUser} variant='ghost' size='sm'>Log In as Demo User</Button>
+    </>
+
   )
 }
 
