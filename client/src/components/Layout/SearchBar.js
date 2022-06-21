@@ -80,7 +80,7 @@ const SearchBar = () => {
         </Box>}
       {!isDesktop &&
         <Box as='button' onClick={onOpen}>
-          <IoMdSearch size={25} />
+          <IoMdSearch size={20} />
         </Box>}
     </>
   )
