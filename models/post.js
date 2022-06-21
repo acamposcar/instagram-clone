@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const formatDistanceToNow = require('date-fns/formatDistanceToNow')
 const Saved = require('./saved')
 const Like = require('./like')
-const Comment = require('./comment')
 
 const { Schema } = mongoose
 
@@ -20,7 +19,6 @@ PostSchema.pre('findOneAndRemove', function (next) {
   const id = this.getQuery()._id
   Saved.deleteMany({ post: id }, next)
   Like.deleteMany({ post: id }, next)
-  Comment.deleteMany({ post: id }, next)
 })
 
 PostSchema
