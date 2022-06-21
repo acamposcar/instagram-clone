@@ -3,7 +3,6 @@ const Like = require('../models/like')
 const Saved = require('../models/saved')
 const Following = require('../models/following')
 const validationMiddleware = require('../middleware/validation')
-const { uploadImage } = require('../config/multer')
 
 // @desc    Get all posts
 // @route   GET /api/v1/posts/
@@ -90,11 +89,15 @@ exports.getFollowingPosts = async (req, res, next) => {
 // @route   POST /api/v1/posts
 // @access  Users
 exports.addPost = [
-  uploadImage,
   validationMiddleware.post(),
   validationMiddleware.validationResult,
   async (req, res, next) => {
-    if (!req.file) {
+    let fileURL
+
+    // Check if it is an URL
+    try {
+      fileURL = new URL(req.body.image)
+    } catch (err) {
       return res.status(400).json({
         error: 'Error uploading file'
       })
@@ -105,7 +108,7 @@ exports.addPost = [
         content: req.body.content,
         location: req.body.location,
         author: req.user._id,
-        image: req.file.filename
+        image: fileURL.href
       }).save()
       return res.status(200).json(post)
     } catch (err) {

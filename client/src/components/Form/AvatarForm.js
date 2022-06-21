@@ -19,15 +19,21 @@ const AvatarForm = ({ closeModal }) => {
     },
     onSuccess: (response) => {
       queryClient.invalidateQueries(['profile', authCtx.user.username])
-      authCtx.updateUser({ avatar: `/uploads/avatar/${response.data}` })
+      authCtx.updateUser({ avatar: response.data })
       closeModal()
     }
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!file.data) {
+      toast.error('Select a file')
+      return
+    }
     const formData = new FormData()
-    formData.append('avatar', file.data)
+    formData.append('file', file.data)
+    formData.append('upload_preset', 'insta-clone')
+
     mutate({ formData, token: authCtx.token })
   }
 

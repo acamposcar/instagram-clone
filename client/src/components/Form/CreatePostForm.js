@@ -37,14 +37,15 @@ const CreatePostForm = ({ closeModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!file.data) {
-      toast.error('Select an image')
+      toast.error('Select a file')
       return
     }
     const formData = new FormData()
-    formData.append('image', file.data)
-    formData.append('content', contentRef.current.value)
-    formData.append('location', locationRef.current.value)
-    mutate({ formData, token: authCtx.token })
+    formData.append('file', file.data)
+    formData.append('upload_preset', 'insta-clone')
+    const content = contentRef.current.value
+    const location = locationRef.current.value
+    mutate({ formData, token: authCtx.token, content, location })
   }
 
   const handleFileSelection = (e) => {

@@ -65,12 +65,8 @@ export const AuthContextProvider = (props) => {
   }, [])
 
   const loginHandler = (token, expirationTime, user) => {
-    const transformedUser = {
-      ...user,
-      avatar: `/uploads/avatar/${user.avatar}`
-    }
     setToken(token)
-    setUser(transformedUser)
+    setUser(user)
     localStorage.setItem('token', token)
     localStorage.setItem('expirationTime', expirationTime)
 
@@ -91,10 +87,7 @@ export const AuthContextProvider = (props) => {
       throw new Error('Invalid token')
     }
 
-    setUser({
-      ...data,
-      avatar: `/uploads/avatar/${data.avatar}`
-    })
+    setUser(data)
   }, [token])
 
   useEffect(() => {

@@ -3,7 +3,6 @@ const Post = require('../models/post')
 const Saved = require('../models/saved')
 const Like = require('../models/like')
 const Following = require('../models/following')
-const { uploadAvatar } = require('../config/multer')
 
 // @desc    Get user posts and information
 // @route   GET /api/v1/users/:username
@@ -75,34 +74,36 @@ exports.getProfile = async (req, res, next) => {
 // @desc    Update user profile image
 // @route   POST /api/v1/users/:username
 // @access  Users
-exports.updateAvatar = [
-  uploadAvatar,
-  async (req, res, next) => {
-    if (!req.file) {
-      return res.status(400).json({
-        error: 'Error uploading file'
-      })
-    }
+exports.updateAvatar = async (req, res, next) => {
+  let fileURL
 
-    const user = {
-      avatar: req.file.filename
-    }
-
-    try {
-      const updatedUser = await User.findByIdAndUpdate(req.user._id, user, { new: true })
-      if (!updatedUser) {
-        return res.status(404).json({
-          error: 'No user found'
-        })
-      }
-      return res.status(200).json({
-        data: req.file.filename
-      })
-    } catch (err) {
-      return next(err)
-    }
+  // Check if it is an URL
+  try {
+    fileURL = new URL(req.body.avatar)
+  } catch (err) {
+    return res.status(400).json({
+      error: 'Error uploading file'
+    })
   }
-]
+
+  const user = {
+    avatar: fileURL.href
+  }
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, user, { new: true })
+    if (!updatedUser) {
+      return res.status(404).json({
+        error: 'No user found'
+      })
+    }
+    return res.status(200).json({
+      data: fileURL
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
 
 // @desc    Update user profile info
 // @route   PUT /api/v1/users/:username

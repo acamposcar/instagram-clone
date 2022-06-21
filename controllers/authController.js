@@ -93,5 +93,5 @@ const initFollowing = async (newUser) => {
 
 const initRandomAvatar = () => {
   const imageCount = 9
-  return `avatar-default-${Math.floor(Math.random() * imageCount)}.jpg`
+  return `https://res.cloudinary.com/dr2slpzm1/image/upload/v1655814477/instagram-clone/default/avatar-default-${Math.floor(Math.random() * imageCount)}.jpg`
 }

@@ -1,35 +1,5 @@
 const API_URL = '/api/v1'
 
-function transformPosts (data) {
-  const posts = []
-
-  for (const post of data) {
-    const likes = post.likes.map(like => {
-      return {
-        ...like,
-        user: {
-          ...like.user,
-          avatar: `/uploads/avatar/${like.user.avatar}`
-        }
-      }
-    })
-
-    posts.push({
-      ...post,
-      likes,
-      createdAt: new Date(post.createdAt),
-      author: {
-        username: post.author.username,
-        name: post.author.name,
-        avatar: `/uploads/avatar/${post.author.avatar}`
-      },
-      image: `/uploads/posts/${post.image}`
-
-    })
-  }
-
-  return posts
-}
 export async function getPosts ({ token, allPosts }) {
   let url
 
@@ -51,8 +21,7 @@ export async function getPosts ({ token, allPosts }) {
 
   const data = await response.json()
 
-  const posts = transformPosts(data.posts)
-  return posts
+  return data.posts
 }
 
 export async function getUserPosts ({ token, username }) {
@@ -67,33 +36,7 @@ export async function getUserPosts ({ token, username }) {
     throw new Error(data.error || 'Could not fetch posts.')
   }
 
-  const posts = transformPosts(data.posts)
-  const saved = transformPosts(data.saved)
-
-  const user = {
-    username: data.user.username,
-    name: data.user.name,
-    bio: data.user.bio,
-    avatar: `/uploads/avatar/${data.user.avatar}`
-  }
-  const following = data.following.map(follow => {
-    return {
-      ...follow,
-      following: {
-        ...follow.following,
-        avatar: `/uploads/avatar/${follow.following.avatar}`
-      }
-    }
-  })
-  const followers = data.followers.map(follow => {
-    return {
-      ...follow,
-      user: {
-        ...follow.user,
-        avatar: `/uploads/avatar/${follow.user.avatar}`
-      }
-    }
-  })
+  const { posts, user, following, followers, saved } = data
 
   return { posts, user, following, followers, saved }
 }
@@ -110,40 +53,7 @@ export async function getPost ({ token, postId }) {
     throw new Error(data.error || 'Could not fetch post.')
   }
 
-  const likes = data.likes.map(like => {
-    return {
-      ...like,
-      user: {
-        ...like.user,
-        avatar: `/uploads/avatar/${like.user.avatar}`
-      }
-    }
-  })
-
-  const comments = data.comments.map(comment => {
-    return {
-      ...comment,
-      author: {
-        ...comment.author,
-        avatar: `/uploads/avatar/${comment.author.avatar}`
-      }
-    }
-  })
-
-  const post = {
-    ...data,
-    likes,
-    comments,
-    createdAt: new Date(data.createdAt),
-    author: {
-      username: data.author.username,
-      name: data.author.name,
-      avatar: `/uploads/avatar/${data.author.avatar}`
-    },
-    image: `/uploads/posts/${data.image}`
-
-  }
-  return post
+  return data
 }
 
 export async function deletePost ({ token, postId }) {
@@ -212,15 +122,32 @@ export async function toggleSavePost ({ token, postId }) {
   return data
 }
 
-export async function addPost ({ token, formData }) {
-  const response = await fetch(`${API_URL}/posts/`, {
+export async function addPost ({ token, formData, location, content }) {
+  let response = await fetch('https://api.cloudinary.com/v1_1/dr2slpzm1/image/upload', {
     method: 'POST',
-    body: formData,
+    body: formData
+  })
+
+  let data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not upload the file.')
+  }
+
+  response = await fetch(`${API_URL}/posts/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      location,
+      content,
+      image: data.secure_url
+    }),
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     }
   })
-  const data = await response.json()
+
+  data = await response.json()
 
   if (!response.ok) {
     throw new Error(data.error || 'Could not create the post.')
@@ -243,16 +170,16 @@ export async function addComment ({ token, postId, content }) {
   if (!response.ok) {
     throw new Error(data.error || 'Could not create the comment.')
   }
-  const comment = {
-    ...data,
-    createdAt: new Date(data.createdAt),
-    author: {
-      username: data.author.username,
-      name: data.author.name,
-      avatar: `/uploads/avatar/${data.author.avatar}`
-    }
-  }
-  return comment
+  // const comment = {
+  //   ...data,
+  //   createdAt: new Date(data.createdAt),
+  //   author: {
+  //     username: data.author.username,
+  //     name: data.author.name,
+  //     avatar: `/uploads/avatar/${data.author.avatar}`
+  //   }
+  // }
+  return data.comment
 }
 
 export async function updateProfile ({ token, username, profileData }) {
@@ -315,14 +242,28 @@ export async function loginUser (user) {
 }
 
 export async function updateAvatar ({ formData, token }) {
-  const response = await fetch(`${API_URL}/users/avatar/`, {
+  let response = await fetch('https://api.cloudinary.com/v1_1/dr2slpzm1/image/upload', {
     method: 'POST',
-    body: formData,
+    body: formData
+  })
+
+  let data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not upload the file.')
+  }
+
+  response = await fetch(`${API_URL}/users/avatar/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      avatar: data.secure_url
+    }),
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     }
   })
-  const data = await response.json()
+  data = await response.json()
 
   if (!response.ok) {
     throw new Error(data.error || 'Could not update the avatar.')
