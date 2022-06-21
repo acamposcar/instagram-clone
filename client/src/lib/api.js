@@ -170,15 +170,7 @@ export async function addComment ({ token, postId, content }) {
   if (!response.ok) {
     throw new Error(data.error || 'Could not create the comment.')
   }
-  // const comment = {
-  //   ...data,
-  //   createdAt: new Date(data.createdAt),
-  //   author: {
-  //     username: data.author.username,
-  //     name: data.author.name,
-  //     avatar: `/uploads/avatar/${data.author.avatar}`
-  //   }
-  // }
+
   return data.comment
 }
 
@@ -281,7 +273,6 @@ export async function search ({ token, query }) {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
-
     }
   })
   const data = await response.json()
@@ -290,8 +281,9 @@ export async function search ({ token, query }) {
     throw new Error(data.error || 'Could not search the user.')
   }
 
+  // Transform to be able to use it in UserList component
   const users = data.map(user => {
-    return { user: { ...user, avatar: `/uploads/avatar/${user.avatar}` } }
+    return { user: { ...user } }
   })
 
   return users

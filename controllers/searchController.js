@@ -12,7 +12,7 @@ exports.search = [
     const query = new RegExp('^' + req.body.query, 'i')
 
     try {
-      const user = await User.find({ username: query }).lean()
+      const user = await User.find({ $or: [{ username: query }, { name: query }] }).lean()
       return res.status(200).json(user)
     } catch (err) {
       return next(err)
