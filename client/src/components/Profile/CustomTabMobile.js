@@ -4,7 +4,7 @@ import { Tab } from '@chakra-ui/react'
 
 const CustomTabMobile = (props) => {
   return (
-    <Tab fontSize={12} color='var(--textSecondary)' border='none' _selected={{ color: '#0095f6' }}>
+    <Tab px={10} fontSize={12} color='var(--textSecondary)' border='none' _selected={{ color: 'black', borderBottom: 'solid 2px black' }}>
       {props.children}
     </Tab>
   )
