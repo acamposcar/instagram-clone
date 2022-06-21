@@ -18,7 +18,7 @@ const TextInput = ({ register, errors, fieldName, validators, ...restOfProps }) 
       />
       <FormLabel textTransform='capitalize' htmlFor={fieldName} color='grey' fontWeight={400} fontSize={15}>{fieldName}</FormLabel>
       <FormErrorMessage>
-        {errors && errors.messAage}
+        {errors && errors.message}
       </FormErrorMessage>
     </FormControl>
   )
