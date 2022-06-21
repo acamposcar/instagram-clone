@@ -169,6 +169,12 @@ exports.getPost = async (req, res, next) => {
 exports.deletePost = [
   async (req, res, next) => {
     try {
+      if (req.user.username === 'johndoe') {
+        return res.status(400).json({
+          error: "Demo user can't delete posts"
+        })
+      }
+
       const post = await Post.findById(req.params.postId).populate('author')
       if (!post) {
         return res.status(404).json({
@@ -181,6 +187,7 @@ exports.deletePost = [
           error: 'Forbidden'
         })
       }
+
       await Post.findByIdAndRemove(req.params.postId)
 
       return res.status(200).json({
