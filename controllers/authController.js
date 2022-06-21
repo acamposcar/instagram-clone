@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Following = require('../models/following')
 const validationMiddleware = require('../middleware/validation')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
@@ -14,20 +15,24 @@ exports.register = [
   validationMiddleware.validationResult,
 
   async (req, res, next) => {
-    const userExists = await User.findOne({ username: req.body.username })
-    if (userExists) {
-      return res.status(400).json({
-        error: 'User already exists'
-      })
-    }
     try {
+      const userExists = await User.findOne({ username: req.body.username })
+      if (userExists) {
+        return res.status(400).json({
+          error: 'User already exists'
+        })
+      }
       const hasedPassword = await bcrypt.hash(req.body.password, SALT)
       const user = await new User({
         name: req.body.name,
         username: req.body.username,
+        avatar: initRandomAvatar(),
+        bio: "What's up!",
         hash: hasedPassword,
         salt: SALT
       }).save()
+
+      initFollowing(user)
 
       const token = generateToken(user, expirationTimeInSeconds)
 
@@ -73,4 +78,20 @@ const generateToken = (user, expirationTimeInSeconds) => {
     username: user.username
   }
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: expirationTimeInSeconds })
+}
+
+const initFollowing = async (newUser) => {
+  // Follow admin users when a new user is created
+  const admins = await User.find({ roles: ['admin'] })
+  for (const admin of admins) {
+    await new Following({
+      user: newUser,
+      following: admin
+    }).save()
+  }
+}
+
+const initRandomAvatar = () => {
+  const imageCount = 9
+  return `avatar-default-${Math.floor(Math.random() * imageCount)}.jpg`
 }
