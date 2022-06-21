@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Avatar, Text, Flex, useBreakpointValue, useDisclosure } from '@chakra-ui/react'
+import { Box, Avatar, Text, Flex, useBreakpointValue, useDisclosure, Button } from '@chakra-ui/react'
 import CountDesktop from './CountDesktop'
 import CountMobile from './CountMobile'
 import AvatarForm from '../Form/AvatarForm'
@@ -7,12 +7,17 @@ import CustomModal from '../CustomModal'
 import useAuth from '../../hooks/useAuth'
 import ToggleFollow from './ToggleFollow'
 import EditProfile from './EditProfile'
+import { IoMdLogOut } from 'react-icons/io'
 const Header = ({ postsCount, user, followers, following }) => {
   const breakpoint = useBreakpointValue({ md: 'desktop' })
   const { isOpen, onOpen, onClose } = useDisclosure()
   const authCtx = useAuth()
   const isOwnProfile = authCtx.user.username === user.username
   const modalTitle = isOwnProfile ? 'Change profile photo' : 'Profile image'
+
+  const logoutHandler = () => {
+    authCtx.logout()
+  }
   return (
     <>
       <Flex gap={{ md: '70px', base: '30px' }} fontSize={16} justifyContent='center' alignItems='center'>
@@ -27,10 +32,20 @@ const Header = ({ postsCount, user, followers, following }) => {
           <Avatar onClick={onOpen} boxSize={{ md: '150px', base: '77px' }} src={user.avatar} />
         </Box>
         <Box>
-          <Flex alignItems='center' justifyContent='space-between' gap={3} flexWrap='wrap'>
+          <Flex alignItems={{ md: 'center', base: 'flex-start' }} justifyContent='space-between' gap={{ md: 5, base: 1 }} flexWrap='wrap' flexDirection={{ base: 'column', md: 'row' }}>
             <Text as='h1' fontSize={25} fontWeight={300}>{user.username}</Text>
-            {isOwnProfile && <EditProfile user={user} />}
-            {!isOwnProfile && <ToggleFollow text='Unfollow' followers={followers} color='pink' username={user.username} />}
+
+            {breakpoint !== 'desktop' &&
+              <>
+                <Text as='div' fontWeight='500'>{user.name}</Text>
+                <Text as='div' fontSize={15}>{user.bio}</Text>
+              </>}
+            {breakpoint === 'desktop' &&
+              <Flex gap={3} alignItems='center'>
+                {isOwnProfile && <EditProfile user={user} />}
+                {!isOwnProfile && <ToggleFollow followers={followers} username={user.username} />}
+
+              </Flex>}
           </Flex>
           {breakpoint === 'desktop' &&
             <>
@@ -42,10 +57,11 @@ const Header = ({ postsCount, user, followers, following }) => {
       </Flex>
       {breakpoint !== 'desktop' &&
         <>
-          <Flex p={1} alignItems='center' flexDirection='column'>
-            <Text as='div' fontWeight='500'>{user.name}</Text>
-            <Text as='div'>{user.bio}</Text>
+          <Flex width='100%' gap={10} alignItems='center' justifyContent='center' marginTop={5}>
+            {isOwnProfile && <EditProfile user={user} />}
+            {isOwnProfile && <Button leftIcon={<IoMdLogOut />} size='sm' colorScheme='gray' borderColor='gray.400' variant='outline' onClick={logoutHandler}>Log out</Button>}
           </Flex>
+          {!isOwnProfile && <ToggleFollow followers={followers} username={user.username} />}
           <CountMobile postsCount={postsCount} followers={followers} following={following} />
         </>}
     </>
