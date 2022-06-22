@@ -9,7 +9,7 @@ const Header = () => {
   const isDesktop = breakpoint === 'desktop'
 
   return (
-    <Flex as='header' backgroundColor='white' borderBottom='solid thin var(--borderColor)' height='55px' px={8} justifyContent='center'>
+    <Flex as='header' backgroundColor='white' borderBottom='solid thin' borderColor='borderColor' height='55px' px={8} justifyContent='center'>
       <Flex flex={1} justifyContent={{ md: 'space-between', base: 'center' }} alignItems='center' maxWidth='900px'>
         <Box flex={{ base: 1, md: 'none' }}>
           <RouterLink to='/'><Image marginX='auto' fallback={<Skeleton width='100%' height='400px' />} height={7} src={logo} alt='Instagram Logo' _active={{ filter: 'invert(50%)' }} /></RouterLink>

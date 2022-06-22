@@ -5,7 +5,7 @@ const CustomModal = ({ title, children, isOpen, onClose, minW = '400px' }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent minWidth={{ md: minW, base: '320px' }} borderRadius='8px'>
-        <ModalHeader textAlign='center' fontSize={15} borderBottom='1px solid var(--borderColor)'>{title}</ModalHeader>
+        <ModalHeader textAlign='center' fontSize={15} borderBottom='1px solid' borderColor='borderColor'>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody p={0}>
           {children}

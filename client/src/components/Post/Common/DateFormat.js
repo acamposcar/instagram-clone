@@ -7,7 +7,7 @@ const DateFormat = ({ date }) => {
 
   return (
 
-    <Text my={3} fontSize={10} color='var(--textSecondary)'>{formatDate(date).toUpperCase()}</Text>
+    <Text my={3} fontSize={10} color='textSecondary'>{formatDate(date).toUpperCase()}</Text>
 
   )
 }

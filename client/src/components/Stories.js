@@ -13,7 +13,7 @@ const Stories = ({ stories }) => {
                 <Avatar position='absolute' top='-4px' left='-4px' width='65px' height='65px' src='https://702pros.com/wp-content/uploads/2021/01/Instagram-Ring.png' />
                 <Avatar boxSize='57px' src={post.author.avatar} />
               </Box>
-              <Text mt={1} fontSize={12} color='var(--textSecondary)'>{post.author.username.slice(0, 9)}</Text>
+              <Text mt={1} fontSize={12} color='textSecondary'>{post.author.username.slice(0, 9)}</Text>
             </Box>
           )
         })}

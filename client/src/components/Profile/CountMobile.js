@@ -17,18 +17,18 @@ const CountMobile = ({ postsCount, followers, following }) => {
         <UserList list={following} user='following' closeModal={onCloseFollowing} />
       </CustomModal>
 
-      <Flex bgColor='white' marginTop={5} padding={2} justifyContent='space-around' gap={3} width='100%' textAlign='center' borderTop='1px solid var(--borderColor)' borderBottom='1px solid var(--borderColor)'>
+      <Flex bgColor='white' marginTop={5} padding={2} justifyContent='space-around' gap={3} width='100%' textAlign='center' borderTop='1px solid' borderBottom='1px solid' borderColor='borderColor'>
         <Box>
           <Box as='span' fontWeight='bold'>{postsCount}</Box>
-          <Box color='var(--textSecondary)'>posts</Box>
+          <Box color='textSecondary'>posts</Box>
         </Box>
         <Box as='button' onClick={onOpenFollowers}>
           <Box as='span' fontWeight='bold'>{followers.length}</Box>
-          <Box color='var(--textSecondary)'>followers</Box>
+          <Box color='textSecondary'>followers</Box>
         </Box>
         <Box as='button' onClick={onOpenFollowing}>
           <Box as='span' fontWeight='bold'>{following.length}</Box>
-          <Box color='var(--textSecondary)'>following</Box>
+          <Box color='textSecondary'>following</Box>
         </Box>
       </Flex>
     </>

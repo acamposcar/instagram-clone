@@ -6,7 +6,7 @@ import MoreOptionsMenu from './Common/MoreOptionsMenu'
 const DetailPostHeader = ({ user, location, avatarSize = 'sm', postId }) => {
   return (
 
-    <Box marginTop={2} justifyContent='center' alignItems='center' borderBottom='solid 1px var(--borderColor)'>
+    <Box marginTop={2} justifyContent='center' alignItems='center' borderBottom='solid 1px' borderColor='borderColor'>
       <Box textAlign='end'>
         <MoreOptionsMenu user={user} postId={postId} />
       </Box>
@@ -19,7 +19,7 @@ const DetailPostHeader = ({ user, location, avatarSize = 'sm', postId }) => {
             <Box fontWeight='500' fontSize='18px'>{user.username}</Box>
             <Box fontWeight='400' fontSize='15px'>{user.name}</Box>
           </Link>
-          {location && location !== '' && <Text fontSize='13px' color='var(--textSecondary)'>{location}</Text>}
+          {location && location !== '' && <Text fontSize='13px' color='textSecondary'>{location}</Text>}
         </Box>
       </Flex>
 

@@ -12,7 +12,7 @@ const Comments = ({ postId, comments, commentsCount, showViewAll = true, showAva
   return (
     <Box>
       {showViewAll &&
-        <RouterLink weight={400} color='var(--textSecondary)' to={`/posts/${postId}`}>
+        <RouterLink weight={400} color='textSecondary' to={`/posts/${postId}`}>
           View all {commentsCount} comments
         </RouterLink>}
 

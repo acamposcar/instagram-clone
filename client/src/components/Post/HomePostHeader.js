@@ -14,7 +14,7 @@ const HomePostHeader = ({ user, location, avatarSize = 'sm', postId }) => {
           <Link color='inherit' as={RouterLink} to={`/accounts/${user.username}`}>
             <Box fontWeight='500' fontSize='14px'>{user.username}</Box>
           </Link>
-          {location && location !== '' && <Text fontSize='13px' color='var(--textSecondary)'>{location}</Text>}
+          {location && location !== '' && <Text fontSize='13px' color='textSecondary'>{location}</Text>}
         </Box>
       </Flex>
       <MoreOptionsMenu user={user} postId={postId} />
