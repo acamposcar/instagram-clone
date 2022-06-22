@@ -1,7 +1,7 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
+// import { ColorModeSwitcher } from './ColorModeSwitcher'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
