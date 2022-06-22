@@ -15,11 +15,11 @@ export async function getPosts ({ token, allPosts }) {
     }
   })
 
-  if (!response.ok) {
-    throw new Error(response.statusText || 'Could not fetch posts.')
-  }
-
   const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not fetch posts.')
+  }
 
   return data.posts
 }
