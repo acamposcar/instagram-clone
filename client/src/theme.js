@@ -29,7 +29,9 @@ const theme = extendTheme({
   colors: {
     primary: '#0095f6',
     primaryHover: 'rgba(0,149,246,.7)',
-    bgColor: '#FAFAFA'
+    bgColor: '#FAFAFA',
+    textSecondary: 'rgb(115, 115, 115)',
+    borderColor: 'rgb(225, 225, 225)'
   },
   fonts: {
     body: 'Roboto, sans-serif',
@@ -66,6 +68,11 @@ const theme = extendTheme({
       }
     },
     Button: {
+      variants: {
+        outline: {
+          fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"'
+        }
+      },
       defaultProps: {
         colorScheme: 'blue'
       }
