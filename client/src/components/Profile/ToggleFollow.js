@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-toastify'
 import { toggleFollow } from '../../lib/api'
 import { useMutation, useQueryClient } from 'react-query'
-import { IoMdPerson } from 'react-icons/io'
+
 const ToggleFollow = ({ username, followers }) => {
   const authCtx = useAuth()
   const queryClient = useQueryClient()
@@ -63,7 +63,7 @@ const ToggleFollow = ({ username, followers }) => {
 
   return (
 
-    <Button leftIcon={<IoMdPerson />} onClick={handleClick} variant='outline' size='sm' colorScheme={button.color}>{button.text}</Button>
+    <Button onClick={handleClick} variant='outline' size='sm' colorScheme={button.color}>{button.text}</Button>
 
   )
 }

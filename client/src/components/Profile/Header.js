@@ -7,7 +7,7 @@ import CustomModal from '../CustomModal'
 import useAuth from '../../hooks/useAuth'
 import ToggleFollow from './ToggleFollow'
 import EditProfile from './EditProfile'
-import { IoMdLogOut } from 'react-icons/io'
+
 const Header = ({ postsCount, user, followers, following }) => {
   const breakpoint = useBreakpointValue({ md: 'desktop' })
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -59,7 +59,7 @@ const Header = ({ postsCount, user, followers, following }) => {
         <>
           <Flex width='100%' gap={10} alignItems='center' justifyContent='center' marginTop={5}>
             {isOwnProfile && <EditProfile user={user} />}
-            {isOwnProfile && <Button leftIcon={<IoMdLogOut />} size='sm' colorScheme='gray' borderColor='gray.400' variant='outline' onClick={logoutHandler}>Log out</Button>}
+            {isOwnProfile && <Button size='sm' colorScheme='gray' borderColor='gray.400' variant='outline' onClick={logoutHandler}>Log out</Button>}
           </Flex>
           {!isOwnProfile && <ToggleFollow followers={followers} username={user.username} />}
           <CountMobile postsCount={postsCount} followers={followers} following={following} />

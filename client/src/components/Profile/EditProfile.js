@@ -9,7 +9,7 @@ import TextInput from '../Form/UI/TextInput'
 import { validators } from '../../utils/validators'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
-import { IoMdPerson } from 'react-icons/io'
+
 const EditProfile = ({ user }) => {
   const authCtx = useAuth()
 
@@ -44,7 +44,7 @@ const EditProfile = ({ user }) => {
           </VStack>
         </Box>
       </CustomModal>
-      <Button leftIcon={<IoMdPerson />} onClick={onOpen} size='sm' borderColor='gray.400' colorScheme='gray' variant='outline'>Edit profile</Button>
+      <Button onClick={onOpen} size='sm' borderColor='gray.400' colorScheme='gray' variant='outline'>Edit profile</Button>
     </>
   )
 }
