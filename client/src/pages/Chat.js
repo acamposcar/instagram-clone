@@ -46,6 +46,7 @@ const Chat = () => {
     return (
       <Box width='100%' p={0} marginBottom={{ base: '0px', md: '-100px' }}>
         <Flex gap={5} >
+
           {showConversations &&
             <Card width={{ md: '420px', base: '100%' }} >
               <ConversationHeader contacts={following} onSelectConversation={handleSelect} height={headerConversationHeight} />
@@ -63,8 +64,8 @@ const Chat = () => {
                   )
                 })}
               </VStack>
-            </Card>
-          }
+            </Card>}
+
           {showMessages &&
             <Card>
               {selectedConversationId &&
