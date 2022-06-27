@@ -18,7 +18,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <Container fontSize='sm' marginTop={10} marginBottom={'100px'} as='main' px={2} maxW='935px' centerContent>
+      <Container fontSize='sm' marginTop={{ md: '40px', base: '20px' }} marginBottom={'100px'} as='main' px={2} maxW='935px' centerContent>
         {!authCtx.user &&
           <CustomSpinner />}
         {authCtx.user &&

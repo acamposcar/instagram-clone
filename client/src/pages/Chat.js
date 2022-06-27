@@ -34,7 +34,7 @@ const Chat = () => {
   const headerHeight = '55px'
   const newMessageFormHeight = '80px'
   const headerConversationHeight = '70px'
-  const offset = isDesktop ? '70px' : '100px'
+  const offset = isDesktop ? '70px' : '110px'
   const messageHeight = `calc(100vh - ${headerHeight} - ${marginTop} - ${newMessageFormHeight} - ${headerConversationHeight} - ${offset})`
   const conversationHeight = `calc(${messageHeight} + ${newMessageFormHeight})`
 
