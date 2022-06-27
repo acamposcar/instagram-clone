@@ -15,6 +15,7 @@ const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
 const authRouter = require('./routes/auth')
 const searchRouter = require('./routes/search')
+const chatRouter = require('./routes/chat')
 
 const isAuth = require('./middleware/auth').isAuth
 
@@ -50,6 +51,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 app.use('/api/v1/users', isAuth, userRouter)
 app.use('/api/v1/posts', isAuth, postRouter)
 app.use('/api/v1/search', isAuth, searchRouter)
+app.use('/api/v1/chat', isAuth, chatRouter)
 app.use('/api/v1/auth', authRouter)
 
 app.use('/*', (req, res) => {

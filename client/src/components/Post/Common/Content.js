@@ -12,8 +12,7 @@ const Content = ({ username, content, maxWords }) => {
     : (
       <>
         {content.split(' ').slice(0, maxWords).join(' ')}<Text onClick={() => setShowAll(true)} as='button' color='gray'>... more</Text>
-      </>
-    )
+      </>)
 
   return (
     <>

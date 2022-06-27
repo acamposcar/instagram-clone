@@ -12,7 +12,7 @@ const UserList = ({ list, user = 'user', closeModal }) => {
             <Box onClick={closeModal} key={item[user]._id}>
               <RouterLink to={`/accounts/${item[user].username}`}>
                 <Flex my={2} gap={3} px={5} alignItems='center' justifyContent='flex-start'>
-                  <Avatar size='sm' src={`${item[user].avatar}`} />
+                  <Avatar size='md' src={`${item[user].avatar}`} />
                   <Box>
                     <Box>
                       {item[user].username}

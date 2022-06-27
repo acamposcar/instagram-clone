@@ -13,6 +13,8 @@ import { ReactComponent as HomeOutline } from '../../assets/icons/homeOutline.sv
 import { ReactComponent as HeartOutline } from '../../assets/icons/heartOutline.svg'
 import { ReactComponent as ExploreFill } from '../../assets/icons/exploreFill.svg'
 import { ReactComponent as ExploreOutline } from '../../assets/icons/exploreOutline.svg'
+import { ReactComponent as DirectFill } from '../../assets/icons/directFill.svg'
+import { ReactComponent as DirectOutline } from '../../assets/icons/directOutline.svg'
 import CreatePost from '../CreatePost'
 import { IoMdLogOut, IoMdPerson } from 'react-icons/io'
 import useAuth from '../../hooks/useAuth'
@@ -32,6 +34,13 @@ const Nav = () => {
         <NavLink to='/'>
           {({ isActive }) => (
             isActive ? <HomeFill /> : <HomeOutline />
+          )}
+        </NavLink>
+      </Box>
+      <Box as='li'>
+        <NavLink to='/direct'>
+          {({ isActive }) => (
+            isActive ? <DirectFill /> : <DirectOutline />
           )}
         </NavLink>
       </Box>

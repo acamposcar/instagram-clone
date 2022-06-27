@@ -1,4 +1,6 @@
 const User = require('../models/user')
+const Message = require('../models/message')
+const Conversation = require('../models/conversation')
 const Following = require('../models/following')
 const validationMiddleware = require('../middleware/validation')
 const passport = require('passport')
@@ -33,7 +35,7 @@ exports.register = [
       }).save()
 
       initFollowing(user)
-
+      initMessage(user)
       const token = generateToken(user, expirationTimeInSeconds)
 
       return res.status(201).json({
@@ -89,6 +91,26 @@ const initFollowing = async (newUser) => {
       following: admin
     }).save()
   }
+}
+
+const initMessage = async (newUser) => {
+  // Send welcome message
+  const myUser = await User.findOne({ username: 'acampos' })
+  const messageContent = `Thank you for testing my project. 
+        Please take a look and try as many features as you can. 
+        You can reply to this message if you want, but I may not see it. 
+        To get in touch, send me an email at acamposcar@gmail.com`
+
+  const conversation = await new Conversation({
+    participants: [myUser, newUser],
+    lastMessage: messageContent
+  }).save()
+
+  await new Message({
+    content: messageContent,
+    conversation: conversation._id,
+    sender: myUser
+  }).save()
 }
 
 const initRandomAvatar = () => {

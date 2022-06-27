@@ -4,7 +4,7 @@ import { Center, Spinner } from '@chakra-ui/react'
 
 const CustomSpinner = () => {
   return (
-    <Center height='80vh'>
+    <Center height='60vh'>
       <Spinner size='lg' />
     </Center>
 

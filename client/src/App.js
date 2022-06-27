@@ -21,6 +21,7 @@ import { QueryClient, QueryClientProvider, QueryCache } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import Layout from './components/Layout/Layout'
 import NotFound from './pages/NotFound'
+import Chat from './pages/Chat'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,6 +72,7 @@ const App = () => {
             <Route path='/posts/:postId' element={<PostPage />} />
             <Route path='/accounts/:username' element={<Profile />} />
             <Route path='/explore' element={<Explore />} />
+            <Route path='/direct' element={<Chat />} />
             <Route path='/posts' element={<Navigate to='/' replace />} />
             <Route path='/*' element={<NotFound />} />
           </Route>
