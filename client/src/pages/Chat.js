@@ -30,6 +30,7 @@ const Chat = () => {
   const showMessages = selectedConversationId || isDesktop
   const showConversations = !selectedConversationId || isDesktop
 
+  // Adjust chat height to screen
   const marginTop = '40px'
   const headerHeight = '55px'
   const newMessageFormHeight = '80px'
