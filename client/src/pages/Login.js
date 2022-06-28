@@ -14,7 +14,7 @@ const Login = () => {
   useEffect(() => {
     const opacityInterval = setInterval(() => {
       setOpacity(prevState => prevState === 0 ? 1 : 0)
-    }, 4000)
+    }, 5000)
     return () => clearInterval(opacityInterval)
   }, [])
 
