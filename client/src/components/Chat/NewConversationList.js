@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex, Avatar, Box, Grid, Spinner } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
-import { createConversation } from '../../lib/api'
+import { createConversation } from '../../services/chatAPI'
 import useAuth from '../../hooks/useAuth'
 
 const NewConversationList = ({ list, user, onClose, onSelectConversation }) => {

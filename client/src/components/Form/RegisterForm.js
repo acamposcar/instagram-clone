@@ -9,7 +9,7 @@ import PasswordInput from './UI/PasswordInput'
 import TextInput from './UI/TextInput'
 import { validators } from '../../utils/validators'
 import { useMutation } from 'react-query'
-import { registerUser } from '../../lib/api'
+import { registerUser } from '../../services/authAPI'
 
 const RegisterForm = () => {
   const authCtx = useAuth()

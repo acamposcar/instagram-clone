@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Flex, FormControl, Textarea, Button } from '@chakra-ui/react'
 import useAuth from '../../../hooks/useAuth'
-import { addComment } from '../../../lib/api'
+import { addComment } from '../../../services/commentAPI'
 import { toast } from 'react-toastify'
 import { useMutation, useQueryClient } from 'react-query'
 

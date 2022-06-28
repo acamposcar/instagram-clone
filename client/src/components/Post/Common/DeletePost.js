@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { IoMdTrash } from 'react-icons/io'
 import useAuth from '../../../hooks/useAuth'
-import { deletePost } from '../../../lib/api'
+import { deletePost } from '../../../services/postAPI'
 import { useMutation, useQueryClient } from 'react-query'
 const DeletePost = ({ user, postId }) => {
   const authCtx = useAuth()

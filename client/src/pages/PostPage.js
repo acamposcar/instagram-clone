@@ -1,7 +1,7 @@
 import React from 'react'
 import CustomAlert from '../components/CustomAlert'
 import useAuth from '../hooks/useAuth'
-import { getPost } from '../lib/api'
+import { getPost } from '../services/postAPI'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import DetailPost from '../components/Post/DetailPost'

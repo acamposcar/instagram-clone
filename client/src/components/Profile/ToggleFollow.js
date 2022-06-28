@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-toastify'
-import { toggleFollow } from '../../lib/api'
+import { toggleFollow } from '../../services/userAPI'
 import { useMutation, useQueryClient } from 'react-query'
 
 const ToggleFollow = ({ username, followers }) => {

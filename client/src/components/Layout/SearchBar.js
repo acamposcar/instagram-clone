@@ -10,7 +10,7 @@ import {
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg'
 import { toast } from 'react-toastify'
 import { useMutation } from 'react-query'
-import { search } from '../../lib/api'
+import { search } from '../../services/searchAPI'
 import useAuth from '../../hooks/useAuth'
 import UserList from '../UserList'
 import CustomModal from '../CustomModal'

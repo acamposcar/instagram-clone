@@ -4,7 +4,7 @@ import { Flex, Button, Avatar } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
 import ImageForm from './ImageForm'
 import { toast } from 'react-toastify'
-import { updateAvatar } from '../../lib/api'
+import { updateAvatar } from '../../services/userAPI'
 import { useMutation, useQueryClient } from 'react-query'
 
 const AvatarForm = ({ closeModal }) => {

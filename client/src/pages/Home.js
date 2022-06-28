@@ -3,7 +3,7 @@ import { VStack, Container } from '@chakra-ui/react'
 import HomePost from '../components/Post/HomePost'
 import CustomAlert from '../components/CustomAlert'
 import useAuth from '../hooks/useAuth'
-import { getPosts } from '../lib/api'
+import { getPosts } from '../services/postAPI'
 import { useQuery } from 'react-query'
 import CustomSpinner from '../components/CustomSpinner'
 const Home = () => {

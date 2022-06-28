@@ -12,7 +12,7 @@ import {
 import useAuth from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import ImageForm from './ImageForm'
-import { addPost } from '../../lib/api'
+import { addPost } from '../../services/postAPI'
 import { useMutation } from 'react-query'
 import { toast } from 'react-toastify'
 

@@ -4,7 +4,7 @@ import { Flex, Button, FormControl, Input } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-toastify'
 import { useMutation, useQueryClient } from 'react-query'
-import { sendMessage } from '../../lib/api'
+import { sendMessage } from '../../services/chatAPI'
 
 const NewMessageForm = ({ conversationId, onEmitSocket }) => {
   const authCtx = useAuth()
