@@ -11,7 +11,6 @@ export function SocketProvider ({ userId, children }) {
   const [socket, setSocket] = useState()
 
   useEffect(() => {
-    console.log('socket change')
     const newSocket = io(
       '/',
       { query: { userId } }
