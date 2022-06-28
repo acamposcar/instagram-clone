@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.7d4015ca.css",
-    "main.js": "/static/js/main.cf916432.js",
-    "static/media/screenshotHome.png": "/static/media/screenshotHome.b1eacf1f6f6f4c47a49a.png",
-    "static/media/screenshotGallery.png": "/static/media/screenshotGallery.d40500a76647ef643b53.png",
-    "static/media/phones.png": "/static/media/phones.d7b868078a7f6cb9112a.png",
+    "main.js": "/static/js/main.4e8ca87e.js",
+    "static/media/screenshotGallery.png": "/static/media/screenshotGallery.79671bc0541c8400ab1c.png",
+    "static/media/screenshotHome.png": "/static/media/screenshotHome.e12f33133d22e21516c4.png",
+    "static/media/phones.png": "/static/media/phones.ce0f078b76d62d488f7e.png",
     "static/media/roboto-all-500-normal.woff": "/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
     "static/media/roboto-all-400-normal.woff": "/static/media/roboto-all-400-normal.c5d001fa922fa66a147f.woff",
@@ -62,10 +62,10 @@
     "static/media/saveFill.svg": "/static/media/saveFill.3325568eacca997fdd74fdaa01bcc597.svg",
     "static/media/moreOptions.svg": "/static/media/moreOptions.72f6f990a20ab89e2c0c91cd40c7a71e.svg",
     "main.7d4015ca.css.map": "/static/css/main.7d4015ca.css.map",
-    "main.cf916432.js.map": "/static/js/main.cf916432.js.map"
+    "main.4e8ca87e.js.map": "/static/js/main.4e8ca87e.js.map"
   },
   "entrypoints": [
     "static/css/main.7d4015ca.css",
-    "static/js/main.cf916432.js"
+    "static/js/main.4e8ca87e.js"
   ]
 }
