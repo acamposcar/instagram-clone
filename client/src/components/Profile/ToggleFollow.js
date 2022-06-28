@@ -63,7 +63,7 @@ const ToggleFollow = ({ username, followers }) => {
 
   return (
 
-    <Button onClick={handleClick} variant='outline' size='sm' colorScheme={button.color}>{button.text}</Button>
+    <Button onClick={handleClick} size='sm' colorScheme={button.color}>{button.text}</Button>
 
   )
 }

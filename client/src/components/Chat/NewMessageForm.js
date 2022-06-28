@@ -39,6 +39,7 @@ const NewMessageForm = ({ conversationId, onEmitSocket }) => {
         <FormControl>
           <Input
             aria-label='Type a message'
+            autoFocus
             ref={inputRef}
             fontSize={14}
             backgroundColor='bgColor'
@@ -47,7 +48,7 @@ const NewMessageForm = ({ conversationId, onEmitSocket }) => {
             id='message'
           />
         </FormControl>
-        <Button variant='outline' isLoading={isLoading} type='submit'>Send</Button>
+        <Button isLoading={isLoading} type='submit'>Send</Button>
       </Flex>
     </Flex >
 

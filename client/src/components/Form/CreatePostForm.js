@@ -7,7 +7,8 @@ import {
   Textarea,
   Input,
   Image,
-  Skeleton
+  Skeleton,
+  FormLabel
 } from '@chakra-ui/react'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
@@ -59,19 +60,46 @@ const CreatePostForm = ({ closeModal }) => {
     <Flex as='form' onSubmit={handleSubmit} flexDirection={{ base: 'column', md: 'row' }}>
       <Flex maxWidth='500px' minWidth='300px' minHeight='100px' justifyContent='center' alignItems='center'>
         <ImageForm handleFileSelection={handleFileSelection} file={file}>
-          <Image fallback={<Skeleton width='100%' height='400px' />} borderRadius={{ md: '0px 0px 0px 8px', base: 'none' }} maxHeight='450px' minHeight='350px' objectFit='cover' backgroundColor='black' objectPosition='center' src={file.preview} alt='' />
+          <Image
+            fallback={<Skeleton width='100%' height='400px' />}
+            borderRadius={{ md: '0px 0px 0px 8px', base: 'none' }}
+            maxHeight='450px'
+            minHeight='350px'
+            objectFit='cover'
+            backgroundColor='black'
+            objectPosition='center'
+            src={file.preview}
+            alt=''
+          />
         </ImageForm>
       </Flex>
       <Flex p={2} alignItems='center' flexDirection='column' maxWidth={{ base: '550px', md: '385px' }} px={5} justifyContent='space-between'>
         <Box width='100%' minWidth='200px'>
           <FormControl marginTop={5}>
-            <Textarea rows={5} ref={contentRef} aria-label='Write a caption' fontSize={14} placeholder='Write a caption...' borderX='none' borderRadius={0} name='caption' resize='none' />
+            <Textarea
+              ref={contentRef}
+              aria-label='Caption'
+              fontSize={14}
+              name='caption'
+              placeholder='Caption'
+              backgroundColor='bgColor'
+              resize='none'
+              rows={5}
+              autoFocus
+            />
           </FormControl>
-          <FormControl marginTop={10}>
-            <Input ref={locationRef} aria-label='Add a location' fontSize={14} placeholder='Add a location' borderX='none' borderRadius={0} name='location' />
+          <FormControl marginTop={8} variant='floating'>
+            <Input
+              ref={locationRef}
+              fontSize={14}
+              aria-label='Location'
+              name='location'
+              placeholder='Location'
+              backgroundColor='bgColor'
+            />
           </FormControl>
         </Box>
-        <Button isLoading={isLoading} marginTop={5} variant='ghost' fontSize={16} type='submit'>Share</Button>
+        <Button isLoading={isLoading} marginTop={5} width='100%' fontSize={16} type='submit'>Share</Button>
       </Flex>
     </Flex>
 

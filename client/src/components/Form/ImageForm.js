@@ -7,7 +7,7 @@ const ImageForm = ({ handleFileSelection, file, children }) => {
   return (
     <>
       {!file.preview &&
-        <Button as='label' htmlFor='image' cursor='pointer' leftIcon={<FaCloudUploadAlt size={20} />}>
+        <Button as='label' htmlFor='image' colorScheme='pink' cursor='pointer' leftIcon={<FaCloudUploadAlt size={20} />}>
           Select File
           <Input
             type='file'

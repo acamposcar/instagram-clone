@@ -44,7 +44,7 @@ const EditProfile = ({ user }) => {
           </VStack>
         </Box>
       </CustomModal>
-      <Button onClick={onOpen} borderColor='gray.400' size='sm' colorScheme='gray' variant='outline'>Edit profile</Button>
+      <Button onClick={onOpen} size='sm' colorScheme='blue' >Edit profile</Button>
     </>
   )
 }
