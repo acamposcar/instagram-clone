@@ -14,7 +14,8 @@ exports.getConversations = async (req, res, next) => {
         following = await Following.find({ user: req.user }).populate('following')
       })(),
       (async () => {
-        conversations = await Conversation.find({ participants: req.user._id }).populate('participants').sort({ updatedAt: -1 })
+        conversations = await Conversation.find({ participants: req.user._id })
+          .populate('participants').sort({ updatedAt: -1 })
       })()
     ])
     return res.status(200).json({
@@ -72,6 +73,13 @@ exports.sendMessage = [
     const content = req.body.content
 
     try {
+      const conversationExist = await Conversation.findById(conversationId)
+      if (!conversationExist) {
+        return res.status(404).json({
+          error: 'No conversation found'
+        })
+      }
+
       let message
       await Promise.all([
         (async () => {
