@@ -6,11 +6,11 @@ import useAuth from '../../hooks/useAuth'
 const Conversation = ({ participants, onSelectConversation, conversationId, selectedConversation, lastMessage }) => {
   const authCtx = useAuth()
 
-  const [recipient] = participants.filter(participant => participant._id !== authCtx.user._id)
+  const recipient = participants.find(participant => participant._id !== authCtx.user._id)
   return (
     <Flex
       as='button'
-      onClick={() => onSelectConversation(conversationId)}
+      onClick={() => onSelectConversation(conversationId, recipient._id)}
       backgroundColor={selectedConversation === conversationId ? 'gray.200' : 'transparent'}
       width='100%'
       textAlign='left'

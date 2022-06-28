@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { useMutation, useQueryClient } from 'react-query'
 import { sendMessage } from '../../lib/api'
 
-const NewMessageForm = ({ conversationId }) => {
+const NewMessageForm = ({ conversationId, onEmitSocket }) => {
   const authCtx = useAuth()
   const inputRef = useRef()
   const queryClient = useQueryClient()
@@ -27,6 +27,7 @@ const NewMessageForm = ({ conversationId }) => {
     onSuccess: () => {
       queryClient.invalidateQueries(['messages', conversationId])
       queryClient.invalidateQueries('conversations')
+      onEmitSocket(conversationId)
       inputRef.current.value = ''
     }
   })

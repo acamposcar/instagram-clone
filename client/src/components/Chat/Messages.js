@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import CustomSpinner from '../CustomSpinner'
 import Message from './Message'
 import NewMessageForm from './NewMessageForm'
-const Messages = ({ conversationId, height }) => {
+const Messages = ({ conversationId, height, onEmitSocket }) => {
   const authCtx = useAuth()
 
   const { isError, data: messages, error } = useQuery(['messages', conversationId], () => getMessages({ token: authCtx.token, conversationId }))
@@ -31,7 +31,7 @@ const Messages = ({ conversationId, height }) => {
               />)
           })}
         </VStack>
-        <NewMessageForm conversationId={conversationId} />
+        <NewMessageForm conversationId={conversationId} onEmitSocket={onEmitSocket} />
       </Flex>
 
     )

@@ -24,7 +24,7 @@ const server = http.createServer(app)
 /**
  * Socket.io
  */
-const socketApi = require('../socketAPI')
+const socketApi = require('../sockets/chatSocket')
 const io = socketApi.io
 io.attach(server)
 

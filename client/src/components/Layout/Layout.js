@@ -5,7 +5,7 @@ import Header from './Header'
 import MobileNavbar from './MobileNavbar'
 import useAuth from '../../hooks/useAuth'
 import CustomSpinner from '../CustomSpinner'
-
+import { SocketProvider } from '../../contexts/socketContext'
 const Layout = () => {
   const authCtx = useAuth()
   const location = useLocation()
@@ -22,7 +22,9 @@ const Layout = () => {
         {!authCtx.user &&
           <CustomSpinner />}
         {authCtx.user &&
-          <Outlet />}
+          <SocketProvider userId={authCtx.user._id}>
+            <Outlet />
+          </SocketProvider>}
       </Container>
       <MobileNavbar />
     </>
