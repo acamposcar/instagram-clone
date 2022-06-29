@@ -22,7 +22,7 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 ### User Profile
 ![screenshot-rocks (5)](https://user-images.githubusercontent.com/9263545/176520228-ffbb9b47-8336-4482-9b35-4ae0e3ef2b9a.png)
 
-### Chat
+### Real-Time Messaging
 ![screenshot-rocks (4)](https://user-images.githubusercontent.com/9263545/176520253-23ffccc1-3c14-4cd2-bc2a-e555a54d0f93.png)
 
 ### Explore
