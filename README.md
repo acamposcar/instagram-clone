@@ -9,6 +9,7 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 ![Captura de pantalla 2022-06-29 134817](https://user-images.githubusercontent.com/9263545/176429332-77d13a92-0c64-4064-ab92-2c6da6caba92.png)
 
 
+
 ## Features
 
 ### Messaging
@@ -34,8 +35,9 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 ### Explore page
 - View posts from all users
 
-## Responsive
+### Responsive
 - Fully responsive for mobile and desktop
+
 
 
 ## Technologies
@@ -53,6 +55,7 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 - Cloudinary (image upload)
 - Chakra UI
 - WebSockets
+
 
 
 ## Installation
