@@ -40,7 +40,10 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 ### Messaging
 - Real-time chat with private messages
 
-### User profile
+### Data Caching
+- Data caching with background updates
+
+### User Profile
 - Edit profile 
 - Edit avatar
 - Follow and unfollow users
@@ -54,10 +57,10 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 ### Search
 - Search other users by name or username
 
-### Home page
+### Home Page
 - View posts only from users you follow
 
-### Explore page
+### Explore Page
 - View posts from all users
 
 ### Responsive
