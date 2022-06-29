@@ -28,6 +28,12 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 ### Explore
 ![screenshot-rocks (6)](https://user-images.githubusercontent.com/9263545/176520214-edaf840e-fd57-42fb-b001-4d4bd722272d.png)
 
+### Mobile
+![Frame 3](https://user-images.githubusercontent.com/9263545/176525045-486a0126-6e67-44e7-8337-f93c2ee5bd56.png)
+
+
+![Frame 4](https://user-images.githubusercontent.com/9263545/176524987-b4858e94-b392-4644-9aed-7263f5ca205e.png)
+
 
 ## Features
 
@@ -41,8 +47,8 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 
 ### Posts
 - Create and delete posts
-- Like posts
-- Save posts
+- Like posts using optimistic updates
+- Save posts using optimistic updates
 - Add comments to the posts
 
 ### Search
