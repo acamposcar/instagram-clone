@@ -9,7 +9,7 @@ A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, Re
 
 ## Screenshots
 
-### Login
+### Log In
 ![screenshot-rocks (8)](https://user-images.githubusercontent.com/9263545/176520162-774f3162-a581-4149-85fe-72b1195029a3.png)
 
 
