@@ -4,7 +4,7 @@
 # Instagram Clone
 A fully functional Instagram clone built with MERN Stack (MongoDB, ExpressJS, React & NodeJS) and with real-time private messaging using WebSockets.
 
-👉 [Live Demo](https://instagram-clone-acampos.herokuapp.com/)
+👉 [Live Demo](https://instagram.acamposcar.com/)
 
 
 ## Screenshots
